@@ -1,0 +1,83 @@
+{
+  "name": "charm",
+  "displayName": "charm",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.33.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "paintbox.showPanel",
+        "title": "Paintbox panel",
+        "icon": {
+          "dark": "./icons/brush.svg",
+          "light": "./icons/brush.svg"
+        }
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == javascript",
+          "command": "paintbox.showPanel",
+          "alt": "paintbox.showPanel",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./src/extension --project ./tsconfig.json",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "yarn run compile && node ./node_modules/vscode/bin/test",
+    "ui": "webpack-dev-server --env.development --config ./webpack.config.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/babel-traverse": "^6.25.5",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^10.12.21",
+    "@types/react-select": "^2.0.17",
+    "@types/styled-components": "4.1.10",
+    "@types/styled-system": "^4.1.1",
+    "babel-loader": "^8.0.5",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-template": "^6.2.0",
+    "typescript": "3.3.4000",
+    "vscode": "^1.1.28",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "dependencies": {
+    "@babel/generator": "^7.4.0",
+    "@babel/traverse": "^7.4.3",
+    "@types/react": "^16.8.14",
+    "@types/react-dom": "^16.8.4",
+    "postcss": "^7.0.14",
+    "react": "^16.8.6",
+    "react-color": "^2.17.2",
+    "react-dom": "^16.8.6",
+    "react-feather": "^1.1.6",
+    "react-select": "^2.4.3",
+    "styled-components": "^4.2.0",
+    "styled-system": "^4.1.0"
+  }
+}
