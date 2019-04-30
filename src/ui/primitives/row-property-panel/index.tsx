@@ -2,14 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { color, display, flexDirection } from "styled-system";
 import { StyleProps } from "../../types";
-
-const Container = styled.div<StyleProps>`
-  ${display}
-  ${color}
-  ${flexDirection}
-  align-items: center;
-  margin-bottom: 5px;
-`;
+import { Flex } from "rebass";
 
 const Label = styled.div<StyleProps>`
   ${display}
@@ -26,9 +19,9 @@ interface Props {
 
 export default function RowPropertyPanel({ label, children }: Props) {
   return (
-    <Container display="flex">
+    <Flex mb="10px" justifyContent="center" alignItems="center">
       <Label color="textColor">{label}</Label>
-      {children}
-    </Container>
+      <Flex flex="1">{children}</Flex>
+    </Flex>
   );
 }

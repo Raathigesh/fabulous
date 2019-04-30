@@ -1,14 +1,19 @@
 import React, { useState, Fragment } from "react";
 import styled from "styled-components";
 import { SketchPicker } from "react-color";
+import { borders, borderColor } from "styled-system";
+import { StyleProps } from "../../types";
+import { Flex } from "rebass";
 
-const Container = styled.div``;
-const Preview = styled.div`
-  width: 100px;
-  height: 20px;
+const Preview = styled.div<StyleProps>`
+  display: flex;
+  height: 26px;
   border-radius: 3px;
   border: 1px solid gray;
   cursor: pointer;
+  flex-grow: 1;
+  ${borders}
+  ${borderColor}
 `;
 const PopOver = styled.div`
   position: absolute;
@@ -29,8 +34,11 @@ export default function ColorPicker() {
   const handlePreviewClick = () => setIsOpen(!isOpen);
 
   return (
-    <Container>
+    <Flex flex="1">
       <Preview
+        borderWidth="1px"
+        borderStyle="solid"
+        borderColor="textbox-border"
         style={{ backgroundColor: selectedColor }}
         onClick={handlePreviewClick}
       />
@@ -45,6 +53,6 @@ export default function ColorPicker() {
           </PopOver>
         </Fragment>
       )}
-    </Container>
+    </Flex>
   );
 }

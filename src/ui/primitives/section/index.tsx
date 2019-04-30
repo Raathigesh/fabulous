@@ -7,12 +7,14 @@ import { StyleProps } from "../../types";
 const Container = styled.div<StyleProps>`
   ${display}
   ${flexDirection}
+  padding-bottom: 10px;
 `;
 
 const Header = styled.div<StyleProps>`
   ${display}
   cursor: pointer;
   align-items: center;
+  padding-bottom: 10px;
 `;
 
 interface Props {

@@ -54,6 +54,7 @@
     "@types/mocha": "^2.2.42",
     "@types/node": "^10.12.21",
     "@types/react-select": "^2.0.17",
+    "@types/rebass": "^3.0.3",
     "@types/styled-components": "4.1.10",
     "@types/styled-system": "^4.1.1",
     "babel-loader": "^8.0.5",
@@ -77,6 +78,7 @@
     "react-dom": "^16.8.6",
     "react-feather": "^1.1.6",
     "react-select": "^2.4.3",
+    "rebass": "^3.1.0",
     "styled-components": "^4.2.0",
     "styled-system": "^4.1.0"
   }

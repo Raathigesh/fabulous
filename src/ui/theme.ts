@@ -3,6 +3,7 @@ const getVariableValue = (name: string) =>
 
 export default {
   colors: {
-    textColor: getVariableValue("--vscode-sideBar-foreground")
+    textColor: getVariableValue("--vscode-sideBar-foreground"),
+    "textbox-border": "white"
   }
 };

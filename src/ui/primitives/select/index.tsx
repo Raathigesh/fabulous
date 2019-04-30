@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 import styled from "styled-components";
+import { Flex } from "rebass";
 
 const Container = styled.div``;
 
@@ -15,7 +16,9 @@ interface Props {
 export default function SingleSelect({ options, width }: Props) {
   const customStyles = {
     option: (provided: any, state: any) => ({
-      ...provided
+      ...provided,
+      height: "28px",
+      color: "gray"
     }),
     control: (provided: any) => ({
       ...provided,
@@ -23,13 +26,14 @@ export default function SingleSelect({ options, width }: Props) {
       minHeight: "28px",
       height: "28px"
     }),
+    container: (provided: any) => ({ ...provided, width: "100%" }),
     singleValue: (provided: any, state: any) => {
       return { ...provided };
     }
   };
   return (
-    <Container style={{ width }}>
+    <Flex flex="1">
       <Select options={options} styles={customStyles} />
-    </Container>
+    </Flex>
   );
 }

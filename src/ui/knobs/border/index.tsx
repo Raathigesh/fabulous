@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import BorderItem from "./border-side";
-
-const Container = styled.div`
-  display: flex;
-`;
+import { Flex } from "rebass";
 
 export default function Border() {
   return (
-    <Container>
+    <Flex flexDirection="column">
       <BorderItem />
-    </Container>
+      <BorderItem />
+      <BorderItem />
+      <BorderItem />
+    </Flex>
   );
 }
