@@ -4,10 +4,6 @@ import App from "./App";
 
 declare var acquireVsCodeApi: any;
 
-window.addEventListener("message", function(message) {
-  console.log("FROM APP", message.data);
-});
-
 setTimeout(() => {
   const vscode = acquireVsCodeApi();
   vscode.postMessage({

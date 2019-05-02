@@ -1,25 +1,42 @@
 import * as postcss from "postcss";
 import { getTypeForCSSProperty } from "./util";
+import { NodeSource } from "postcss";
 
 function processWithPlugin(cssString: string, plugin: any) {
   return postcss([plugin]).process(cssString).css;
 }
 
 export interface Declaration {
-  name: string;
   value: string;
-  type: string;
+  prop: string;
+  source?: NodeSource;
 }
 
-export default function process(cssString: string) {
-  const results: Declaration[] = [];
+export interface Rule {
+  selector: string;
+  declarations: Declaration[];
+  source?: NodeSource;
+}
+
+export default function getCSSRules(cssString: string) {
+  const results: Rule[] = [];
   const DeclarationWalker = postcss.plugin("reignite-style-parser", () => {
     return function(root, result) {
-      return root.walkDecls(rule => {
+      return root.walkRules(rule => {
+        const declarations: Declaration[] = [];
+
+        rule.walkDecls(({ prop, value }) => {
+          declarations.push({
+            prop,
+            value,
+            source: rule.source
+          });
+        });
+
         results.push({
-          name: rule.prop,
-          value: rule.value,
-          type: getTypeForCSSProperty(rule.prop) || ""
+          selector: rule.selector,
+          declarations,
+          source: rule.source
         });
       });
     };

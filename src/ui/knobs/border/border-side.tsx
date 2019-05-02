@@ -37,10 +37,10 @@ export default function BorderItem() {
         />
       </Flex>
       <Flex flex="1" mr="5px">
-        <TextBox />
+        <TextBox value="" onChange={() => {}} />
       </Flex>
       <Flex flex="1" mr="5px">
-        <TextBox />
+        <TextBox value="" onChange={() => {}} />
       </Flex>
       <Flex flex="1" mr="5px">
         <SingleSelect

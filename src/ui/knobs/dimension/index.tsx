@@ -9,10 +9,10 @@ export default function Dimension() {
   return (
     <Flex flexDirection="column">
       <RowPropertyPanel label="Height">
-        <TextBox />
+        <TextBox value="" onChange={() => {}} />
       </RowPropertyPanel>
       <RowPropertyPanel label="Width">
-        <TextBox />
+        <TextBox value="" onChange={() => {}} />
       </RowPropertyPanel>
     </Flex>
   );

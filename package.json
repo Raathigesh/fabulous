@@ -27,7 +27,7 @@
     "menus": {
       "editor/title": [
         {
-          "when": "resourceLangId == javascript",
+          "when": "resourceLangId == css",
           "command": "paintbox.showPanel",
           "alt": "paintbox.showPanel",
           "group": "navigation"
@@ -72,6 +72,8 @@
     "@babel/traverse": "^7.4.3",
     "@types/react": "^16.8.14",
     "@types/react-dom": "^16.8.4",
+    "css": "^2.2.4",
+    "css-tree": "^1.0.0-alpha.29",
     "postcss": "^7.0.14",
     "react": "^16.8.6",
     "react-color": "^2.17.2",

@@ -1,8 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { borderColor, border, borders } from "styled-system";
-import { StyleProps } from "../../types";
-import { Text } from "rebass";
 
 const StyledText = styled.input`
   height: 20px;
@@ -14,6 +11,18 @@ const StyledText = styled.input`
   width: 100%;
 `;
 
-export default function TextBox() {
-  return <StyledText />;
+interface Props {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export default function TextBox({ value, onChange }: Props) {
+  return (
+    <StyledText
+      value={value}
+      onChange={e => {
+        onChange(e.target.value);
+      }}
+    />
+  );
 }

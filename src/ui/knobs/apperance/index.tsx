@@ -11,7 +11,7 @@ export default function Apperance() {
   return (
     <Container>
       <RowPropertyPanel label="Opacity">
-        <TextBox />
+        <TextBox value="" onChange={() => {}} />
       </RowPropertyPanel>
       <RowPropertyPanel label="Cursor">
         <SingleSelect

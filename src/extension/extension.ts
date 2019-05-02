@@ -5,7 +5,6 @@ import Manager from "./Manager";
 
 export function activate(context: vscode.ExtensionContext) {
   const contentProvider = new ContentProvider();
-  const manager = new Manager();
 
   let disposable = vscode.commands.registerCommand("paintbox.showPanel", () => {
     const panel = vscode.window.createWebviewPanel(
@@ -22,6 +21,9 @@ export function activate(context: vscode.ExtensionContext) {
       dark: vscode.Uri.file(resolve("../icons/brush.svg")),
       light: vscode.Uri.file(resolve("../icons/brush.svg"))
     };
+
+    const manager = new Manager(panel);
+
     panel.webview.onDidReceiveMessage(
       message => {
         console.log(message);
@@ -29,10 +31,6 @@ export function activate(context: vscode.ExtensionContext) {
       undefined,
       context.subscriptions
     );
-
-    setTimeout(() => {
-      panel.webview.postMessage({ val: 6 });
-    }, 5000);
   });
 
   context.subscriptions.push(disposable);
