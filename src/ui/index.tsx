@@ -2,16 +2,6 @@ import React from "react";
 import { render } from "react-dom";
 import App from "./App";
 
-declare var acquireVsCodeApi: any;
-
-setTimeout(() => {
-  const vscode = acquireVsCodeApi();
-  vscode.postMessage({
-    56: "false"
-  });
-  console.log("SEND MESSAGE FROM APP");
-}, 3000);
-
 render(<App />, document.getElementById("root"));
 
 if ((module as any).hot) {

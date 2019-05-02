@@ -9,6 +9,8 @@ import Space from "./knobs/space";
 import Dimension from "./knobs/dimension";
 import Apperance from "./knobs/apperance";
 
+declare var acquireVsCodeApi: any;
+
 const Container = styled.div<SpaceProps>`
   ${space}
 `;
@@ -38,10 +40,12 @@ function reducer(state: State, { type, payload }: Action) {
   }
 }
 
+const vscode = acquireVsCodeApi();
+
 export default function App() {
   const [state, dispatch] = useReducer(reducer, {});
 
-  const updateProperty = (prop: string, value: any) =>
+  const updateProperty = (prop: string, value: any) => {
     dispatch({
       type: "addProperty",
       payload: {
@@ -49,6 +53,12 @@ export default function App() {
         value
       }
     });
+
+    vscode.postMessage({
+      prop,
+      value
+    });
+  };
 
   useEffect(() => {
     window.addEventListener("message", message => {

@@ -1,24 +1,31 @@
 import * as vscode from "vscode";
-import getCSSRules, { Rule } from "./inspector/manipulator";
+import getCSSRules, { Rule, updateProperty } from "./inspector/manipulator";
 
 export default class Manager {
   private activeEditor: vscode.TextEditor | undefined;
   private panel: vscode.WebviewPanel;
+  private activeRule: Rule | undefined;
 
   constructor(panel: vscode.WebviewPanel) {
     this.panel = panel;
 
     vscode.window.onDidChangeActiveTextEditor(activeEditor => {
-      this.activeEditor = activeEditor;
-      this.parseFromActiveEditor();
+      if (activeEditor && activeEditor.document.languageId === "css") {
+        this.activeEditor = activeEditor;
+        this.parseFromActiveEditor();
+      }
     });
 
     vscode.workspace.onDidChangeTextDocument(({ document }) => {
-      this.parseFromActiveEditor();
+      if (document.languageId === "css") {
+        this.parseFromActiveEditor();
+      }
     });
 
-    vscode.window.onDidChangeTextEditorSelection(event => {
-      this.parseFromActiveEditor();
+    vscode.window.onDidChangeTextEditorSelection(({ textEditor }) => {
+      if (textEditor && textEditor.document.languageId === "css") {
+        this.parseFromActiveEditor();
+      }
     });
   }
 
@@ -43,6 +50,8 @@ export default class Manager {
       const activeFileContent = this.activeEditor.document.getText();
       const rules = getCSSRules(activeFileContent);
       const activeRule = this.getActiveRule(cursorPosition, rules);
+
+      this.activeRule = activeRule;
 
       if (activeRule) {
         payload = activeRule.declarations.reduce((prev: any, declaration) => {
@@ -84,5 +93,30 @@ export default class Manager {
       cursorPosition.isAfterOrEqual(ruleStart) &&
       cursorPosition.isBeforeOrEqual(ruleEnd)
     );
+  }
+
+  updateActiveRule(prop: string, value: string) {
+    if (this.activeRule) {
+      const updatedCSS = updateProperty(this.activeRule.raw, prop, value);
+      if (this.activeEditor) {
+        const source = this.activeRule.source;
+        const ruleStartPosition = new vscode.Position(
+          (source && source.start && source.start.line - 1) || 0,
+          (source && source.start && source.start.column - 1) || 0
+        );
+
+        const ruleEndPosition = new vscode.Position(
+          (source && source.end && source.end.line - 1) || 0,
+          (source && source.end && source.end.column) || 0
+        );
+
+        this.activeEditor.edit(editBuilder => {
+          editBuilder.replace(
+            new vscode.Range(ruleStartPosition, ruleEndPosition),
+            updatedCSS
+          );
+        });
+      }
+    }
   }
 }

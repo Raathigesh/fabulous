@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     panel.webview.onDidReceiveMessage(
       message => {
-        console.log(message);
+        manager.updateActiveRule(message.prop, message.value);
       },
       undefined,
       context.subscriptions

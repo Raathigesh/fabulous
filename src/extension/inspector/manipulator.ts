@@ -1,5 +1,4 @@
 import * as postcss from "postcss";
-import { getTypeForCSSProperty } from "./util";
 import { NodeSource } from "postcss";
 
 function processWithPlugin(cssString: string, plugin: any) {
@@ -16,6 +15,7 @@ export interface Rule {
   selector: string;
   declarations: Declaration[];
   source?: NodeSource;
+  raw: string;
 }
 
 export default function getCSSRules(cssString: string) {
@@ -25,18 +25,19 @@ export default function getCSSRules(cssString: string) {
       return root.walkRules(rule => {
         const declarations: Declaration[] = [];
 
-        rule.walkDecls(({ prop, value }) => {
+        rule.walkDecls(({ prop, value, source }) => {
           declarations.push({
             prop,
             value,
-            source: rule.source
+            source: source
           });
         });
 
         results.push({
           selector: rule.selector,
           declarations,
-          source: rule.source
+          source: rule.source,
+          raw: rule.toString()
         });
       });
     };
@@ -53,11 +54,6 @@ export function updateProperty(
 ) {
   const DeclarationWalker = postcss.plugin("reignite-style-parser", () => {
     return function(root, result) {
-      if (!hasRule(root, propertyName)) {
-        root.append(`${propertyName}:${propertyValue}`);
-        return;
-      }
-
       return root.walkDecls(rule => {
         if (rule.prop === propertyName) {
           rule.value = propertyValue;
