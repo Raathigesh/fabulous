@@ -6,7 +6,7 @@ import Manager from "./Manager";
 export function activate(context: vscode.ExtensionContext) {
   const contentProvider = new ContentProvider();
 
-  let disposable = vscode.commands.registerCommand("paintbox.showPanel", () => {
+  let disposable = vscode.commands.registerCommand("charm.showPanel", () => {
     const panel = vscode.window.createWebviewPanel(
       "charm",
       "Charm",
