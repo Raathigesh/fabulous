@@ -11,5 +11,6 @@
     "jsx": "react",
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/ui"]
 }

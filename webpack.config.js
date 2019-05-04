@@ -6,7 +6,7 @@ module.exports = env => ({
   entry: "./src/ui/index.tsx",
   mode: env.production ? "production" : "development",
   output: {
-    path: path.resolve(__dirname, "./dist/ui"),
+    path: path.resolve(__dirname, "./out/ui"),
     filename: "ui.bundle.js",
     publicPath: "http://localhost:9000/"
   },

@@ -4,7 +4,9 @@ import {
   SpaceProps,
   BorderProps,
   BorderColorProps,
-  BordersProps
+  BordersProps,
+  BackgroundColorProps,
+  FontSizeProps
 } from "styled-system";
 
 export type StyleProps = FlexDirectionProps &
@@ -12,4 +14,6 @@ export type StyleProps = FlexDirectionProps &
   DisplayProps &
   BorderProps &
   BorderColorProps &
-  BordersProps;
+  BordersProps &
+  BackgroundColorProps &
+  FontSizeProps;

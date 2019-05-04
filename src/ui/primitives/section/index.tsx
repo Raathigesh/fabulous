@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ChevronRight, ChevronDown } from "react-feather";
-import { display, flexDirection } from "styled-system";
+import {
+  display,
+  flexDirection,
+  fontStyle,
+  backgroundColor,
+  padding
+} from "styled-system";
 import { StyleProps } from "../../types";
 
 const Container = styled.div<StyleProps>`
@@ -12,9 +18,12 @@ const Container = styled.div<StyleProps>`
 
 const Header = styled.div<StyleProps>`
   ${display}
+  ${padding}
+  ${backgroundColor}
   cursor: pointer;
   align-items: center;
-  padding-bottom: 10px;
+  margin-bottom: 5px;
+  border-radius: 3px;
 `;
 
 interface Props {
@@ -30,7 +39,12 @@ export default function Section({ label, children }: Props) {
 
   return (
     <Container display="flex" flexDirection="column">
-      <Header display="flex" onClick={handleHeaderClick}>
+      <Header
+        display="flex"
+        backgroundColor="sectionHeader"
+        padding="1"
+        onClick={handleHeaderClick}
+      >
         <Icon size={12} /> {label}
       </Header>
       {isExpanded && children}

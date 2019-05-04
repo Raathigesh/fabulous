@@ -38,7 +38,7 @@ export default function ColorPicker() {
       <Preview
         borderWidth="1px"
         borderStyle="solid"
-        borderColor="textbox-border"
+        borderColor="textboxBorder"
         style={{ backgroundColor: selectedColor }}
         onClick={handlePreviewClick}
       />

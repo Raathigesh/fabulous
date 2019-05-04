@@ -1,14 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { borderColor, backgroundColor } from "styled-system";
+import { StyleProps } from "../../types";
 
-const StyledText = styled.input`
-  height: 20px;
+const StyledText = styled.input<StyleProps>`
+  height: 18px;
   border-radius: 3px;
-  background-color: transparent;
   padding: 3px;
   color: white;
   border: 1px solid gray;
   width: 100%;
+  font-size: 12px;
+  ${borderColor}
+  ${backgroundColor}
 `;
 
 interface Props {
@@ -20,6 +24,8 @@ export default function TextBox({ value, onChange }: Props) {
   return (
     <StyledText
       value={value}
+      borderColor="textboxBorder"
+      backgroundColor="textboxBackground"
       onChange={e => {
         onChange(e.target.value);
       }}

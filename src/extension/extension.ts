@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
       }
     );
 
-    panel.webview.html = contentProvider.getDevServerContent();
+    panel.webview.html = contentProvider.getContent(context);
     panel.iconPath = {
       dark: vscode.Uri.file(resolve("../icons/brush.svg")),
       light: vscode.Uri.file(resolve("../icons/brush.svg"))

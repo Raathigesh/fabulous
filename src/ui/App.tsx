@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import React, { useReducer, useEffect, Fragment } from "react";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import TextStyles from "./knobs/text";
 import theme from "./theme";
 import { space, SpaceProps } from "styled-system";
@@ -8,11 +8,21 @@ import Border from "./knobs/border";
 import Space from "./knobs/space";
 import Dimension from "./knobs/dimension";
 import Apperance from "./knobs/apperance";
+import { Flex } from "rebass";
+import Layout from "./knobs/layout";
 
 declare var acquireVsCodeApi: any;
 
 const Container = styled.div<SpaceProps>`
   ${space}
+`;
+
+const GlobalStyles = createGlobalStyle`
+body {
+  background-color: #404040;
+  height: 100vh;
+  padding: 0px;
+}
 `;
 
 export interface State {
@@ -70,24 +80,30 @@ export default function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container p="2">
-        <Section label="Text">
-          <TextStyles state={state} updateProp={updateProperty} />
-        </Section>
-        <Section label="Border">
-          <Border />
-        </Section>
-        <Section label="Space">
-          <Space />
-        </Section>
-        <Section label="Dimension">
-          <Dimension />
-        </Section>
-        <Section label="Appearance">
-          <Apperance />
-        </Section>
-      </Container>
-    </ThemeProvider>
+    <Fragment>
+      <GlobalStyles />
+      <ThemeProvider theme={theme}>
+        <Flex p="2" flexDirection="column" backgroundColor="background">
+          <Section label="Layout">
+            <Layout />
+          </Section>
+          <Section label="Text">
+            <TextStyles state={state} updateProp={updateProperty} />
+          </Section>
+          <Section label="Border">
+            <Border />
+          </Section>
+          <Section label="Space">
+            <Space />
+          </Section>
+          <Section label="Dimension">
+            <Dimension />
+          </Section>
+          <Section label="Appearance">
+            <Apperance />
+          </Section>
+        </Flex>
+      </ThemeProvider>
+    </Fragment>
   );
 }
