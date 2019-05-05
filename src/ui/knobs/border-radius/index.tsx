@@ -34,6 +34,7 @@ export default function BorderRadius() {
             bottomRight="5px"
             width="50px"
             value=""
+            align="center"
             onChange={() => {}}
           />
         </Flex>
