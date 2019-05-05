@@ -4,8 +4,10 @@ import BorderItem from "./border-side";
 import { Flex } from "rebass";
 import BorderToggle from "./toggle";
 import BorderIcon from "./icons/generic";
+import { getThemeColors } from "../../theme";
 
 export default function Border() {
+  const colors = getThemeColors();
   return (
     <Flex>
       <Flex
@@ -15,21 +17,26 @@ export default function Border() {
         mr="10px"
       >
         <BorderToggle>
-          <BorderIcon />
+          <BorderIcon top={colors.iconActive} />
         </BorderToggle>
         <Flex>
           <BorderToggle>
-            <BorderIcon />
+            <BorderIcon right={colors.iconActive} />
           </BorderToggle>
           <BorderToggle>
-            <BorderIcon />
+            <BorderIcon
+              top={colors.iconActive}
+              right={colors.iconActive}
+              bottom={colors.iconActive}
+              left={colors.iconActive}
+            />
           </BorderToggle>
           <BorderToggle>
-            <BorderIcon />
+            <BorderIcon left={colors.iconActive} />
           </BorderToggle>
         </Flex>
         <BorderToggle>
-          <BorderIcon />
+          <BorderIcon bottom={colors.iconActive} />
         </BorderToggle>
       </Flex>
       <BorderItem />

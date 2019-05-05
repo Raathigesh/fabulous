@@ -15,6 +15,7 @@ import "react-tippy/dist/tippy.css";
 import Theme from "./theme";
 import Position from "./knobs/position";
 import Background from "./knobs/background";
+import BorderRadius from "./knobs/border-radius";
 
 declare var acquireVsCodeApi: any;
 
@@ -109,6 +110,9 @@ export default function App() {
           </Section>
           <Section label="Border">
             <Border />
+          </Section>
+          <Section label="Border radius">
+            <BorderRadius />
           </Section>
           <Section label="Appearance">
             <Apperance />
