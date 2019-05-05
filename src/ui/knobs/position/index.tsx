@@ -7,13 +7,10 @@ import SingleSelect from "../../primitives/select";
 
 const Container = styled.div``;
 
-export default function Apperance() {
+export default function Position() {
   return (
     <Container>
-      <RowPropertyPanel label="Opacity">
-        <TextBox value="" onChange={() => {}} />
-      </RowPropertyPanel>
-      <RowPropertyPanel label="Cursor">
+      <RowPropertyPanel label="Position">
         <SingleSelect
           options={[
             {

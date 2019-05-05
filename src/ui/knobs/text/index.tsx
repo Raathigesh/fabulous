@@ -4,6 +4,14 @@ import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import ColorPicker from "../../primitives/color-picker";
 import { State, UpdateProp } from "../../App";
+import SingleSelect from "../../primitives/select";
+import ButtonGroup from "../../primitives/button-group";
+import {
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify
+} from "react-feather";
 
 const Container = styled.div``;
 
@@ -29,9 +37,29 @@ export default function TextStyles({ state, updateProp }: Props) {
         />
       </RowPropertyPanel>
       <RowPropertyPanel label="Font weight">
-        <TextBox
-          value={state[Properties.FontWeight]}
-          onChange={value => updateProp(Properties.FontWeight, value)}
+        <SingleSelect
+          options={[
+            {
+              value: "",
+              label: "all"
+            },
+            {
+              value: "",
+              label: "top"
+            },
+            {
+              value: "",
+              label: "right"
+            },
+            {
+              value: "",
+              label: "bottom"
+            },
+            {
+              value: "",
+              label: "left"
+            }
+          ]}
         />
       </RowPropertyPanel>
       <RowPropertyPanel label="Font color">
@@ -41,6 +69,34 @@ export default function TextStyles({ state, updateProp }: Props) {
         <TextBox
           value={state[Properties.FontFamily]}
           onChange={value => updateProp(Properties.FontFamily, value)}
+        />
+      </RowPropertyPanel>
+      <RowPropertyPanel label="Text align">
+        <ButtonGroup
+          options={[
+            {
+              icon: <AlignLeft size="13px" />,
+              tooltip: "Align left",
+              value: "None"
+            },
+            {
+              icon: <AlignCenter size="13px" />,
+              tooltip: "Align center",
+              value: "none"
+            },
+            {
+              icon: <AlignRight size="13px" />,
+              tooltip: "Align right",
+              value: "none"
+            },
+            {
+              icon: <AlignJustify size="13px" />,
+              tooltip: "Align justify",
+              value: "none"
+            }
+          ]}
+          value="none"
+          onChange={() => {}}
         />
       </RowPropertyPanel>
     </Container>

@@ -11,6 +11,11 @@ import Apperance from "./knobs/apperance";
 import { Flex } from "rebass";
 import Layout from "./knobs/layout";
 
+import "react-tippy/dist/tippy.css";
+import Theme from "./theme";
+import Position from "./knobs/position";
+import Background from "./knobs/background";
+
 declare var acquireVsCodeApi: any;
 
 const Container = styled.div<SpaceProps>`
@@ -19,7 +24,7 @@ const Container = styled.div<SpaceProps>`
 
 const GlobalStyles = createGlobalStyle`
 body {
-  background-color: #404040;
+  background-color: ${Theme.colors.background};
   height: 100vh;
   padding: 0px;
 }
@@ -87,17 +92,23 @@ export default function App() {
           <Section label="Layout">
             <Layout />
           </Section>
-          <Section label="Text">
-            <TextStyles state={state} updateProp={updateProperty} />
-          </Section>
-          <Section label="Border">
-            <Border />
-          </Section>
           <Section label="Space">
             <Space />
           </Section>
-          <Section label="Dimension">
+          <Section label="Size">
             <Dimension />
+          </Section>
+          <Section label="Position">
+            <Position />
+          </Section>
+          <Section label="Typography">
+            <TextStyles state={state} updateProp={updateProperty} />
+          </Section>
+          <Section label="Background">
+            <Background />
+          </Section>
+          <Section label="Border">
+            <Border />
           </Section>
           <Section label="Appearance">
             <Apperance />

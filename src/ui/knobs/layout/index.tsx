@@ -1,37 +1,51 @@
 import React from "react";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import { Flex } from "rebass";
-import SingleSelect from "../../primitives/select";
+import ButtonGroup from "../../primitives/button-group";
+import { EyeOff } from "react-feather";
+import Block from "./icons/block";
+import InlineBlock from "./icons/inline-block";
+import Inline from "./icons/inline";
+import FlexIcon from "./icons/flex";
+import FlexPanel from "./flex";
 
 export default function Layout() {
   return (
     <Flex flexDirection="column">
       <RowPropertyPanel label="Display">
-        <SingleSelect
+        <ButtonGroup
           options={[
             {
-              value: "",
-              label: "none"
+              icon: <EyeOff size="11px" />,
+              tooltip: "Display none",
+              value: "None"
             },
             {
-              value: "",
-              label: "block"
+              icon: <Block isActive={false} />,
+              tooltip: "Block",
+              value: "none"
             },
             {
-              value: "",
-              label: "inline"
+              icon: <InlineBlock isActive={false} />,
+              tooltip: "Inline block",
+              value: "none"
             },
             {
-              value: "",
-              label: "inline-block"
+              icon: <Inline isActive={false} />,
+              tooltip: "Inline",
+              value: "none"
             },
             {
-              value: "",
-              label: "flex"
+              icon: <FlexIcon isActive={false} />,
+              tooltip: "Flex",
+              value: "none"
             }
           ]}
+          value="none"
+          onChange={() => {}}
         />
       </RowPropertyPanel>
+      <FlexPanel />
     </Flex>
   );
 }

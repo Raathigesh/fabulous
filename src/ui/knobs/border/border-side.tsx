@@ -5,76 +5,46 @@ import ColorPicker from "../../primitives/color-picker";
 import SingleSelect from "../../primitives/select";
 import { Flex } from "rebass";
 import { Trash, Trash2 } from "react-feather";
+import RowPropertyPanel from "../../primitives/row-property-panel";
+import ButtonGroup from "../../primitives/button-group";
 
 export default function BorderItem() {
   return (
-    <Flex flex="1" mb="5px">
-      <Flex flex="1" mr="5px">
-        <SingleSelect
+    <Flex flex="1" mb="5px" flexDirection="column">
+      <RowPropertyPanel label="Width">
+        <TextBox value="" onChange={() => {}} />
+      </RowPropertyPanel>
+      <RowPropertyPanel label="Style">
+        <ButtonGroup
           options={[
             {
-              value: "",
-              label: "all"
+              icon: "None",
+              tooltip: "Display none",
+              value: "None"
             },
             {
-              value: "",
-              label: "top"
+              icon: "Solid",
+              tooltip: "Display none",
+              value: "None"
             },
             {
-              value: "",
-              label: "right"
+              icon: "Dashed",
+              tooltip: "Display none",
+              value: "None"
             },
             {
-              value: "",
-              label: "bottom"
-            },
-            {
-              value: "",
-              label: "left"
+              icon: "Dotted",
+              tooltip: "Display none",
+              value: "None"
             }
           ]}
-          width={95}
+          value="none"
+          onChange={() => {}}
         />
-      </Flex>
-      <Flex flex="1" mr="5px">
-        <TextBox value="" onChange={() => {}} />
-      </Flex>
-      <Flex flex="1" mr="5px">
-        <TextBox value="" onChange={() => {}} />
-      </Flex>
-      <Flex flex="1" mr="5px">
-        <SingleSelect
-          options={[
-            {
-              value: "",
-              label: "all"
-            },
-            {
-              value: "",
-              label: "top"
-            },
-            {
-              value: "",
-              label: "right"
-            },
-            {
-              value: "",
-              label: "bottom"
-            },
-            {
-              value: "",
-              label: "left"
-            }
-          ]}
-          width={95}
-        />
-      </Flex>
-      <Flex flex="1" mr="5px">
+      </RowPropertyPanel>
+      <RowPropertyPanel label="Color">
         <ColorPicker />
-      </Flex>
-      <Flex alignItems="center" justifyContent="center">
-        <Trash2 size="15px" />
-      </Flex>
+      </RowPropertyPanel>
     </Flex>
   );
 }
