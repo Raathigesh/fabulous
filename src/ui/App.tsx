@@ -89,7 +89,7 @@ export default function App() {
     <Fragment>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <Flex p="2" flexDirection="column" backgroundColor="background">
+        <Flex p="3" flexDirection="column" backgroundColor="background">
           <Section label="Layout">
             <Layout />
           </Section>
