@@ -14,7 +14,7 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-const ItemContainer = styled.div`
+const ItemContainer = styled.div<{ active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,18 +23,26 @@ const ItemContainer = styled.div`
   padding: 3px;
   cursor: pointer;
   border: 1px solid ${themeGet("colors.iconBorder")};
-  background-color: ${themeGet("colors.iconBackground")};
+  background-color: ${props =>
+    props.active
+      ? themeGet("colors.iconHover")
+      : themeGet("colors.iconBackground")};
   &:hover {
     background-color: ${themeGet("colors.iconHover")};
   }
 `;
 
-export default function ButtonGroup({ options }: Props) {
+export default function ButtonGroup({ options, onChange, value }: Props) {
   return (
     <Flex>
-      {options.map(({ icon, tooltip }) => (
+      {options.map(({ icon, tooltip, value: OptionValue }) => (
         <Tooltip title={tooltip} position="bottom" size="small">
-          <ItemContainer>{icon}</ItemContainer>
+          <ItemContainer
+            active={value === OptionValue}
+            onClick={() => onChange(OptionValue)}
+          >
+            {icon}
+          </ItemContainer>
         </Tooltip>
       ))}
     </Flex>

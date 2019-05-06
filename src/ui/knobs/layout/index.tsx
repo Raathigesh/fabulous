@@ -8,8 +8,18 @@ import InlineBlock from "./icons/inline-block";
 import Inline from "./icons/inline";
 import FlexIcon from "./icons/flex";
 import FlexPanel from "./flex";
+import { State, UpdateProp } from "../../App";
 
-export default function Layout() {
+interface Props {
+  state: State;
+  updateProp: UpdateProp;
+}
+
+const Properties = {
+  Display: "display"
+};
+
+export default function Layout({ state, updateProp }: Props) {
   return (
     <Flex flexDirection="column">
       <RowPropertyPanel label="Display">
@@ -18,31 +28,33 @@ export default function Layout() {
             {
               icon: <EyeOff size="11px" />,
               tooltip: "Display none",
-              value: "None"
+              value: "none"
             },
             {
               icon: <Block isActive={false} />,
               tooltip: "Block",
-              value: "none"
+              value: "block"
             },
             {
               icon: <InlineBlock isActive={false} />,
               tooltip: "Inline block",
-              value: "none"
+              value: "inline-block"
             },
             {
               icon: <Inline isActive={false} />,
               tooltip: "Inline",
-              value: "none"
+              value: "inline"
             },
             {
               icon: <FlexIcon isActive={false} />,
               tooltip: "Flex",
-              value: "none"
+              value: "flex"
             }
           ]}
-          value="none"
-          onChange={() => {}}
+          value={state[Properties.Display]}
+          onChange={value => {
+            updateProp(Properties.Display, value);
+          }}
         />
       </RowPropertyPanel>
       <FlexPanel />

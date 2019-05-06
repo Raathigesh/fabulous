@@ -16,6 +16,7 @@ export interface Rule {
   declarations: Declaration[];
   source?: NodeSource;
   raw: string;
+  rule: postcss.Rule;
 }
 
 export default function getCSSRules(cssString: string) {
@@ -37,7 +38,8 @@ export default function getCSSRules(cssString: string) {
           selector: rule.selector,
           declarations,
           source: rule.source,
-          raw: rule.toString()
+          raw: rule.toString(),
+          rule
         });
       });
     };
@@ -48,23 +50,48 @@ export default function getCSSRules(cssString: string) {
 }
 
 export function updateProperty(
-  cssString: string,
+  rule: postcss.Rule,
   propertyName: string,
   propertyValue: string
 ) {
-  const DeclarationWalker = postcss.plugin("reignite-style-parser", () => {
+  /*  const DeclarationWalker = postcss.plugin("reignite-style-parser", () => {
     return function(root, result) {
-      return root.walkDecls(rule => {
-        if (rule.prop === propertyName) {
-          rule.value = propertyValue;
+      if (!hasRule(root, propertyName)) {
+        const firstRule = root.first;
+        if (firstRule) {
+          firstRule.append(`${propertyName}:${propertyValue}`);
         }
-      });
+      } else {
+        return root.walkDecls(rule => {
+          if (rule.prop === propertyName) {
+            rule.value = propertyValue;
+          }
+        });
+      }
     };
   });
 
-  return processWithPlugin(cssString, DeclarationWalker);
+  return processWithPlugin(cssString, DeclarationWalker); */
+
+  if (hasDeclaration(rule, propertyName)) {
+    rule.walkDecls(dec => {
+      if (dec.prop == propertyName) {
+        dec.value = propertyValue;
+      }
+    });
+  } else {
+    rule.append({ prop: propertyName, value: propertyValue });
+  }
+
+  return rule.toString();
 }
 
-function hasRule(root: any, ruleName: string) {
-  return root.some((rule: any) => rule.prop === ruleName);
+function hasDeclaration(rule: postcss.Rule, propertyName: string) {
+  let has = false;
+  rule.walkDecls(dec => {
+    if (dec.prop == propertyName) {
+      has = true;
+    }
+  });
+  return has;
 }

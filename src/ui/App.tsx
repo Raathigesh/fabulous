@@ -91,7 +91,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <Flex p="3" flexDirection="column" backgroundColor="background">
           <Section label="Layout">
-            <Layout />
+            <Layout state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Space">
             <Space />

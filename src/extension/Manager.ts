@@ -97,7 +97,7 @@ export default class Manager {
 
   updateActiveRule(prop: string, value: string) {
     if (this.activeRule) {
-      const updatedCSS = updateProperty(this.activeRule.raw, prop, value);
+      const updatedCSS = updateProperty(this.activeRule.rule, prop, value);
       if (this.activeEditor) {
         const source = this.activeRule.source;
         const ruleStartPosition = new vscode.Position(

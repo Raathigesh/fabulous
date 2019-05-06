@@ -3,6 +3,7 @@ import { Flex, Card } from "rebass";
 import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
 import { themeGet } from "styled-system";
+import { State, UpdateProp } from "../../App";
 
 const Box = styled.div`
   display: flex;
@@ -16,7 +17,25 @@ const Box = styled.div`
   align-content: space-between;
 `;
 
-export default function Space() {
+interface Props {
+  state: State;
+  updateProp: UpdateProp;
+}
+
+const Properties = {
+  Margin: "margin",
+  Border: "border"
+};
+
+export default function Space({ state, updateProp }: Props) {
+  const handleMargin = (sideIndex: number, value: string) => {
+    const margin = state[Properties.Margin] || "0px 0px 0px 0px";
+    const sides = margin.split(" ");
+    sides[sideIndex] = value;
+
+    updateProp(Properties.Margin, sides.join(" "));
+  };
+
   return (
     <Flex flex="1" flexDirection="column" mb="5px" alignItems="center">
       <Flex mr="5px">
