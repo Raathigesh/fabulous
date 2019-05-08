@@ -27,6 +27,13 @@ const Properties = {
   Border: "border"
 };
 
+const Sides = {
+  Top: 0,
+  Right: 1,
+  Bottom: 2,
+  Left: 3
+};
+
 export default function Space({ state, updateProp }: Props) {
   const handleMargin = (sideIndex: number, value: string) => {
     const margin = state[Properties.Margin] || "0px 0px 0px 0px";
@@ -36,12 +43,20 @@ export default function Space({ state, updateProp }: Props) {
     updateProp(Properties.Margin, sides.join(" "));
   };
 
+  const getMargin = (index: number) => {
+    const margin = state[Properties.Margin] || "0px 0px 0px 0px";
+    const sides = margin.split(" ");
+    return sides[index];
+  };
+
   return (
     <Flex flex="1" flexDirection="column" mb="5px" alignItems="center">
       <Flex mr="5px">
         <TextBox
-          value=""
-          onChange={() => {}}
+          value={getMargin(Sides.Top)}
+          onChange={value => {
+            handleMargin(Sides.Top, value);
+          }}
           width="50px"
           placeholder="Top"
           align="center"
@@ -50,8 +65,10 @@ export default function Space({ state, updateProp }: Props) {
       <Flex alignItems="center">
         <Flex flex="1" mr="5px">
           <TextBox
-            value=""
-            onChange={() => {}}
+            value={getMargin(Sides.Left)}
+            onChange={value => {
+              handleMargin(Sides.Left, value);
+            }}
             width="50px"
             placeholder="Left"
             align="center"
@@ -95,8 +112,10 @@ export default function Space({ state, updateProp }: Props) {
         </Box>
         <Flex flex="1" mr="5px">
           <TextBox
-            value=""
-            onChange={() => {}}
+            value={getMargin(Sides.Right)}
+            onChange={value => {
+              handleMargin(Sides.Right, value);
+            }}
             width="50px"
             placeholder="Right"
             align="center"
@@ -105,8 +124,10 @@ export default function Space({ state, updateProp }: Props) {
       </Flex>
       <Flex flex="1" mr="5px">
         <TextBox
-          value=""
-          onChange={() => {}}
+          value={getMargin(Sides.Bottom)}
+          onChange={value => {
+            handleMargin(Sides.Bottom, value);
+          }}
           width="50px"
           placeholder="Bottom"
           align="center"

@@ -94,19 +94,19 @@ export default function App() {
             <Layout state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Space">
-            <Space />
+            <Space state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Size">
-            <Dimension />
+            <Dimension state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Position">
-            <Position />
+            <Position state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Typography">
             <TextStyles state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Background">
-            <Background />
+            <Background state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Border">
             <Border />
@@ -115,7 +115,7 @@ export default function App() {
             <BorderRadius />
           </Section>
           <Section label="Appearance">
-            <Apperance />
+            <Apperance state={state} updateProp={updateProperty} />
           </Section>
         </Flex>
       </ThemeProvider>

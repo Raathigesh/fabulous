@@ -27,10 +27,18 @@ const Blanket = styled.div`
   right: 0;
 `;
 
-export default function ColorPicker() {
+interface Props {
+  color: string;
+  onChange: (color: string) => void;
+}
+
+export default function ColorPicker({ color, onChange }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedColor, setSelectedColor] = useState("transparent");
-  const handleColorChange = (color: any) => setSelectedColor(color.hex);
+  const [selectedColor, setSelectedColor] = useState(color);
+  const handleColorChange = (color: any) => {
+    setSelectedColor(color.hex);
+    onChange(color.hex);
+  };
   const handlePreviewClick = () => setIsOpen(!isOpen);
 
   return (

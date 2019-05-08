@@ -5,6 +5,7 @@ export default class Manager {
   private activeEditor: vscode.TextEditor | undefined;
   private panel: vscode.WebviewPanel;
   private activeRule: Rule | undefined;
+  private cursorPosion: vscode.Position | undefined;
 
   constructor(panel: vscode.WebviewPanel) {
     this.panel = panel;
@@ -39,6 +40,7 @@ export default class Manager {
           editor.selection.active
         );
         this.panel.webview.postMessage(payload);
+        this.cursorPosion = editor.selection.active;
       }
     }
   }
@@ -110,12 +112,21 @@ export default class Manager {
           (source && source.end && source.end.column) || 0
         );
 
-        this.activeEditor.edit(editBuilder => {
-          editBuilder.replace(
-            new vscode.Range(ruleStartPosition, ruleEndPosition),
-            updatedCSS
-          );
-        });
+        this.activeEditor
+          .edit(editBuilder => {
+            editBuilder.replace(
+              new vscode.Range(ruleStartPosition, ruleEndPosition),
+              updatedCSS
+            );
+          })
+          .then(() => {
+            if (this.activeEditor && this.cursorPosion) {
+              const activeFileContent = this.activeEditor.document.getText();
+              const rules = getCSSRules(activeFileContent);
+              const activeRule = this.getActiveRule(this.cursorPosion, rules);
+              this.activeRule = activeRule;
+            }
+          });
       }
     }
   }

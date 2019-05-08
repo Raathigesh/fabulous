@@ -2,6 +2,7 @@ import React from "react";
 import { Flex } from "rebass";
 import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
+import { State, UpdateProp } from "../../App";
 
 const Container = styled.div`
   display: flex;
@@ -12,7 +13,16 @@ const Container = styled.div`
   align-content: center;
 `;
 
-export default function BorderRadius() {
+interface Props {
+  state: State;
+  updateProp: UpdateProp;
+}
+
+const Properties = {
+  BorderRadius: "border-radius"
+};
+
+export default function BorderRadius({ state, updateProp }: Props) {
   return (
     <Flex justifyContent="center">
       <Container>

@@ -9,6 +9,7 @@ export interface ThemeColors {
   sectionHeader: string;
   textColor: string;
   textBoxColor: string;
+  textBoxHover: string;
   textboxBorder: string;
   textboxBackground: string;
   iconBackground: string;
@@ -28,6 +29,7 @@ const DefaultTheme: Theme = {
     sectionHeader: "#181818",
     textColor: "#FFFBE4",
     textBoxColor: "#2B2B2B",
+    textBoxHover: "#070707",
     textboxBorder: "#070707",
     textboxBackground: "#222222",
     iconBackground: "#333333",

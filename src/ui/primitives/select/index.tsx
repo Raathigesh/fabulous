@@ -12,14 +12,24 @@ interface Props {
     value: any;
     label: string;
   }[];
+  value: string;
+  onChange?: (value: string | null) => void;
 }
 
-export default function SingleSelect({ options, width }: Props) {
+export default function SingleSelect({
+  options,
+  value,
+  width,
+  onChange = () => {}
+}: Props) {
   const customStyles = {
     option: (provided: any, state: any) => ({
       ...provided,
       height: "28px",
-      color: "white"
+      color: "white",
+      "&:hover": {
+        backgroundColor: Theme.colors.textBoxHover
+      }
     }),
     control: (provided: any) => ({
       ...provided,
@@ -58,7 +68,19 @@ export default function SingleSelect({ options, width }: Props) {
   };
   return (
     <Flex flex="1">
-      <Select options={options} styles={customStyles} />
+      <Select
+        value={options.find(option => option.value === value)}
+        options={options}
+        styles={customStyles}
+        isClearable
+        onChange={(option: any) => {
+          if (option && option.value) {
+            onChange(option.value);
+          } else {
+            onChange(null);
+          }
+        }}
+      />
     </Flex>
   );
 }
