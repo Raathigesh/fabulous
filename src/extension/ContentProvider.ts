@@ -9,7 +9,7 @@ export default class ContentProvider {
   <head>
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
-    <title>Charm</title>
+    <title>Fabulous</title>
   </head>
   <body>
     <div id="root">
@@ -32,7 +32,7 @@ export default class ContentProvider {
   <head>
     <meta charset="utf-8">
     <meta content="ie=edge" http-equiv="x-ua-compatible">
-    <title>Charm</title>
+    <title>Fabulous</title>
   </head>
   <body>
     <div id="root">

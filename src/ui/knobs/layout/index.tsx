@@ -57,7 +57,9 @@ export default function Layout({ state, updateProp }: Props) {
           }}
         />
       </RowPropertyPanel>
-      <FlexPanel />
+      {state[Properties.Display] === "flex" && (
+        <FlexPanel state={state} updateProp={updateProp} />
+      )}
     </Flex>
   );
 }

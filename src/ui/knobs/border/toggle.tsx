@@ -2,10 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { themeGet } from "styled-system";
 
-const Container = styled.div`
+interface ContainerProps {
+  isActive: boolean;
+}
+
+const Container = styled.div<ContainerProps>`
   padding: 5px;
   cursor: pointer;
-  background-color: ${themeGet("colors.iconBackground")};
+  background-color: ${props =>
+    props.isActive
+      ? themeGet("colors.iconHover")
+      : themeGet("colors.iconBackground")};
   &:hover {
     background-color: ${themeGet("colors.iconHover")};
   }
@@ -13,8 +20,14 @@ const Container = styled.div`
 
 interface Props {
   children: any;
+  isActive: boolean;
+  onClick: () => void;
 }
 
-export default function BorderToggle({ children }: Props) {
-  return <Container>{children}</Container>;
+export default function BorderToggle({ isActive, children, onClick }: Props) {
+  return (
+    <Container isActive={isActive} onClick={onClick}>
+      {children}
+    </Container>
+  );
 }

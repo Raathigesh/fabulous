@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand("charm.showPanel", () => {
     const panel = vscode.window.createWebviewPanel(
       "charm",
-      "Charm",
+      "Fabulous",
       vscode.ViewColumn.Two,
       {
         enableScripts: true

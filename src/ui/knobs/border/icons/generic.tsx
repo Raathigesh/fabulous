@@ -23,8 +23,8 @@ const BorderIcon = ({
     >
       <line y1="0.5" x2="15" y2="0.5" stroke={top} />
       <line x1="0.5" y1="1" x2="0.5" y2="14" stroke={right} />
-      <line x1="14.5" y1="1" x2="14.5" y2="14" stroke={bottom} />
-      <line y1="14.5" x2="15" y2="14.5" stroke={left} />
+      <line x1="14.5" y1="1" x2="14.5" y2="14" stroke={left} />
+      <line y1="14.5" x2="15" y2="14.5" stroke={bottom} />
     </svg>
   );
 };

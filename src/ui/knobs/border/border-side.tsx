@@ -8,42 +8,58 @@ import { Trash, Trash2 } from "react-feather";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import ButtonGroup from "../../primitives/button-group";
 
-export default function BorderItem() {
+interface Props {
+  width: string;
+  style: string;
+  color: string;
+  onWidthChange: (width: string) => void;
+  onStyleChange: (style: string) => void;
+  onColorChange: (color: string) => void;
+}
+
+export default function BorderItem({
+  width,
+  style,
+  color,
+  onWidthChange,
+  onStyleChange,
+  onColorChange
+}: Props) {
   return (
     <Flex flex="1" mb="5px" flexDirection="column">
       <RowPropertyPanel label="Width">
-        <TextBox value="" onChange={() => {}} />
+        <TextBox value={width} onChange={onWidthChange} />
       </RowPropertyPanel>
       <RowPropertyPanel label="Style">
         <ButtonGroup
           options={[
             {
               icon: "None",
-              tooltip: "Display none",
-              value: "None"
+              tooltip: "None",
+              value: "none"
             },
             {
               icon: "Solid",
-              tooltip: "Display none",
-              value: "None"
+              tooltip: "Solid",
+              value: "solid"
             },
             {
               icon: "Dashed",
-              tooltip: "Display none",
-              value: "None"
+              tooltip: "Dashed",
+              value: "dashed"
             },
             {
               icon: "Dotted",
-              tooltip: "Display none",
-              value: "None"
+              tooltip: "Dotted",
+              value: "dotted"
             }
           ]}
-          value="none"
-          onChange={() => {}}
+          value={style}
+          onChange={onStyleChange}
         />
       </RowPropertyPanel>
       <RowPropertyPanel label="Color">
-        <ColorPicker />
+        <ColorPicker color={color} onChange={onColorChange} />
       </RowPropertyPanel>
     </Flex>
   );

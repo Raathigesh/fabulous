@@ -109,10 +109,10 @@ export default function App() {
             <Background state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Border">
-            <Border />
+            <Border state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Border radius">
-            <BorderRadius />
+            <BorderRadius state={state} updateProp={updateProperty} />
           </Section>
           <Section label="Appearance">
             <Apperance state={state} updateProp={updateProperty} />
