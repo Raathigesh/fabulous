@@ -31,6 +31,12 @@
           "command": "charm.showPanel",
           "alt": "charm.showPanel",
           "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == javascript",
+          "command": "charm.showPanel",
+          "alt": "charm.showPanel",
+          "group": "navigation"
         }
       ]
     }
