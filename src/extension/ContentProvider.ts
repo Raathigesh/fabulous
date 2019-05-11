@@ -22,7 +22,7 @@ export default class ContentProvider {
 
   getProdContent(context: ExtensionContext) {
     const unBundleDiskPath = Uri.file(
-      join(context.extensionPath, "dist", "ui", "ui.bundle.js")
+      join(context.extensionPath, "out", "ui", "ui.bundle.js")
     );
     const unBundlePath = unBundleDiskPath.with({ scheme: "vscode-resource" });
 
