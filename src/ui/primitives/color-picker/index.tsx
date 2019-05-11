@@ -4,13 +4,16 @@ import { SketchPicker } from "react-color";
 import { borders, borderColor } from "styled-system";
 import { StyleProps } from "../../types";
 import { Flex } from "rebass";
+import TextBox from "../text-box";
 
 const Preview = styled.div<StyleProps>`
   display: flex;
-  height: 26px;
+  width: 23px;
+  height: 23px;
   border-radius: 3px;
   border: 1px solid gray;
   cursor: pointer;
+  margin-right: 5px;
   flex-grow: 1;
   ${borders}
   ${borderColor}
@@ -34,30 +37,33 @@ interface Props {
 
 export default function ColorPicker({ color, onChange }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(color);
   const handleColorChange = (color: any) => {
-    setSelectedColor(color.hex);
     onChange(color.hex);
   };
   const handlePreviewClick = () => setIsOpen(!isOpen);
 
   return (
     <Flex flex="1">
-      <Preview
-        borderWidth="1px"
-        borderStyle="solid"
-        borderColor="textboxBorder"
-        style={{ backgroundColor: selectedColor }}
-        onClick={handlePreviewClick}
-      />
+      <Flex>
+        <Preview
+          borderWidth="1px"
+          borderStyle="solid"
+          borderColor="textboxBorder"
+          style={{ backgroundColor: color }}
+          onClick={handlePreviewClick}
+        />
+        <TextBox
+          value={color}
+          onChange={value => {
+            onChange(value);
+          }}
+        />
+      </Flex>
       {isOpen && (
         <Fragment>
           <Blanket onClick={handlePreviewClick} />
           <PopOver>
-            <SketchPicker
-              color={selectedColor}
-              onChangeComplete={handleColorChange}
-            />
+            <SketchPicker color={color} onChangeComplete={handleColorChange} />
           </PopOver>
         </Fragment>
       )}

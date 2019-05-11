@@ -24,7 +24,7 @@ interface Props {
 
 const Properties = {
   Margin: "margin",
-  Border: "border"
+  Padding: "padding"
 };
 
 const Sides = {
@@ -35,16 +35,16 @@ const Sides = {
 };
 
 export default function Space({ declarations, updateProp }: Props) {
-  const handleMargin = (sideIndex: number, value: string) => {
-    const margin = declarations[Properties.Margin] || "0px 0px 0px 0px";
+  const handleChange = (property: string, sideIndex: number, value: string) => {
+    const margin = declarations[property] || "0px 0px 0px 0px";
     const sides = margin.split(" ");
     sides[sideIndex] = value;
 
-    updateProp(Properties.Margin, sides.join(" "));
+    updateProp(property, sides.join(" "));
   };
 
-  const getMargin = (index: number) => {
-    const margin = declarations[Properties.Margin] || "0px 0px 0px 0px";
+  const getValue = (property: string, index: number) => {
+    const margin = declarations[property] || "0px 0px 0px 0px";
     const sides = margin.split(" ");
     return sides[index];
   };
@@ -53,9 +53,9 @@ export default function Space({ declarations, updateProp }: Props) {
     <Flex flex="1" flexDirection="column" mb="5px" alignItems="center">
       <Flex mr="5px">
         <TextBox
-          value={getMargin(Sides.Top)}
+          value={getValue(Properties.Margin, Sides.Top)}
           onChange={value => {
-            handleMargin(Sides.Top, value);
+            handleChange(Properties.Margin, Sides.Top, value);
           }}
           width="50px"
           placeholder="Top"
@@ -65,9 +65,9 @@ export default function Space({ declarations, updateProp }: Props) {
       <Flex alignItems="center">
         <Flex flex="1" mr="5px">
           <TextBox
-            value={getMargin(Sides.Left)}
+            value={getValue(Properties.Margin, Sides.Left)}
             onChange={value => {
-              handleMargin(Sides.Left, value);
+              handleChange(Properties.Margin, Sides.Left, value);
             }}
             width="50px"
             placeholder="Left"
@@ -77,8 +77,10 @@ export default function Space({ declarations, updateProp }: Props) {
         <Box>
           <Flex justifyContent="center">
             <TextBox
-              value=""
-              onChange={() => {}}
+              value={getValue(Properties.Padding, Sides.Top)}
+              onChange={value => {
+                handleChange(Properties.Padding, Sides.Top, value);
+              }}
               width="50px"
               placeholder="Top"
               align="center"
@@ -86,15 +88,19 @@ export default function Space({ declarations, updateProp }: Props) {
           </Flex>
           <Flex justifyContent="space-between">
             <TextBox
-              value=""
-              onChange={() => {}}
+              value={getValue(Properties.Padding, Sides.Left)}
+              onChange={value => {
+                handleChange(Properties.Padding, Sides.Left, value);
+              }}
               width="50px"
               align="center"
               placeholder="Left"
             />
             <TextBox
-              value=""
-              onChange={() => {}}
+              value={getValue(Properties.Padding, Sides.Right)}
+              onChange={value => {
+                handleChange(Properties.Padding, Sides.Right, value);
+              }}
               width="50px"
               placeholder="Right"
               align="center"
@@ -102,8 +108,10 @@ export default function Space({ declarations, updateProp }: Props) {
           </Flex>
           <Flex justifyContent="center">
             <TextBox
-              value=""
-              onChange={() => {}}
+              value={getValue(Properties.Padding, Sides.Bottom)}
+              onChange={value => {
+                handleChange(Properties.Padding, Sides.Bottom, value);
+              }}
               width="50px"
               placeholder="Bottom"
               align="center"
@@ -112,9 +120,9 @@ export default function Space({ declarations, updateProp }: Props) {
         </Box>
         <Flex flex="1" mr="5px">
           <TextBox
-            value={getMargin(Sides.Right)}
+            value={getValue(Properties.Margin, Sides.Right)}
             onChange={value => {
-              handleMargin(Sides.Right, value);
+              handleChange(Properties.Margin, Sides.Right, value);
             }}
             width="50px"
             placeholder="Right"
@@ -124,9 +132,9 @@ export default function Space({ declarations, updateProp }: Props) {
       </Flex>
       <Flex flex="1" mr="5px">
         <TextBox
-          value={getMargin(Sides.Bottom)}
+          value={getValue(Properties.Margin, Sides.Bottom)}
           onChange={value => {
-            handleMargin(Sides.Bottom, value);
+            handleChange(Properties.Margin, Sides.Bottom, value);
           }}
           width="50px"
           placeholder="Bottom"

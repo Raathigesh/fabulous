@@ -32,6 +32,7 @@ export default function BorderItem({
       </RowPropertyPanel>
       <RowPropertyPanel label="Style">
         <ButtonGroup
+          minHeight={15}
           options={[
             {
               icon: "None",

@@ -1,4 +1,16 @@
 import React, { useReducer, useEffect, Fragment } from "react";
+import {
+  Layout as LayoutIcon,
+  Maximize,
+  Square,
+  Droplet,
+  Edit,
+  Edit2,
+  Grid,
+  Crosshair,
+  Sun,
+  Disc
+} from "react-feather";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import TextStyles from "./knobs/text";
 import theme from "./theme";
@@ -69,43 +81,43 @@ export default function App() {
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <Flex p="3" flexDirection="column" backgroundColor="background">
-          <Section label="Layout">
+          <Section CategoryIcon={LayoutIcon} label="Layout">
             <Layout declarations={declarations} updateProp={updateProperty} />
           </Section>
-          <Section label="Space">
+          <Section CategoryIcon={Maximize} label="Space">
             <Space declarations={declarations} updateProp={updateProperty} />
           </Section>
-          <Section label="Size">
+          <Section CategoryIcon={Grid} label="Size">
             <Dimension
               declarations={declarations}
               updateProp={updateProperty}
             />
           </Section>
-          <Section label="Position">
+          <Section CategoryIcon={Crosshair} label="Position">
             <Position declarations={declarations} updateProp={updateProperty} />
           </Section>
-          <Section label="Typography">
+          <Section CategoryIcon={Edit2} label="Typography">
             <TextStyles
               declarations={declarations}
               updateProp={updateProperty}
             />
           </Section>
-          <Section label="Background">
+          <Section CategoryIcon={Droplet} label="Background">
             <Background
               declarations={declarations}
               updateProp={updateProperty}
             />
           </Section>
-          <Section label="Border">
+          <Section CategoryIcon={Square} label="Border">
             <Border declarations={declarations} updateProp={updateProperty} />
           </Section>
-          <Section label="Border radius">
+          <Section CategoryIcon={Disc} label="Border radius">
             <BorderRadius
               declarations={declarations}
               updateProp={updateProperty}
             />
           </Section>
-          <Section label="Appearance">
+          <Section CategoryIcon={Sun} label="Appearance">
             <Apperance
               declarations={declarations}
               updateProp={updateProperty}

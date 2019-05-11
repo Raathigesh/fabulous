@@ -27,7 +27,12 @@ export default function SingleSelect({
       ...provided,
       height: "28px",
       color: "white",
+      backgroundColor: Theme.colors.textBoxColor,
       "&:hover": {
+        backgroundColor: Theme.colors.textBoxHover
+      },
+      ":active": {
+        ...provided[":active"],
         backgroundColor: Theme.colors.textBoxHover
       }
     }),

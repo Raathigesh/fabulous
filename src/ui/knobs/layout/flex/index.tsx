@@ -24,6 +24,7 @@ export default function FlexPanel({ state, updateProp }: Props) {
     <Flex flexDirection="column">
       <RowPropertyPanel label="Flex Direction">
         <ButtonGroup
+          minHeight={15}
           options={[
             {
               icon: "Column",

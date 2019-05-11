@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, Card } from "rebass";
 import { Tooltip } from "react-tippy";
 import styled from "styled-components";
-import { themeGet } from "styled-system";
+import { themeGet, minHeight } from "styled-system";
 
 interface Props {
   options: {
@@ -11,14 +11,15 @@ interface Props {
     tooltip: string;
   }[];
   value: string;
+  minHeight?: number;
   onChange: (value: string) => void;
 }
 
-const ItemContainer = styled.div<{ active: boolean }>`
+const ItemContainer = styled.div<{ active: boolean; minHeight: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 25px;
+  min-height: ${props => `${props.minHeight}px`};
   min-width: 25px;
   padding: 3px;
   cursor: pointer;
@@ -32,12 +33,18 @@ const ItemContainer = styled.div<{ active: boolean }>`
   }
 `;
 
-export default function ButtonGroup({ options, onChange, value }: Props) {
+export default function ButtonGroup({
+  options,
+  onChange,
+  value,
+  minHeight = 25
+}: Props) {
   return (
     <Flex>
       {options.map(({ icon, tooltip, value: OptionValue }) => (
         <Tooltip title={tooltip} position="bottom" size="small">
           <ItemContainer
+            minHeight={minHeight}
             active={value === OptionValue}
             onClick={() => onChange(OptionValue)}
           >
