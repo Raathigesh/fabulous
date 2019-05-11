@@ -4,12 +4,12 @@ import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import ColorPicker from "../../primitives/color-picker";
 import SingleSelect from "../../primitives/select";
-import { State, UpdateProp } from "../../App";
+import { Declarations, UpdateProp } from "../../store";
 
 const Container = styled.div``;
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
@@ -17,7 +17,7 @@ const Properties = {
   Position: "position"
 };
 
-export default function Position({ state, updateProp }: Props) {
+export default function Position({ declarations, updateProp }: Props) {
   return (
     <Container>
       <RowPropertyPanel label="Position">
@@ -25,7 +25,7 @@ export default function Position({ state, updateProp }: Props) {
           onChange={value => {
             updateProp(Properties.Position, value);
           }}
-          value={state[Properties.Position] || ""}
+          value={declarations[Properties.Position] || ""}
           options={[
             {
               value: "static",

@@ -2,7 +2,7 @@ import React from "react";
 import { Flex } from "rebass";
 import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
-import { State, UpdateProp } from "../../App";
+import { Declarations, UpdateProp } from "../../store";
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
@@ -29,9 +29,9 @@ const Sides = {
   BottomRight: 3
 };
 
-export default function BorderRadius({ state, updateProp }: Props) {
+export default function BorderRadius({ declarations, updateProp }: Props) {
   const handleChange = (sideIndex: number, value: string) => {
-    const margin = state[Properties.BorderRadius] || "0 0 0 0";
+    const margin = declarations[Properties.BorderRadius] || "0 0 0 0";
     const sides = margin.split(" ");
     sides[sideIndex] = value;
 
@@ -39,7 +39,7 @@ export default function BorderRadius({ state, updateProp }: Props) {
   };
 
   const getValue = (index: number) => {
-    const margin = state[Properties.BorderRadius] || "0 0 0 0";
+    const margin = declarations[Properties.BorderRadius] || "0 0 0 0";
     const sides = margin.split(" ");
     return sides[index];
   };

@@ -8,10 +8,10 @@ import InlineBlock from "./icons/inline-block";
 import Inline from "./icons/inline";
 import FlexIcon from "./icons/flex";
 import FlexPanel from "./flex";
-import { State, UpdateProp } from "../../App";
+import { Declarations, UpdateProp } from "../../store";
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
@@ -19,7 +19,7 @@ const Properties = {
   Display: "display"
 };
 
-export default function Layout({ state, updateProp }: Props) {
+export default function Layout({ declarations, updateProp }: Props) {
   return (
     <Flex flexDirection="column">
       <RowPropertyPanel label="Display">
@@ -51,14 +51,14 @@ export default function Layout({ state, updateProp }: Props) {
               value: "flex"
             }
           ]}
-          value={state[Properties.Display]}
+          value={declarations[Properties.Display]}
           onChange={value => {
             updateProp(Properties.Display, value);
           }}
         />
       </RowPropertyPanel>
-      {state[Properties.Display] === "flex" && (
-        <FlexPanel state={state} updateProp={updateProp} />
+      {declarations[Properties.Display] === "flex" && (
+        <FlexPanel state={declarations} updateProp={updateProp} />
       )}
     </Flex>
   );

@@ -10,18 +10,15 @@ import Dimension from "./knobs/dimension";
 import Apperance from "./knobs/apperance";
 import { Flex } from "rebass";
 import Layout from "./knobs/layout";
-
-import "react-tippy/dist/tippy.css";
 import Theme from "./theme";
 import Position from "./knobs/position";
 import Background from "./knobs/background";
 import BorderRadius from "./knobs/border-radius";
+import { reducer } from "./store";
+import "react-tippy/dist/tippy.css";
 
 declare var acquireVsCodeApi: any;
-
-const Container = styled.div<SpaceProps>`
-  ${space}
-`;
+const vscode = acquireVsCodeApi();
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -31,35 +28,12 @@ body {
 }
 `;
 
-export interface State {
-  [prop: string]: any;
-}
-
-export type UpdateProp = (prop: string, value: any) => void;
-
-interface Action {
-  type: string;
-  payload: {
-    prop: string;
-    value: any;
-  };
-}
-
-function reducer(state: State, { type, payload }: Action) {
-  switch (type) {
-    case "addProperty":
-      return { ...state, [payload.prop]: payload.value };
-    case "reset":
-      return payload;
-    default:
-      throw new Error();
-  }
-}
-
-const vscode = acquireVsCodeApi();
+const InitialState = {
+  declarations: {}
+};
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, {});
+  const [state, dispatch] = useReducer(reducer, InitialState);
 
   const updateProperty = (prop: string, value: any) => {
     dispatch({
@@ -79,11 +53,13 @@ export default function App() {
   useEffect(() => {
     window.addEventListener("message", message => {
       dispatch({
-        type: "reset",
+        type: "resetReclarations",
         payload: message.data
       });
     });
   }, []);
+
+  const declarations = state.declarations || {};
 
   return (
     <Fragment>
@@ -91,31 +67,46 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <Flex p="3" flexDirection="column" backgroundColor="background">
           <Section label="Layout">
-            <Layout state={state} updateProp={updateProperty} />
+            <Layout declarations={declarations} updateProp={updateProperty} />
           </Section>
           <Section label="Space">
-            <Space state={state} updateProp={updateProperty} />
+            <Space declarations={declarations} updateProp={updateProperty} />
           </Section>
           <Section label="Size">
-            <Dimension state={state} updateProp={updateProperty} />
+            <Dimension
+              declarations={declarations}
+              updateProp={updateProperty}
+            />
           </Section>
           <Section label="Position">
-            <Position state={state} updateProp={updateProperty} />
+            <Position declarations={declarations} updateProp={updateProperty} />
           </Section>
           <Section label="Typography">
-            <TextStyles state={state} updateProp={updateProperty} />
+            <TextStyles
+              declarations={declarations}
+              updateProp={updateProperty}
+            />
           </Section>
           <Section label="Background">
-            <Background state={state} updateProp={updateProperty} />
+            <Background
+              declarations={declarations}
+              updateProp={updateProperty}
+            />
           </Section>
           <Section label="Border">
-            <Border state={state} updateProp={updateProperty} />
+            <Border declarations={declarations} updateProp={updateProperty} />
           </Section>
           <Section label="Border radius">
-            <BorderRadius state={state} updateProp={updateProperty} />
+            <BorderRadius
+              declarations={declarations}
+              updateProp={updateProperty}
+            />
           </Section>
           <Section label="Appearance">
-            <Apperance state={state} updateProp={updateProperty} />
+            <Apperance
+              declarations={declarations}
+              updateProp={updateProperty}
+            />
           </Section>
         </Flex>
       </ThemeProvider>

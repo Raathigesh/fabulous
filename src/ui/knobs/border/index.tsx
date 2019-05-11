@@ -5,7 +5,7 @@ import { Flex } from "rebass";
 import BorderToggle from "./toggle";
 import BorderIcon from "./icons/generic";
 import { getThemeColors } from "../../theme";
-import { State, UpdateProp } from "../../App";
+import { Declarations, UpdateProp } from "../../store";
 
 const Sides = {
   Top: "BorderTop",
@@ -24,16 +24,16 @@ const Properties = {
 };
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
-export default function Border({ state, updateProp }: Props) {
+export default function Border({ declarations, updateProp }: Props) {
   const colors = getThemeColors();
   const [activeSide, setActiveSide] = useState(Sides.All);
 
   const activeSidePropertyName = (Properties as any)[activeSide];
-  const borderCSSValue = state[activeSidePropertyName] || "";
+  const borderCSSValue = declarations[activeSidePropertyName] || "";
   const [width, style, color] = borderCSSValue.split(" ");
 
   return (

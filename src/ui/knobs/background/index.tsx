@@ -3,13 +3,12 @@ import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import ColorPicker from "../../primitives/color-picker";
-import SingleSelect from "../../primitives/select";
-import { State, UpdateProp } from "../../App";
+import { Declarations, UpdateProp } from "../../store";
 
 const Container = styled.div``;
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
@@ -17,12 +16,12 @@ const Properties = {
   BackgroundColor: "background-color"
 };
 
-export default function Background({ state, updateProp }: Props) {
+export default function Background({ declarations, updateProp }: Props) {
   return (
     <Container>
       <RowPropertyPanel label="Background color">
         <ColorPicker
-          color={state[Properties.BackgroundColor]}
+          color={declarations[Properties.BackgroundColor]}
           onChange={color => {
             updateProp(Properties.BackgroundColor, color);
           }}

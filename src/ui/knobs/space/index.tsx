@@ -3,7 +3,7 @@ import { Flex, Card } from "rebass";
 import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
 import { themeGet } from "styled-system";
-import { State, UpdateProp } from "../../App";
+import { Declarations, UpdateProp } from "../../store";
 
 const Box = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const Box = styled.div`
 `;
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
@@ -34,9 +34,9 @@ const Sides = {
   Left: 3
 };
 
-export default function Space({ state, updateProp }: Props) {
+export default function Space({ declarations, updateProp }: Props) {
   const handleMargin = (sideIndex: number, value: string) => {
-    const margin = state[Properties.Margin] || "0px 0px 0px 0px";
+    const margin = declarations[Properties.Margin] || "0px 0px 0px 0px";
     const sides = margin.split(" ");
     sides[sideIndex] = value;
 
@@ -44,7 +44,7 @@ export default function Space({ state, updateProp }: Props) {
   };
 
   const getMargin = (index: number) => {
-    const margin = state[Properties.Margin] || "0px 0px 0px 0px";
+    const margin = declarations[Properties.Margin] || "0px 0px 0px 0px";
     const sides = margin.split(" ");
     return sides[index];
   };

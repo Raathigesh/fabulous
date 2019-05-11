@@ -4,10 +4,10 @@ import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import { Flex } from "rebass";
 import SingleSelect from "../../primitives/select";
-import { State, UpdateProp } from "../../App";
+import { Declarations, UpdateProp } from "../../store";
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
@@ -19,13 +19,13 @@ const Properties = {
   Overflow: "overflow"
 };
 
-export default function Dimension({ state, updateProp }: Props) {
+export default function Dimension({ declarations, updateProp }: Props) {
   return (
     <Flex flexDirection="column">
       <Flex>
         <RowPropertyPanel label="Height" minWidth="60px" marginRight="10px">
           <TextBox
-            value={state[Properties.Height] || ""}
+            value={declarations[Properties.Height] || ""}
             onChange={value => {
               updateProp(Properties.Height, value);
             }}
@@ -33,7 +33,7 @@ export default function Dimension({ state, updateProp }: Props) {
         </RowPropertyPanel>
         <RowPropertyPanel label="Width" minWidth="60px">
           <TextBox
-            value={state[Properties.Width] || ""}
+            value={declarations[Properties.Width] || ""}
             onChange={value => {
               updateProp(Properties.Width, value);
             }}
@@ -43,7 +43,7 @@ export default function Dimension({ state, updateProp }: Props) {
       <Flex>
         <RowPropertyPanel label="Min Height" minWidth="60px" marginRight="10px">
           <TextBox
-            value={state[Properties.MinHeight] || ""}
+            value={declarations[Properties.MinHeight] || ""}
             onChange={value => {
               updateProp(Properties.MinHeight, value);
             }}
@@ -51,7 +51,7 @@ export default function Dimension({ state, updateProp }: Props) {
         </RowPropertyPanel>
         <RowPropertyPanel label="Max Width" minWidth="60px">
           <TextBox
-            value={state[Properties.MaxWidth] || ""}
+            value={declarations[Properties.MaxWidth] || ""}
             onChange={value => {
               updateProp(Properties.MaxWidth, value);
             }}
@@ -60,7 +60,7 @@ export default function Dimension({ state, updateProp }: Props) {
       </Flex>
       <RowPropertyPanel label="Overflow" minWidth="60px">
         <SingleSelect
-          value={state[Properties.Overflow] || ""}
+          value={declarations[Properties.Overflow] || ""}
           onChange={value => {
             updateProp(Properties.Overflow, value);
           }}

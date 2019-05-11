@@ -3,12 +3,12 @@ import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import SingleSelect from "../../primitives/select";
-import { State, UpdateProp } from "../../App";
+import { Declarations, UpdateProp } from "../../store";
 
 const Container = styled.div``;
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
@@ -17,12 +17,12 @@ const Properties = {
   Opacity: "opacity"
 };
 
-export default function Apperance({ state, updateProp }: Props) {
+export default function Apperance({ declarations, updateProp }: Props) {
   return (
     <Container>
       <RowPropertyPanel label="Opacity">
         <TextBox
-          value={state[Properties.Opacity]}
+          value={declarations[Properties.Opacity]}
           onChange={value => {
             updateProp(Properties.Opacity, value);
           }}
@@ -30,7 +30,7 @@ export default function Apperance({ state, updateProp }: Props) {
       </RowPropertyPanel>
       <RowPropertyPanel label="Cursor">
         <SingleSelect
-          value={state[Properties.Cursor]}
+          value={declarations[Properties.Cursor]}
           onChange={value => updateProp(Properties.Cursor, value)}
           options={[
             {

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import ColorPicker from "../../primitives/color-picker";
-import { State, UpdateProp } from "../../App";
 import SingleSelect from "../../primitives/select";
 import ButtonGroup from "../../primitives/button-group";
 import {
@@ -12,11 +11,12 @@ import {
   AlignRight,
   AlignJustify
 } from "react-feather";
+import { Declarations, UpdateProp } from "../../store";
 
 const Container = styled.div``;
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
 }
 
@@ -28,18 +28,18 @@ const Properties = {
   TextAlign: "text-align"
 };
 
-export default function TextStyles({ state, updateProp }: Props) {
+export default function TextStyles({ declarations, updateProp }: Props) {
   return (
     <Container>
       <RowPropertyPanel label="Font size">
         <TextBox
-          value={state[Properties.FontSize]}
+          value={declarations[Properties.FontSize]}
           onChange={value => updateProp(Properties.FontSize, value)}
         />
       </RowPropertyPanel>
       <RowPropertyPanel label="Font weight">
         <SingleSelect
-          value={state[Properties.FontWeight]}
+          value={declarations[Properties.FontWeight]}
           onChange={value => updateProp(Properties.FontWeight, value)}
           options={[
             {
@@ -83,7 +83,7 @@ export default function TextStyles({ state, updateProp }: Props) {
       </RowPropertyPanel>
       <RowPropertyPanel label="Font color">
         <ColorPicker
-          color={state[Properties.FontColor]}
+          color={declarations[Properties.FontColor]}
           onChange={color => {
             updateProp(Properties.FontColor, color);
           }}
@@ -91,7 +91,7 @@ export default function TextStyles({ state, updateProp }: Props) {
       </RowPropertyPanel>
       <RowPropertyPanel label="Font family">
         <TextBox
-          value={state[Properties.FontFamily]}
+          value={declarations[Properties.FontFamily]}
           onChange={value => updateProp(Properties.FontFamily, value)}
         />
       </RowPropertyPanel>
@@ -119,7 +119,7 @@ export default function TextStyles({ state, updateProp }: Props) {
               value: "justify"
             }
           ]}
-          value={state[Properties.TextAlign]}
+          value={declarations[Properties.TextAlign]}
           onChange={value => {
             updateProp(Properties.TextAlign, value);
           }}
