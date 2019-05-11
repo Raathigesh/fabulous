@@ -1,13 +1,8 @@
 import traverse from "@babel/traverse";
 import generate from "@babel/generator";
-import { parse } from "../parser";
-import {
-  updateProperty,
-  EditableBlock,
-  getDeclarations,
-  getRules
-} from "./utils";
-import { Inspector } from "./inspector";
+import { parse } from "../parsers/babel";
+import { updateProperty, getDeclarations, getRules } from "./utils";
+import { FileHandler, EditableBlock } from "./types";
 import { NodeSource } from "postcss";
 
 interface StyleExpresions {
@@ -70,7 +65,6 @@ export function getEditableBlocks(content: string) {
         selector: rule.selector,
         declarations,
         source: location,
-        raw: rule.toString(),
         rule
       });
     });
@@ -78,7 +72,7 @@ export function getEditableBlocks(content: string) {
   return results;
 }
 
-const StyledComponentsInspector: Inspector = {
+const StyledComponentsInspector: FileHandler = {
   getEdiableBlocks(fileContent: string) {
     return getEditableBlocks(fileContent);
   },
@@ -86,7 +80,7 @@ const StyledComponentsInspector: Inspector = {
     let updatedCSS = updateProperty(activeBlock.rule, prop, value);
     updatedCSS = updatedCSS.substr(7, updatedCSS.length); // removes .dummy{
     updatedCSS = updatedCSS.substr(0, updatedCSS.length - 1); // removes }
-    updatedCSS = `\`${updatedCSS}\``;
+    updatedCSS = `\`${updatedCSS}\``; // ads the `` back
     return updatedCSS;
   }
 };

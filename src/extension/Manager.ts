@@ -1,15 +1,14 @@
 import * as vscode from "vscode";
-import { EditableBlock } from "./inspector/utils";
-import { Inspector } from "./inspector/inspector";
-import CSSFileInspector from "./inspector/css-handler";
-import StyledComponentsInspector from "./inspector/styled-components-handler";
+import { FileHandler, EditableBlock } from "./file-handlers/types";
+import CSSFileInspector from "./file-handlers/css-file";
+import StyledComponentsInspector from "./file-handlers/js";
 
 export default class Manager {
   private activeEditor: vscode.TextEditor | undefined;
   private panel: vscode.WebviewPanel;
   private activeBlock: EditableBlock | undefined;
   private cursorPosion: vscode.Position | undefined;
-  private inspector: Inspector | undefined;
+  private inspector: FileHandler | undefined;
 
   constructor(panel: vscode.WebviewPanel) {
     this.panel = panel;

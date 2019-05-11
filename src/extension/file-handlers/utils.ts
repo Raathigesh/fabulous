@@ -1,13 +1,6 @@
 import * as postcss from "postcss";
 import { Rule, Declaration, NodeSource } from "postcss";
-
-export interface EditableBlock {
-  selector: string;
-  declarations: Declaration[];
-  source?: NodeSource;
-  raw: string;
-  rule: postcss.Rule;
-}
+import { processWithPlugin } from "../parsers/post-css";
 
 export const getRules = (cssString: string) => {
   const results: Rule[] = [];
@@ -28,10 +21,6 @@ export const getDeclarations = (rule: Rule) => {
     declarations.push(declaration);
   });
   return declarations;
-};
-
-export const processWithPlugin = (cssString: string, plugin: any) => {
-  return postcss([plugin]).process(cssString).css;
 };
 
 export const hasDeclaration = (rule: postcss.Rule, propertyName: string) => {

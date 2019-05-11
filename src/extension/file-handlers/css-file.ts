@@ -1,12 +1,6 @@
 import * as postcss from "postcss";
-import {
-  getDeclarations,
-  processWithPlugin,
-  EditableBlock,
-  getRules,
-  updateProperty
-} from "./utils";
-import { Inspector } from "./inspector";
+import { getDeclarations, getRules, updateProperty } from "./utils";
+import { FileHandler, EditableBlock } from "./types";
 
 function getCSSRules(cssString: string) {
   const results: EditableBlock[] = [];
@@ -17,14 +11,13 @@ function getCSSRules(cssString: string) {
       selector: rule.selector,
       declarations,
       source: rule.source,
-      raw: rule.toString(),
       rule
     });
   });
   return results;
 }
 
-const CSSFileInspector: Inspector = {
+const CSSFileInspector: FileHandler = {
   getEdiableBlocks(fileContent: string) {
     return getCSSRules(fileContent);
   },
