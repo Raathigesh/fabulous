@@ -29,9 +29,7 @@ export function reducer(state: State, { type, payload }: Action) {
     case "resetReclarations":
       return {
         ...state,
-        declarations: {
-          ...payload
-        }
+        declarations: payload
       };
     default:
       throw new Error();

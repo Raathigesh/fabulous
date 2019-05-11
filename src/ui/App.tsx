@@ -2,7 +2,6 @@ import React, { useReducer, useEffect, Fragment } from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import TextStyles from "./knobs/text";
 import theme from "./theme";
-import { space, SpaceProps } from "styled-system";
 import Section from "./primitives/section";
 import Border from "./knobs/border";
 import Space from "./knobs/space";
@@ -60,6 +59,10 @@ export default function App() {
   }, []);
 
   const declarations = state.declarations || {};
+
+  if (state.declarations === null) {
+    return "Select a block";
+  }
 
   return (
     <Fragment>

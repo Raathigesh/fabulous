@@ -67,10 +67,11 @@ export default class Manager {
     activeFileContent: string,
     cursorPosition: vscode.Position
   ) {
-    let payload = {};
+    let payload = null;
     if (this.inspector) {
       const blocks = this.inspector.getEdiableBlocks(activeFileContent);
       const activeBlock = this.getActiveBlock(cursorPosition, blocks);
+
       this.activeBlock = activeBlock;
       if (activeBlock) {
         payload = activeBlock.declarations.reduce((prev: any, declaration) => {
