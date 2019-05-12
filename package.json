@@ -2,6 +2,7 @@
   "name": "fabulous",
   "displayName": "Fabulous",
   "description": "CSS editor",
+  "publisher": "raathigeshan",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.33.0"
@@ -16,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/Raathigesh/fabulous.git"
   },
-  "icon": "./icons/marketplace.png",
+  "icon": "icons/marketplace.png",
   "main": "./out/extension/extension.js",
   "contributes": {
     "commands": [
@@ -59,7 +60,7 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
+    "vscode:prepublish": "yarn run build",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./src/extension --project ./tsconfig.json",
     "postinstall": "node ./node_modules/vscode/bin/install",

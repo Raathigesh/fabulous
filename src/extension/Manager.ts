@@ -19,7 +19,9 @@ export default class Manager {
         this.activeEditor = activeEditor;
       } else if (
         activeEditor &&
-        activeEditor.document.languageId === "javascript"
+        (activeEditor.document.languageId === "javascript" ||
+          activeEditor.document.languageId === "javascriptreact" ||
+          activeEditor.document.languageId === "typescriptreact")
       ) {
         this.inspector = StyledComponentsInspector;
         this.activeEditor = activeEditor;
@@ -27,25 +29,29 @@ export default class Manager {
     });
 
     vscode.workspace.onDidChangeTextDocument(({ document }) => {
-      if (document.languageId === "css") {
-        this.parseFromActiveEditor();
-      } else if (document.languageId === "javascript") {
+      if (this.isAcceptableLaguage(document.languageId)) {
         this.parseFromActiveEditor();
       }
     });
 
     vscode.window.onDidChangeTextEditorSelection(({ textEditor }) => {
-      if (textEditor && textEditor.document.languageId === "css") {
-        this.activeEditor = textEditor;
-        this.parseFromActiveEditor();
-      } else if (
+      if (
         textEditor &&
-        textEditor.document.languageId === "javascript"
+        this.isAcceptableLaguage(textEditor.document.languageId)
       ) {
         this.activeEditor = textEditor;
         this.parseFromActiveEditor();
       }
     });
+  }
+
+  isAcceptableLaguage(languageId: string) {
+    return (
+      languageId === "javascript" ||
+      languageId === "css" ||
+      languageId === "javascriptreact" ||
+      languageId === "typescriptreact"
+    );
   }
 
   parseFromActiveEditor() {
