@@ -3,7 +3,8 @@ import { Flex, Card } from "rebass";
 import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
 import { themeGet } from "styled-system";
-import { Declarations, UpdateProp } from "../../store";
+import { Declarations, UpdateProp, RemoveProp } from "../../store";
+import Clear from "../../primitives/clear-icon";
 
 const Box = styled.div`
   display: flex;
@@ -20,6 +21,7 @@ const Box = styled.div`
 interface Props {
   declarations: Declarations;
   updateProp: UpdateProp;
+  removeProp: RemoveProp;
 }
 
 const Properties = {
@@ -34,18 +36,20 @@ const Sides = {
   Left: 3
 };
 
-export default function Space({ declarations, updateProp }: Props) {
+export default function Space({ declarations, updateProp, removeProp }: Props) {
   const handleChange = (property: string, sideIndex: number, value: string) => {
-    const margin = declarations[property] || "0px 0px 0px 0px";
-    const sides = margin.split(" ");
+    const margin = declarations[property] || "";
+    const [top = "", right = "", bottom = "", left = ""] = margin.split(" ");
+    const sides = [top, right, bottom, left];
     sides[sideIndex] = value;
 
     updateProp(property, sides.join(" "));
   };
 
   const getValue = (property: string, index: number) => {
-    const margin = declarations[property] || "0px 0px 0px 0px";
-    const sides = margin.split(" ");
+    const margin = declarations[property] || "";
+    const [top = "", right = "", bottom = "", left = ""] = margin.split(" ");
+    const sides = [top, right, bottom, left];
     return sides[index];
   };
 
@@ -96,6 +100,14 @@ export default function Space({ declarations, updateProp }: Props) {
               align="center"
               placeholder="Left"
             />
+            <Flex alignSelf="start">
+              <Clear
+                tooltip="Clear padding"
+                onClear={() => {
+                  removeProp(Properties.Padding);
+                }}
+              />
+            </Flex>
             <TextBox
               value={getValue(Properties.Padding, Sides.Right)}
               onChange={value => {
@@ -139,6 +151,14 @@ export default function Space({ declarations, updateProp }: Props) {
           width="50px"
           placeholder="Bottom"
           align="center"
+        />
+      </Flex>
+      <Flex flex="1" mr="10px" flexDirection="row-reverse" width="100%">
+        <Clear
+          tooltip="Clear margin"
+          onClear={() => {
+            removeProp(Properties.Margin);
+          }}
         />
       </Flex>
     </Flex>

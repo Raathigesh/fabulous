@@ -49,3 +49,14 @@ export const updateProperty = (
   }
   return rule.toString();
 };
+
+export const removeProperty = (rule: postcss.Rule, propertyName: string) => {
+  if (hasDeclaration(rule, propertyName)) {
+    rule.walkDecls(dec => {
+      if (dec.prop == propertyName) {
+        dec.remove();
+      }
+    });
+  }
+  return rule.toString();
+};

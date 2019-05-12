@@ -32,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     currentPanel.webview.onDidReceiveMessage(
       message => {
-        manager.updateActiveBlock(message.prop, message.value);
+        manager.updateActiveBlock(message.prop, message.value, message.type);
       },
       undefined,
       context.subscriptions

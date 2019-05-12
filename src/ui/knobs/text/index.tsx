@@ -11,13 +11,14 @@ import {
   AlignRight,
   AlignJustify
 } from "react-feather";
-import { Declarations, UpdateProp } from "../../store";
+import { Declarations, UpdateProp, RemoveProp } from "../../store";
 
 const Container = styled.div``;
 
 interface Props {
   declarations: Declarations;
   updateProp: UpdateProp;
+  removeProp: RemoveProp;
 }
 
 const Properties = {
@@ -28,10 +29,19 @@ const Properties = {
   TextAlign: "text-align"
 };
 
-export default function TextStyles({ declarations, updateProp }: Props) {
+export default function TextStyles({
+  declarations,
+  updateProp,
+  removeProp
+}: Props) {
   return (
     <Container>
-      <RowPropertyPanel label="Font size">
+      <RowPropertyPanel
+        label="Font size"
+        onClear={() => {
+          removeProp(Properties.FontSize);
+        }}
+      >
         <TextBox
           value={declarations[Properties.FontSize]}
           onChange={value => updateProp(Properties.FontSize, value)}
@@ -81,7 +91,12 @@ export default function TextStyles({ declarations, updateProp }: Props) {
           ]}
         />
       </RowPropertyPanel>
-      <RowPropertyPanel label="Font color">
+      <RowPropertyPanel
+        label="Font color"
+        onClear={() => {
+          removeProp(Properties.FontColor);
+        }}
+      >
         <ColorPicker
           color={declarations[Properties.FontColor]}
           onChange={color => {
@@ -89,13 +104,23 @@ export default function TextStyles({ declarations, updateProp }: Props) {
           }}
         />
       </RowPropertyPanel>
-      <RowPropertyPanel label="Font family">
+      <RowPropertyPanel
+        label="Font family"
+        onClear={() => {
+          removeProp(Properties.FontFamily);
+        }}
+      >
         <TextBox
           value={declarations[Properties.FontFamily]}
           onChange={value => updateProp(Properties.FontFamily, value)}
         />
       </RowPropertyPanel>
-      <RowPropertyPanel label="Text align">
+      <RowPropertyPanel
+        label="Text align"
+        onClear={() => {
+          removeProp(Properties.TextAlign);
+        }}
+      >
         <ButtonGroup
           options={[
             {

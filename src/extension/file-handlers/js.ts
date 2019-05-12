@@ -1,7 +1,12 @@
 import traverse from "@babel/traverse";
 import generate from "@babel/generator";
 import { parse } from "../parsers/babel";
-import { updateProperty, getDeclarations, getRules } from "./utils";
+import {
+  updateProperty,
+  getDeclarations,
+  getRules,
+  removeProperty
+} from "./utils";
 import { FileHandler, EditableBlock } from "./types";
 import { NodeSource } from "postcss";
 
@@ -78,6 +83,13 @@ const StyledComponentsInspector: FileHandler = {
   },
   updateProperty(activeBlock: EditableBlock, prop: string, value: string) {
     let updatedCSS = updateProperty(activeBlock.rule, prop, value);
+    updatedCSS = updatedCSS.substr(7, updatedCSS.length); // removes .dummy{
+    updatedCSS = updatedCSS.substr(0, updatedCSS.length - 1); // removes }
+    updatedCSS = `\`${updatedCSS}\``; // ads the `` back
+    return updatedCSS;
+  },
+  removeProperty(activeBlock: EditableBlock, prop: string) {
+    let updatedCSS = removeProperty(activeBlock.rule, prop);
     updatedCSS = updatedCSS.substr(7, updatedCSS.length); // removes .dummy{
     updatedCSS = updatedCSS.substr(0, updatedCSS.length - 1); // removes }
     updatedCSS = `\`${updatedCSS}\``; // ads the `` back

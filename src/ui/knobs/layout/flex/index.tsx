@@ -1,14 +1,14 @@
 import React from "react";
 import { Flex } from "rebass";
-import { EyeOff } from "react-feather";
 import RowPropertyPanel from "../../../primitives/row-property-panel";
 import ButtonGroup from "../../../primitives/button-group";
-import { State, UpdateProp } from "../../../App";
 import SingleSelect from "../../../primitives/select";
+import { UpdateProp, Declarations, RemoveProp } from "../../../store";
 
 interface Props {
-  state: State;
+  declarations: Declarations;
   updateProp: UpdateProp;
+  removeProp: RemoveProp;
 }
 
 const Properties = {
@@ -19,10 +19,19 @@ const Properties = {
   JustifyContent: "justify-content"
 };
 
-export default function FlexPanel({ state, updateProp }: Props) {
+export default function FlexPanel({
+  declarations,
+  updateProp,
+  removeProp
+}: Props) {
   return (
     <Flex flexDirection="column">
-      <RowPropertyPanel label="Flex Direction">
+      <RowPropertyPanel
+        label="Flex Direction"
+        onClear={() => {
+          removeProp(Properties.FlexDirection);
+        }}
+      >
         <ButtonGroup
           minHeight={15}
           options={[
@@ -47,7 +56,7 @@ export default function FlexPanel({ state, updateProp }: Props) {
               value: "row-reverse"
             }
           ]}
-          value={state[Properties.FlexDirection]}
+          value={declarations[Properties.FlexDirection]}
           onChange={direction => {
             updateProp(Properties.FlexDirection, direction);
           }}
@@ -55,8 +64,14 @@ export default function FlexPanel({ state, updateProp }: Props) {
       </RowPropertyPanel>
       <RowPropertyPanel label="Align Contents">
         <SingleSelect
-          value={state[Properties.AlignContent]}
-          onChange={value => updateProp(Properties.AlignContent, value)}
+          value={declarations[Properties.AlignContent]}
+          onChange={value => {
+            if (!value) {
+              removeProp(Properties.AlignContent);
+            } else {
+              updateProp(Properties.AlignContent, value);
+            }
+          }}
           options={[
             {
               value: "stretch",
@@ -87,7 +102,7 @@ export default function FlexPanel({ state, updateProp }: Props) {
       </RowPropertyPanel>
       <RowPropertyPanel label="Align Items">
         <SingleSelect
-          value={state[Properties.AlignItems]}
+          value={declarations[Properties.AlignItems]}
           onChange={value => updateProp(Properties.AlignItems, value)}
           options={[
             {
@@ -115,7 +130,7 @@ export default function FlexPanel({ state, updateProp }: Props) {
       </RowPropertyPanel>
       <RowPropertyPanel label="Align Self">
         <SingleSelect
-          value={state[Properties.AlignSelf]}
+          value={declarations[Properties.AlignSelf]}
           onChange={value => updateProp(Properties.AlignSelf, value)}
           options={[
             {
@@ -147,7 +162,7 @@ export default function FlexPanel({ state, updateProp }: Props) {
       </RowPropertyPanel>
       <RowPropertyPanel label="Justify Content">
         <SingleSelect
-          value={state[Properties.JustifyContent]}
+          value={declarations[Properties.JustifyContent]}
           onChange={value => updateProp(Properties.JustifyContent, value)}
           options={[
             {

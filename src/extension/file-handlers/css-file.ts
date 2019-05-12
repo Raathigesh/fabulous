@@ -1,5 +1,10 @@
 import * as postcss from "postcss";
-import { getDeclarations, getRules, updateProperty } from "./utils";
+import {
+  getDeclarations,
+  getRules,
+  updateProperty,
+  removeProperty
+} from "./utils";
 import { FileHandler, EditableBlock } from "./types";
 
 function getCSSRules(cssString: string) {
@@ -23,6 +28,9 @@ const CSSFileInspector: FileHandler = {
   },
   updateProperty(activeBlock: EditableBlock, prop: string, value: string) {
     return updateProperty(activeBlock.rule, prop, value);
+  },
+  removeProperty(activeBlock: EditableBlock, prop: string) {
+    return removeProperty(activeBlock.rule, prop);
   }
 };
 export default CSSFileInspector;

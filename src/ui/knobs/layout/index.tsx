@@ -8,21 +8,31 @@ import InlineBlock from "./icons/inline-block";
 import Inline from "./icons/inline";
 import FlexIcon from "./icons/flex";
 import FlexPanel from "./flex";
-import { Declarations, UpdateProp } from "../../store";
+import { Declarations, UpdateProp, RemoveProp } from "../../store";
 
 interface Props {
   declarations: Declarations;
   updateProp: UpdateProp;
+  removeProp: RemoveProp;
 }
 
 const Properties = {
   Display: "display"
 };
 
-export default function Layout({ declarations, updateProp }: Props) {
+export default function Layout({
+  declarations,
+  updateProp,
+  removeProp
+}: Props) {
   return (
     <Flex flexDirection="column">
-      <RowPropertyPanel label="Display">
+      <RowPropertyPanel
+        label="Display"
+        onClear={() => {
+          removeProp(Properties.Display);
+        }}
+      >
         <ButtonGroup
           options={[
             {
@@ -58,7 +68,11 @@ export default function Layout({ declarations, updateProp }: Props) {
         />
       </RowPropertyPanel>
       {declarations[Properties.Display] === "flex" && (
-        <FlexPanel state={declarations} updateProp={updateProp} />
+        <FlexPanel
+          declarations={declarations}
+          updateProp={updateProp}
+          removeProp={removeProp}
+        />
       )}
     </Flex>
   );

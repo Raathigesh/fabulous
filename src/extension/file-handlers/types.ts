@@ -15,6 +15,7 @@ export interface FileHandler {
     prop: string,
     value: string
   ): string;
+  removeProperty(activeBlock: EditableBlock, prop: string): string;
 }
 
 /**

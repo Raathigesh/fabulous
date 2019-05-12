@@ -2,7 +2,8 @@ import React from "react";
 import { Flex } from "rebass";
 import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
-import { Declarations, UpdateProp } from "../../store";
+import { Declarations, UpdateProp, RemoveProp } from "../../store";
+import Clear from "../../primitives/clear-icon";
 
 const Container = styled.div`
   display: flex;
@@ -16,6 +17,7 @@ const Container = styled.div`
 interface Props {
   declarations: Declarations;
   updateProp: UpdateProp;
+  removeProp: RemoveProp;
 }
 
 const Properties = {
@@ -29,7 +31,11 @@ const Sides = {
   BottomRight: 3
 };
 
-export default function BorderRadius({ declarations, updateProp }: Props) {
+export default function BorderRadius({
+  declarations,
+  updateProp,
+  removeProp
+}: Props) {
   const handleChange = (sideIndex: number, value: string) => {
     const margin = declarations[Properties.BorderRadius] || "0 0 0 0";
     const sides = margin.split(" ");
@@ -67,16 +73,12 @@ export default function BorderRadius({ declarations, updateProp }: Props) {
           />
         </Flex>
         <Flex justifyContent="center">
-          {/*   <TextBox
-            topLeft="5px"
-            topRight="5px"
-            bottomLeft="5px"
-            bottomRight="5px"
-            width="50px"
-            value=""
-            align="center"
-            onChange={() => {}}
-          /> */}
+          <Clear
+            tooltip="Clear border radius"
+            onClear={() => {
+              removeProp(Properties.BorderRadius);
+            }}
+          />
         </Flex>
         <Flex justifyContent="space-between">
           <TextBox

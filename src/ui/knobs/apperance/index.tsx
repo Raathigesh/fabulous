@@ -3,13 +3,14 @@ import styled from "styled-components";
 import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import SingleSelect from "../../primitives/select";
-import { Declarations, UpdateProp } from "../../store";
+import { Declarations, UpdateProp, RemoveProp } from "../../store";
 
 const Container = styled.div``;
 
 interface Props {
   declarations: Declarations;
   updateProp: UpdateProp;
+  removeProp: RemoveProp;
 }
 
 const Properties = {
@@ -17,10 +18,19 @@ const Properties = {
   Opacity: "opacity"
 };
 
-export default function Apperance({ declarations, updateProp }: Props) {
+export default function Apperance({
+  declarations,
+  updateProp,
+  removeProp
+}: Props) {
   return (
     <Container>
-      <RowPropertyPanel label="Opacity">
+      <RowPropertyPanel
+        label="Opacity"
+        onClear={() => {
+          removeProp(Properties.Opacity);
+        }}
+      >
         <TextBox
           value={declarations[Properties.Opacity]}
           onChange={value => {

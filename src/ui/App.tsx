@@ -11,7 +11,7 @@ import {
   Sun,
   Disc
 } from "react-feather";
-import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 import TextStyles from "./knobs/text";
 import theme from "./theme";
 import Section from "./primitives/section";
@@ -57,7 +57,22 @@ export default function App() {
 
     vscode.postMessage({
       prop,
-      value
+      value,
+      type: "add"
+    });
+  };
+
+  const removeProperty = (prop: string) => {
+    dispatch({
+      type: "removeProperty",
+      payload: {
+        prop
+      }
+    });
+
+    vscode.postMessage({
+      prop,
+      type: "remove"
     });
   };
 
@@ -82,15 +97,24 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <Flex p="3" flexDirection="column" backgroundColor="background">
           <Section CategoryIcon={LayoutIcon} label="Layout">
-            <Layout declarations={declarations} updateProp={updateProperty} />
+            <Layout
+              declarations={declarations}
+              updateProp={updateProperty}
+              removeProp={removeProperty}
+            />
           </Section>
           <Section CategoryIcon={Maximize} label="Space">
-            <Space declarations={declarations} updateProp={updateProperty} />
+            <Space
+              declarations={declarations}
+              updateProp={updateProperty}
+              removeProp={removeProperty}
+            />
           </Section>
           <Section CategoryIcon={Grid} label="Size">
             <Dimension
               declarations={declarations}
               updateProp={updateProperty}
+              removeProp={removeProperty}
             />
           </Section>
           <Section CategoryIcon={Crosshair} label="Position">
@@ -100,27 +124,35 @@ export default function App() {
             <TextStyles
               declarations={declarations}
               updateProp={updateProperty}
+              removeProp={removeProperty}
             />
           </Section>
           <Section CategoryIcon={Droplet} label="Background">
             <Background
               declarations={declarations}
               updateProp={updateProperty}
+              removeProp={removeProperty}
             />
           </Section>
           <Section CategoryIcon={Square} label="Border">
-            <Border declarations={declarations} updateProp={updateProperty} />
+            <Border
+              declarations={declarations}
+              updateProp={updateProperty}
+              removeProp={removeProperty}
+            />
           </Section>
           <Section CategoryIcon={Disc} label="Border radius">
             <BorderRadius
               declarations={declarations}
               updateProp={updateProperty}
+              removeProp={removeProperty}
             />
           </Section>
           <Section CategoryIcon={Sun} label="Appearance">
             <Apperance
               declarations={declarations}
               updateProp={updateProperty}
+              removeProp={removeProperty}
             />
           </Section>
         </Flex>

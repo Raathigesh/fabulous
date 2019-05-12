@@ -4,11 +4,12 @@ import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import { Flex } from "rebass";
 import SingleSelect from "../../primitives/select";
-import { Declarations, UpdateProp } from "../../store";
+import { Declarations, UpdateProp, RemoveProp } from "../../store";
 
 interface Props {
   declarations: Declarations;
   updateProp: UpdateProp;
+  removeProp: RemoveProp;
 }
 
 const Properties = {
@@ -19,11 +20,22 @@ const Properties = {
   Overflow: "overflow"
 };
 
-export default function Dimension({ declarations, updateProp }: Props) {
+export default function Dimension({
+  declarations,
+  updateProp,
+  removeProp
+}: Props) {
   return (
     <Flex flexDirection="column">
       <Flex>
-        <RowPropertyPanel label="Height" minWidth="60px" marginRight="10px">
+        <RowPropertyPanel
+          label="Height"
+          minWidth="60px"
+          marginRight="10px"
+          onClear={() => {
+            removeProp(Properties.Height);
+          }}
+        >
           <TextBox
             value={declarations[Properties.Height] || ""}
             onChange={value => {
@@ -31,7 +43,13 @@ export default function Dimension({ declarations, updateProp }: Props) {
             }}
           />
         </RowPropertyPanel>
-        <RowPropertyPanel label="Width" minWidth="60px">
+        <RowPropertyPanel
+          label="Width"
+          minWidth="60px"
+          onClear={() => {
+            removeProp(Properties.Width);
+          }}
+        >
           <TextBox
             value={declarations[Properties.Width] || ""}
             onChange={value => {
@@ -41,7 +59,14 @@ export default function Dimension({ declarations, updateProp }: Props) {
         </RowPropertyPanel>
       </Flex>
       <Flex>
-        <RowPropertyPanel label="Min Height" minWidth="60px" marginRight="10px">
+        <RowPropertyPanel
+          label="Min Height"
+          minWidth="60px"
+          marginRight="10px"
+          onClear={() => {
+            removeProp(Properties.MinHeight);
+          }}
+        >
           <TextBox
             value={declarations[Properties.MinHeight] || ""}
             onChange={value => {
@@ -49,7 +74,13 @@ export default function Dimension({ declarations, updateProp }: Props) {
             }}
           />
         </RowPropertyPanel>
-        <RowPropertyPanel label="Max Width" minWidth="60px">
+        <RowPropertyPanel
+          label="Max Width"
+          minWidth="60px"
+          onClear={() => {
+            removeProp(Properties.MaxWidth);
+          }}
+        >
           <TextBox
             value={declarations[Properties.MaxWidth] || ""}
             onChange={value => {

@@ -114,13 +114,20 @@ export default class Manager {
     );
   }
 
-  updateActiveBlock(prop: string, value: string) {
+  updateActiveBlock(prop: string, value: string, type: "add" | "remove") {
     if (this.activeBlock && this.inspector) {
-      const updatedCSS = this.inspector.updateProperty(
-        this.activeBlock,
-        prop,
-        value
-      );
+      let updatedCSS = "";
+
+      if (type === "add") {
+        updatedCSS = this.inspector.updateProperty(
+          this.activeBlock,
+          prop,
+          value
+        );
+      } else {
+        updatedCSS = this.inspector.removeProperty(this.activeBlock, prop);
+      }
+
       if (this.activeEditor) {
         const source = this.activeBlock.source;
         const ruleStartPosition = new vscode.Position(
