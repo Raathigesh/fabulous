@@ -57,7 +57,10 @@ export default class Manager {
           activeFileContent,
           editor.selection.active
         );
-        this.panel.webview.postMessage(payload);
+        this.panel.webview.postMessage({
+          type: "activeBlock",
+          payload
+        });
         this.cursorPosion = editor.selection.active;
       }
     }

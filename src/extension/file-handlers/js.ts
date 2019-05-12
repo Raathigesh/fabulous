@@ -1,5 +1,4 @@
 import traverse from "@babel/traverse";
-import generate from "@babel/generator";
 import { parse } from "../parsers/babel";
 import {
   updateProperty,
@@ -53,8 +52,6 @@ export function updateCSSProperty(
       }
     }
   });
-
-  const code = generate(ast).code;
 }
 
 export function getEditableBlocks(content: string) {

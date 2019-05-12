@@ -1,18 +1,18 @@
 import * as vscode from "vscode";
 import ContentProvider from "./ContentProvider";
-import { resolve } from "path";
+import { resolve, join } from "path";
 import Manager from "./Manager";
 
 export function activate(context: vscode.ExtensionContext) {
   const contentProvider = new ContentProvider();
   let currentPanel: vscode.WebviewPanel | undefined = undefined;
 
-  let disposable = vscode.commands.registerCommand("charm.showPanel", () => {
+  let disposable = vscode.commands.registerCommand("fabulous.showPanel", () => {
     if (currentPanel) {
       currentPanel.reveal(vscode.ViewColumn.Two);
     } else {
       currentPanel = vscode.window.createWebviewPanel(
-        "charm",
+        "fabulous",
         "Fabulous",
         vscode.ViewColumn.Two,
         {
@@ -23,9 +23,11 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     currentPanel.webview.html = contentProvider.getContent(context);
+
+    const root = join(context.extensionPath, "icons");
     currentPanel.iconPath = {
-      dark: vscode.Uri.file(resolve("../icons/brush.svg")),
-      light: vscode.Uri.file(resolve("../icons/brush.svg"))
+      dark: vscode.Uri.file(join(root, "icon-light.svg")),
+      light: vscode.Uri.file(join(root, "icon-dark.svg"))
     };
 
     const manager = new Manager(currentPanel);

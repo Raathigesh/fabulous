@@ -27,6 +27,7 @@ import Background from "./knobs/background";
 import BorderRadius from "./knobs/border-radius";
 import { reducer } from "./store";
 import "react-tippy/dist/tippy.css";
+import Empty from "./Empty";
 
 declare var acquireVsCodeApi: any;
 const vscode = acquireVsCodeApi();
@@ -40,7 +41,7 @@ body {
 `;
 
 const InitialState = {
-  declarations: {}
+  declarations: null
 };
 
 export default function App() {
@@ -77,18 +78,27 @@ export default function App() {
   };
 
   useEffect(() => {
-    window.addEventListener("message", message => {
-      dispatch({
-        type: "resetReclarations",
-        payload: message.data
-      });
+    window.addEventListener("message", ({ data }) => {
+      if (data.type === "activeBlock") {
+        dispatch({
+          type: "resetReclarations",
+          payload: data.payload
+        });
+      }
     });
   }, []);
 
   const declarations = state.declarations || {};
-
+  console.log(state.declarations);
   if (state.declarations === null) {
-    return "Select a block";
+    return (
+      <Fragment>
+        <GlobalStyles />
+        <ThemeProvider theme={theme}>
+          <Empty />
+        </ThemeProvider>
+      </Fragment>
+    );
   }
 
   return (
