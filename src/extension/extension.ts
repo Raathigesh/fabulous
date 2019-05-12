@@ -26,8 +26,8 @@ export function activate(context: vscode.ExtensionContext) {
 
     const root = join(context.extensionPath, "icons");
     currentPanel.iconPath = {
-      dark: vscode.Uri.file(join(root, "icon-light.svg")),
-      light: vscode.Uri.file(join(root, "icon-dark.svg"))
+      dark: vscode.Uri.file(join(root, "icon-light.png")),
+      light: vscode.Uri.file(join(root, "icon-dark.png"))
     };
 
     const manager = new Manager(currentPanel);

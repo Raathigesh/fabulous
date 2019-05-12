@@ -24,8 +24,8 @@
         "command": "fabulous.showPanel",
         "title": "Toggle Fabulous panel",
         "icon": {
-          "dark": "./icons/icon-light.svg",
-          "light": "./icons/icon-dark.svg"
+          "dark": "./icons/icon-light.png",
+          "light": "./icons/icon-dark.png"
         }
       }
     ],
