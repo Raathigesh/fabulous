@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Tooltip } from "react-tippy";
 import { borderColor, backgroundColor } from "styled-system";
 import { StyleProps } from "../../types";
 
@@ -32,6 +33,7 @@ const StyledText = styled.input<StyledTextProps>`
 interface Props {
   value: string;
   placeholder?: string;
+  tooltip?: string;
   align?: "right" | "center";
   width?: string;
   topLeft?: string;
@@ -50,9 +52,10 @@ export default function TextBox({
   topRight,
   bottomLeft,
   bottomRight,
+  tooltip,
   onChange
 }: Props) {
-  return (
+  const content = (
     <StyledText
       value={value}
       borderColor="textboxBorder"
@@ -69,4 +72,13 @@ export default function TextBox({
       }}
     />
   );
+
+  if (tooltip) {
+    return (
+      <Tooltip title={tooltip} position="top" size="small">
+        {content}
+      </Tooltip>
+    );
+  }
+  return content;
 }

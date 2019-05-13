@@ -64,6 +64,7 @@ export default function Space({ declarations, updateProp, removeProp }: Props) {
           width="50px"
           placeholder="Top"
           align="center"
+          tooltip="Margin top"
         />
       </Flex>
       <Flex alignItems="center">
@@ -76,6 +77,7 @@ export default function Space({ declarations, updateProp, removeProp }: Props) {
             width="50px"
             placeholder="Left"
             align="center"
+            tooltip="Margin left"
           />
         </Flex>
         <Box>
@@ -88,6 +90,7 @@ export default function Space({ declarations, updateProp, removeProp }: Props) {
               width="50px"
               placeholder="Top"
               align="center"
+              tooltip="Padding top"
             />
           </Flex>
           <Flex justifyContent="space-between">
@@ -99,6 +102,7 @@ export default function Space({ declarations, updateProp, removeProp }: Props) {
               width="50px"
               align="center"
               placeholder="Left"
+              tooltip="Padding left"
             />
             <Flex alignSelf="start">
               <Clear
@@ -116,6 +120,7 @@ export default function Space({ declarations, updateProp, removeProp }: Props) {
               width="50px"
               placeholder="Right"
               align="center"
+              tooltip="Padding right"
             />
           </Flex>
           <Flex justifyContent="center">
@@ -127,6 +132,7 @@ export default function Space({ declarations, updateProp, removeProp }: Props) {
               width="50px"
               placeholder="Bottom"
               align="center"
+              tooltip="Padding bottom"
             />
           </Flex>
         </Box>
@@ -139,6 +145,7 @@ export default function Space({ declarations, updateProp, removeProp }: Props) {
             width="50px"
             placeholder="Right"
             align="center"
+            tooltip="Margin right"
           />
         </Flex>
       </Flex>
@@ -151,6 +158,7 @@ export default function Space({ declarations, updateProp, removeProp }: Props) {
           width="50px"
           placeholder="Bottom"
           align="center"
+          tooltip="Margin bottom"
         />
       </Flex>
       <Flex flex="1" mr="10px" flexDirection="row-reverse" width="100%">

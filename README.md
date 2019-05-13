@@ -1,9 +1,18 @@
-Charm is a VSCode extension which provides a sidebar to make authoring CSS easy.
+<div  align="center">
+<img src="./banner.png" />
+<br />
+</div>
+<br />
 
-Charm supports CSS files and JS/TS files with Styled components.
+Fabulous introduces a CSS properties side-bar into Visual Studio Code. Fabulous supports editing **CSS** files and **styled-components**.
 
-To get started
-1️⃣ Open a CSS File or JS File (If you are using styled-components)
-2️⃣ Click the Brush icon that appears on the right hand coder of the editor
-3️⃣ Charm will appear to right of your active editor
-4️⃣ Place your cursor in a CSS rule and make changes as you wish in Charm
+### Getting started
+
+- Install the "Fabulous" extension in VS Code
+- After opening a `css`, `js`, `jsx` or `tsx` file, click on the <img src="./icons/tiny-icon.png" width="20px" /> icon to toggle the side-bar
+- Place your cursor in a CSS rule or in a Styled component template literal
+- You should see the sidebar controls become active
+
+### Help us make Fabulous better
+
+Have a look at our [contribution guide](./contributing.md).

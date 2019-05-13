@@ -51,6 +51,7 @@ export default function Border({
         mr="10px"
       >
         <BorderToggle
+          tooltip="Border top"
           isActive={activeSide === Sides.Top}
           onClick={() => {
             setActiveSide(Sides.Top);
@@ -60,6 +61,7 @@ export default function Border({
         </BorderToggle>
         <Flex>
           <BorderToggle
+            tooltip="Border right"
             isActive={activeSide === Sides.Right}
             onClick={() => {
               setActiveSide(Sides.Right);
@@ -68,6 +70,7 @@ export default function Border({
             <BorderIcon right={colors.iconActive} />
           </BorderToggle>
           <BorderToggle
+            tooltip="Border all sides"
             isActive={activeSide === Sides.All}
             onClick={() => {
               setActiveSide(Sides.All);
@@ -81,6 +84,7 @@ export default function Border({
             />
           </BorderToggle>
           <BorderToggle
+            tooltip="Border left"
             isActive={activeSide === Sides.Left}
             onClick={() => {
               setActiveSide(Sides.Left);
@@ -90,6 +94,7 @@ export default function Border({
           </BorderToggle>
         </Flex>
         <BorderToggle
+          tooltip="Border bottom"
           isActive={activeSide === Sides.Bottom}
           onClick={() => {
             setActiveSide(Sides.Bottom);

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { themeGet } from "styled-system";
+import { Tooltip } from "react-tippy";
 
 interface ContainerProps {
   isActive: boolean;
@@ -21,13 +22,21 @@ const Container = styled.div<ContainerProps>`
 interface Props {
   children: any;
   isActive: boolean;
+  tooltip: string;
   onClick: () => void;
 }
 
-export default function BorderToggle({ isActive, children, onClick }: Props) {
+export default function BorderToggle({
+  isActive,
+  tooltip,
+  children,
+  onClick
+}: Props) {
   return (
-    <Container isActive={isActive} onClick={onClick}>
-      {children}
-    </Container>
+    <Tooltip title={tooltip} position="top" size="small">
+      <Container isActive={isActive} onClick={onClick}>
+        {children}
+      </Container>
+    </Tooltip>
   );
 }

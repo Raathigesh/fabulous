@@ -62,6 +62,7 @@ export default function BorderRadius({
             }}
             align="right"
             width="50px"
+            tooltip="Top left"
           />
           <TextBox
             topRight="30px"
@@ -70,6 +71,7 @@ export default function BorderRadius({
               handleChange(Sides.TopRight, value);
             }}
             width="50px"
+            tooltip="Top right"
           />
         </Flex>
         <Flex justifyContent="center">
@@ -89,6 +91,7 @@ export default function BorderRadius({
             }}
             align="right"
             width="50px"
+            tooltip="Bottom left"
           />
           <TextBox
             bottomRight="30px"
@@ -97,6 +100,7 @@ export default function BorderRadius({
               handleChange(Sides.BottomRight, value);
             }}
             width="50px"
+            tooltip="Bottom right"
           />
         </Flex>
       </Container>
