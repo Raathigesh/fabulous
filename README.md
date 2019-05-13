@@ -11,12 +11,14 @@ Fabulous supports editing
 - 🎨 CSS rules from `.css` files
 - 💅 Styles in Styled-component's template literal in `.js`, `.jsx` and `.tsx` files
 
+
 ### Getting started
 
 - Install the [Fabulous](https://marketplace.visualstudio.com/items?itemName=Raathigeshan.fabulous) extension in VS Code
-- After opening a `css`, `js`, `jsx` or `tsx` file, click on the <img src="./icons/tiny-icon.png" width="20px" /> icon to toggle the side-bar
+- After opening a `.css`, `.js`, `.jsx` or `.tsx` file, click on the <img src="./icons/tiny-icon.png" width="20px" /> icon to toggle the side-bar
 - Place your cursor in a CSS rule or in a Styled component template literal
 - You should see the sidebar controls become active
+
 
 ### Help us make Fabulous better
 
