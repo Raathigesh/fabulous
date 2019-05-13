@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Raathigesh",
+      "name": "Raathi Kugarajan",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3108160?v=4",
+      "profile": "https://twitter.com/Raathigesh",
+      "contributions": [
+        "ideas",
+        "code",
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "fabulous",
+  "projectOwner": "Raathigesh",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
