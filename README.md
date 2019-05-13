@@ -13,7 +13,7 @@ Fabulous supports editing
 
 ### Getting started
 
-- Install the "Fabulous" extension in VS Code
+- Install the [Fabulous](https://marketplace.visualstudio.com/items?itemName=Raathigeshan.fabulous) extension in VS Code
 - After opening a `css`, `js`, `jsx` or `tsx` file, click on the <img src="./icons/tiny-icon.png" width="20px" /> icon to toggle the side-bar
 - Place your cursor in a CSS rule or in a Styled component template literal
 - You should see the sidebar controls become active

@@ -18,6 +18,10 @@
     "url": "https://github.com/Raathigesh/fabulous.git"
   },
   "icon": "icons/marketplace.png",
+  "galleryBanner": {
+    "color": "#111111",
+    "theme": "dark"
+  },
   "main": "./out/extension/extension.js",
   "contributes": {
     "commands": [
