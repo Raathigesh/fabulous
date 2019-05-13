@@ -4,7 +4,12 @@
 </div>
 <br />
 
-Fabulous introduces a CSS properties side-bar into Visual Studio Code. Fabulous supports editing **CSS** files and **styled-components**.
+Fabulous introduces a CSS properties side-bar into Visual Studio Code.
+
+Fabulous supports editing
+
+- 🎨 CSS rules from `.css` files
+- 💅 Styles in Styled-component's template literal in `.js`, `.jsx` and `.tsx` files
 
 ### Getting started
 
