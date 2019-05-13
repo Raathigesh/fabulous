@@ -140,12 +140,12 @@ export default class Manager {
       if (this.activeEditor) {
         const source = this.activeBlock.source;
         const ruleStartPosition = new vscode.Position(
-          (source && source.start && source.start.line - 1) || 0,
-          (source && source.start && source.start.column - 1) || 0
+          (source && source.start && source.start.line) || 0,
+          (source && source.start && source.start.column) || 0
         );
 
         const ruleEndPosition = new vscode.Position(
-          (source && source.end && source.end.line - 1) || 0,
+          (source && source.end && source.end.line) || 0,
           (source && source.end && source.end.column) || 0
         );
 

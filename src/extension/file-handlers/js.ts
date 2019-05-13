@@ -24,10 +24,22 @@ export function getTaggedTemplateExpressionStrings(ast: any) {
   traverse(ast, {
     TaggedTemplateExpression(path: any) {
       const cssString = path.node.quasi.quasis[0].value.raw;
+      const location = path.node.quasi.loc;
+
       results.push({
         name: path.parent.id.name,
         cssString: wrapWithDummySelector(cssString),
-        location: path.node.quasi.loc
+        location: {
+          start: {
+            column: (location.start && location.start.column) || 0,
+            line: (location.start && location.start.line - 1) || 0
+          },
+          end: {
+            column: (location.end && location.end.column) || 0,
+            line: (location.end && location.end.line - 1) || 0
+          },
+          input: path.node.quasi.loc.input
+        }
       });
     }
   });

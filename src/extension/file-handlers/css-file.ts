@@ -12,10 +12,23 @@ function getCSSRules(cssString: string) {
 
   getRules(cssString).forEach(rule => {
     const declarations = getDeclarations(rule);
+    const location = rule.source;
+    const source = {
+      start: {
+        column: (location && location.start && location.start.column - 1) || 0,
+        line: (location && location.start && location.start.line - 1) || 0
+      },
+      end: {
+        column: (location && location.end && location.end.column) || 0,
+        line: (location && location.end && location.end.line - 1) || 0
+      },
+      input: null as any
+    };
+
     results.push({
       selector: rule.selector,
       declarations,
-      source: rule.source,
+      source,
       rule
     });
   });
