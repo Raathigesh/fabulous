@@ -9,11 +9,12 @@ import { Declaration, NodeSource, Rule } from "postcss";
  * - CSS File handler - Deals with .css files to support CSS editing
  */
 export interface FileHandler {
-  getEdiableBlocks(fileContent: string): EditableBlock[];
+  getEdiableBlocks(fileContent: string, languageId: string): EditableBlock[];
   updateProperty(
     activeBlock: EditableBlock,
     prop: string,
-    value: string
+    value: string,
+    languageId: string
   ): string;
   removeProperty(activeBlock: EditableBlock, prop: string): string;
 }

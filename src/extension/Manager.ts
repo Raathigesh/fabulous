@@ -9,6 +9,7 @@ export default class Manager {
   private activeBlock: EditableBlock | undefined;
   private cursorPosion: vscode.Position | undefined;
   private inspector: FileHandler | undefined;
+  private languageId: string = "";
 
   constructor(panel: vscode.WebviewPanel) {
     this.panel = panel;
@@ -25,6 +26,9 @@ export default class Manager {
       ) {
         this.inspector = StyledComponentsInspector;
         this.activeEditor = activeEditor;
+      }
+      if (activeEditor) {
+        this.languageId = activeEditor.document.languageId;
       }
     });
 
@@ -78,7 +82,10 @@ export default class Manager {
   ) {
     let payload = null;
     if (this.inspector) {
-      const blocks = this.inspector.getEdiableBlocks(activeFileContent);
+      const blocks = this.inspector.getEdiableBlocks(
+        activeFileContent,
+        this.languageId
+      );
       const activeBlock = this.getActiveBlock(cursorPosition, blocks);
 
       this.activeBlock = activeBlock;
@@ -131,7 +138,8 @@ export default class Manager {
         updatedCSS = this.inspector.updateProperty(
           this.activeBlock,
           prop,
-          value
+          value,
+          this.languageId
         );
       } else {
         updatedCSS = this.inspector.removeProperty(this.activeBlock, prop);
@@ -159,7 +167,10 @@ export default class Manager {
           .then(() => {
             if (this.activeEditor && this.cursorPosion && this.inspector) {
               const activeFileContent = this.activeEditor.document.getText();
-              const blocks = this.inspector.getEdiableBlocks(activeFileContent);
+              const blocks = this.inspector.getEdiableBlocks(
+                activeFileContent,
+                this.languageId
+              );
               const activeRule = this.getActiveBlock(this.cursorPosion, blocks);
               this.activeBlock = activeRule;
             }

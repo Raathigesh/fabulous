@@ -50,9 +50,10 @@ export function updateCSSProperty(
   content: string,
   name: string,
   property: string,
-  value: string
+  value: string,
+  languageId: string
 ) {
-  const ast = parse(content);
+  const ast = parse(content, languageId);
   let updatedCssString = "";
 
   traverse(ast, {
@@ -66,8 +67,8 @@ export function updateCSSProperty(
   });
 }
 
-export function getEditableBlocks(content: string) {
-  const ast = parse(content);
+export function getEditableBlocks(content: string, languageId: string) {
+  const ast = parse(content, languageId);
   const styledBlocks = getTaggedTemplateExpressionStrings(ast);
 
   const results: EditableBlock[] = [];
@@ -87,8 +88,8 @@ export function getEditableBlocks(content: string) {
 }
 
 const StyledComponentsInspector: FileHandler = {
-  getEdiableBlocks(fileContent: string) {
-    return getEditableBlocks(fileContent);
+  getEdiableBlocks(fileContent: string, languageId: string) {
+    return getEditableBlocks(fileContent, languageId);
   },
   updateProperty(activeBlock: EditableBlock, prop: string, value: string) {
     let updatedCSS = updateProperty(activeBlock.rule, prop, value);

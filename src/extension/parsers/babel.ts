@@ -1,10 +1,11 @@
 import * as parser from "@babel/parser";
 
-export function parse(code: string) {
-  return parser.parse(code, {
-    // parse in strict mode and allow module declarations
-    sourceType: "module",
+export function parse(code: string, languageId: string) {
+  const isTS = languageId === "typescriptreact";
+  const additionalPlugin = isTS ? "typescript" : "flow";
 
-    plugins: ["jsx"]
+  return parser.parse(code, {
+    sourceType: "module",
+    plugins: ["jsx", "classProperties", additionalPlugin]
   });
 }
