@@ -71,7 +71,9 @@
     "test": "yarn run compile && node ./node_modules/vscode/bin/test",
     "ui": "webpack-dev-server --env.development --config ./webpack.config.js",
     "build-ui": "webpack --env.production --config ./webpack.config.js",
-    "build": "rimraf out && yarn compile && yarn build-ui"
+    "build": "rimraf out && yarn compile && yarn build-ui",
+    "package-ext": "vsce package",
+    "publish-ext": "vsce publish"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

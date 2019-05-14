@@ -1,5 +1,5 @@
 <div  align="center">
-<img src="./banner.png" />
+<img src="https://raw.githubusercontent.com/Raathigesh/fabulous/master/banner.png?token=AAXW2QBA76Z6QULLV3NA6CK43KJJS" />
 <br />
 </div>
 <br />
