@@ -31,7 +31,7 @@ export default function Background({
         }}
       >
         <ColorPicker
-          color={declarations[Properties.BackgroundColor]}
+          color={declarations[Properties.BackgroundColor] || ""}
           onChange={color => {
             updateProp(Properties.BackgroundColor, color);
           }}

@@ -74,7 +74,7 @@ export default function SingleSelect({
   return (
     <Flex flex="1">
       <Select
-        value={options.find(option => option.value === value)}
+        value={options.find(option => option.value === value) || null}
         options={options}
         styles={customStyles}
         isClearable

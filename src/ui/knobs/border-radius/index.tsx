@@ -37,17 +37,19 @@ export default function BorderRadius({
   removeProp
 }: Props) {
   const handleChange = (sideIndex: number, value: string) => {
-    const margin = declarations[Properties.BorderRadius] || "0 0 0 0";
-    const sides = margin.split(" ");
+    const margin = declarations[Properties.BorderRadius] || "";
+    const [top = "", right = "", bottom = "", left = ""] = margin.split(" ");
+    const sides = [top, right, bottom, left];
     sides[sideIndex] = value;
 
     updateProp(Properties.BorderRadius, sides.join(" "));
   };
 
   const getValue = (index: number) => {
-    const margin = declarations[Properties.BorderRadius] || "0 0 0 0";
-    const sides = margin.split(" ");
-    return sides[index];
+    const margin = declarations[Properties.BorderRadius] || "";
+    const [top = "", right = "", bottom = "", left = ""] = margin.split(" ");
+    const sides = [top, right, bottom, left];
+    return sides[index] || "";
   };
 
   return (

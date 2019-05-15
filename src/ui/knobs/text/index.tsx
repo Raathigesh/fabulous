@@ -43,13 +43,13 @@ export default function TextStyles({
         }}
       >
         <TextBox
-          value={declarations[Properties.FontSize]}
+          value={declarations[Properties.FontSize] || ""}
           onChange={value => updateProp(Properties.FontSize, value)}
         />
       </RowPropertyPanel>
       <RowPropertyPanel label="Font weight">
         <SingleSelect
-          value={declarations[Properties.FontWeight]}
+          value={declarations[Properties.FontWeight] || ""}
           onChange={value => updateProp(Properties.FontWeight, value)}
           options={[
             {
@@ -98,7 +98,7 @@ export default function TextStyles({
         }}
       >
         <ColorPicker
-          color={declarations[Properties.FontColor]}
+          color={declarations[Properties.FontColor] || ""}
           onChange={color => {
             updateProp(Properties.FontColor, color);
           }}
@@ -111,7 +111,7 @@ export default function TextStyles({
         }}
       >
         <TextBox
-          value={declarations[Properties.FontFamily]}
+          value={declarations[Properties.FontFamily] || ""}
           onChange={value => updateProp(Properties.FontFamily, value)}
         />
       </RowPropertyPanel>
@@ -144,7 +144,7 @@ export default function TextStyles({
               value: "justify"
             }
           ]}
-          value={declarations[Properties.TextAlign]}
+          value={declarations[Properties.TextAlign] || ""}
           onChange={value => {
             updateProp(Properties.TextAlign, value);
           }}

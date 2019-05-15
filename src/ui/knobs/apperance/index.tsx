@@ -32,7 +32,7 @@ export default function Apperance({
         }}
       >
         <TextBox
-          value={declarations[Properties.Opacity]}
+          value={declarations[Properties.Opacity] || ""}
           onChange={value => {
             updateProp(Properties.Opacity, value);
           }}

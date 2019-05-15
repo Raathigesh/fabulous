@@ -40,7 +40,7 @@ export default function Border({
 
   const activeSidePropertyName = (Properties as any)[activeSide];
   const borderCSSValue = declarations[activeSidePropertyName] || "";
-  const [width, style, color] = borderCSSValue.split(" ");
+  const [width = "", style = "", color = ""] = borderCSSValue.split(" ");
 
   return (
     <Flex>
