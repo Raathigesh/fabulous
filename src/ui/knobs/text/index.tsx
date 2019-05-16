@@ -50,7 +50,13 @@ export default function TextStyles({
       <RowPropertyPanel label="Font weight">
         <SingleSelect
           value={declarations[Properties.FontWeight] || ""}
-          onChange={value => updateProp(Properties.FontWeight, value)}
+          onChange={value => {
+            if (value === null) {
+              removeProp(Properties.FontWeight);
+            } else {
+              updateProp(Properties.FontWeight, value);
+            }
+          }}
           options={[
             {
               value: "100",

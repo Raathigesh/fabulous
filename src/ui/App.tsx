@@ -128,7 +128,11 @@ export default function App() {
             />
           </Section>
           <Section CategoryIcon={Crosshair} label="Position">
-            <Position declarations={declarations} updateProp={updateProperty} />
+            <Position
+              declarations={declarations}
+              updateProp={updateProperty}
+              removeProp={removeProperty}
+            />
           </Section>
           <Section CategoryIcon={Edit2} label="Typography">
             <TextStyles

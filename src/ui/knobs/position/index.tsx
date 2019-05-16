@@ -4,26 +4,35 @@ import TextBox from "../../primitives/text-box";
 import RowPropertyPanel from "../../primitives/row-property-panel";
 import ColorPicker from "../../primitives/color-picker";
 import SingleSelect from "../../primitives/select";
-import { Declarations, UpdateProp } from "../../store";
+import { Declarations, UpdateProp, RemoveProp } from "../../store";
 
 const Container = styled.div``;
 
 interface Props {
   declarations: Declarations;
   updateProp: UpdateProp;
+  removeProp: RemoveProp;
 }
 
 const Properties = {
   Position: "position"
 };
 
-export default function Position({ declarations, updateProp }: Props) {
+export default function Position({
+  declarations,
+  updateProp,
+  removeProp
+}: Props) {
   return (
     <Container>
       <RowPropertyPanel label="Position">
         <SingleSelect
           onChange={value => {
-            updateProp(Properties.Position, value);
+            if (value === null) {
+              removeProp(Properties.Position);
+            } else {
+              updateProp(Properties.Position, value);
+            }
           }}
           value={declarations[Properties.Position] || ""}
           options={[

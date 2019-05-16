@@ -66,7 +66,7 @@ export default function FlexPanel({
         <SingleSelect
           value={declarations[Properties.AlignContent]}
           onChange={value => {
-            if (!value) {
+            if (value === null) {
               removeProp(Properties.AlignContent);
             } else {
               updateProp(Properties.AlignContent, value);
@@ -103,7 +103,13 @@ export default function FlexPanel({
       <RowPropertyPanel label="Align Items">
         <SingleSelect
           value={declarations[Properties.AlignItems]}
-          onChange={value => updateProp(Properties.AlignItems, value)}
+          onChange={value => {
+            if (value === null) {
+              removeProp(Properties.AlignItems);
+            } else {
+              updateProp(Properties.AlignItems, value);
+            }
+          }}
           options={[
             {
               value: "flex-start",
@@ -131,7 +137,13 @@ export default function FlexPanel({
       <RowPropertyPanel label="Align Self">
         <SingleSelect
           value={declarations[Properties.AlignSelf]}
-          onChange={value => updateProp(Properties.AlignSelf, value)}
+          onChange={value => {
+            if (value === null) {
+              removeProp(Properties.AlignSelf);
+            } else {
+              updateProp(Properties.AlignSelf, value);
+            }
+          }}
           options={[
             {
               value: "auto",
@@ -163,7 +175,13 @@ export default function FlexPanel({
       <RowPropertyPanel label="Justify Content">
         <SingleSelect
           value={declarations[Properties.JustifyContent]}
-          onChange={value => updateProp(Properties.JustifyContent, value)}
+          onChange={value => {
+            if (value === null) {
+              removeProp(Properties.JustifyContent);
+            } else {
+              updateProp(Properties.JustifyContent, value);
+            }
+          }}
           options={[
             {
               value: "flex-start",

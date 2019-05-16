@@ -93,7 +93,11 @@ export default function Dimension({
         <SingleSelect
           value={declarations[Properties.Overflow] || ""}
           onChange={value => {
-            updateProp(Properties.Overflow, value);
+            if (value === null) {
+              removeProp(Properties.Overflow);
+            } else {
+              updateProp(Properties.Overflow, value);
+            }
           }}
           options={[
             {

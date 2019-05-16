@@ -41,7 +41,13 @@ export default function Apperance({
       <RowPropertyPanel label="Cursor">
         <SingleSelect
           value={declarations[Properties.Cursor]}
-          onChange={value => updateProp(Properties.Cursor, value)}
+          onChange={value => {
+            if (value === null) {
+              removeProp(Properties.Cursor);
+            } else {
+              updateProp(Properties.Cursor, value);
+            }
+          }}
           options={[
             {
               value: "auto",

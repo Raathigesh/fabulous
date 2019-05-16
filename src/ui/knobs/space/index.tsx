@@ -37,19 +37,125 @@ const Sides = {
 };
 
 export default function Space({ declarations, updateProp, removeProp }: Props) {
-  const handleChange = (property: string, sideIndex: number, value: string) => {
-    const margin = declarations[property] || "";
-    const [top = "", right = "", bottom = "", left = ""] = margin.split(" ");
-    const sides = [top, right, bottom, left];
-    sides[sideIndex] = value;
+  const getValuesForFullProperty = (property: string) => {
+    let top: string = "",
+      right: string = "",
+      bottom: string = "",
+      left: string = "";
 
-    updateProp(property, sides.join(" "));
+    const valueForProperty: string = declarations[property];
+    if (valueForProperty) {
+      const tokens = valueForProperty.trim().split(/\s+/);
+      const tokenLength = tokens.length;
+
+      if (tokenLength === 1) {
+        // all sides are the same value
+        top = tokens[0];
+        right = tokens[0];
+        left = tokens[0];
+        bottom = tokens[0];
+      } else if (tokenLength === 2) {
+        // vertical | horizontal
+        top = tokens[0];
+        bottom = tokens[0];
+        left = tokens[1];
+        right = tokens[1];
+      } else if (tokenLength === 3) {
+        // top | horizontal | bottom
+        top = tokens[0];
+        left = tokens[1];
+        right = tokens[1];
+        bottom = tokens[2];
+      } else if (tokenLength === 4) {
+        // top | right | bottom | left
+        top = tokens[0];
+        right = tokens[1];
+        bottom = tokens[2];
+        left = tokens[3];
+      }
+    }
+    return [top, right, bottom, left];
+  };
+
+  const getSingleValue = (property: string, side: number) => {
+    if (side === 0) {
+      return declarations[`${property}-top`] || "";
+    } else if (side === 1) {
+      return declarations[`${property}-right`] || "";
+    } else if (side === 2) {
+      return declarations[`${property}-bottom`] || "";
+    } else if (side === 3) {
+      return declarations[`${property}-left`] || "";
+    }
+  };
+
+  const handleChange = (property: string, sideIndex: number, value: string) => {
+    const TopProperty = `${property}-top`;
+    const RightProperty = `${property}-right`;
+    const BottomProperty = `${property}-bottom`;
+    const LeftProperty = `${property}-left`;
+
+    const hasShorthand = declarations[property];
+    let propertyName = "";
+    let propertyValue = "";
+
+    const reversedDeclarations = Object.entries(declarations).reverse();
+
+    for (const [prop] of reversedDeclarations) {
+      if (prop === property) {
+        propertyName = prop;
+        const sides = getValuesForFullProperty(property);
+        sides[sideIndex] = value;
+        propertyValue = sides.join(" ");
+        break;
+      } else if (prop === TopProperty && sideIndex === 0) {
+        propertyName = TopProperty;
+        propertyValue = value;
+        break;
+      } else if (prop === RightProperty && sideIndex === 1) {
+        propertyName = RightProperty;
+        propertyValue = value;
+        break;
+      } else if (prop === BottomProperty && sideIndex === 2) {
+        propertyName = BottomProperty;
+        propertyValue = value;
+        break;
+      } else if (prop === LeftProperty && sideIndex === 3) {
+        propertyName = LeftProperty;
+        propertyValue = value;
+        break;
+      }
+    }
+
+    if (propertyName === "") {
+      propertyName = property;
+      const sides = ["0", "0", "0", "0"];
+      sides[sideIndex] = value;
+      propertyValue = sides.join(" ");
+    }
+
+    updateProp(propertyName, propertyValue);
   };
 
   const getValue = (property: string, index: number) => {
-    const margin = declarations[property] || "";
-    const [top = "", right = "", bottom = "", left = ""] = margin.split(" ");
-    const sides = [top, right, bottom, left];
+    const TopProperty = `${property}-top`;
+    const RightProperty = `${property}-right`;
+    const BottomProperty = `${property}-bottom`;
+    const LeftProperty = `${property}-left`;
+    let sides = ["", "", "", ""];
+    Object.entries(declarations).forEach(([prop, value]) => {
+      if (prop === property) {
+        sides = getValuesForFullProperty(property);
+      } else if (prop === TopProperty) {
+        sides = [getSingleValue(property, index), sides[1], sides[2], sides[3]];
+      } else if (prop === RightProperty) {
+        sides = [sides[0], getSingleValue(property, index), sides[2], sides[3]];
+      } else if (prop === BottomProperty) {
+        sides = [sides[0], sides[1], getSingleValue(property, index), sides[3]];
+      } else if (prop === LeftProperty) {
+        sides = [sides[0], sides[1], sides[2], getSingleValue(property, index)];
+      }
+    });
     return sides[index];
   };
 
