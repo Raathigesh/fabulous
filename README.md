@@ -1,5 +1,5 @@
 <div  align="center">
-<img src="./banner.png" />
+<img src="https://affectionate-booth-10a1f4.netlify.com/banner.png" />
 <br />
 </div>
 <br />
@@ -14,7 +14,7 @@ Fabulous supports editing
 ### Getting started
 
 - Install the [Fabulous](https://marketplace.visualstudio.com/items?itemName=Raathigeshan.fabulous) extension in VS Code
-- After opening a `css`, `js`, `jsx` or `tsx` file, click on the <img src="./icons/tiny-icon.png" width="20px" /> icon to toggle the side-bar
+- After opening a `css`, `js`, `jsx` or `tsx` file, click on the <img src="https://affectionate-booth-10a1f4.netlify.com/tiny-icon.png" width="20px" /> icon to toggle the side-bar
 - Place your cursor in a CSS rule or in a Styled component template literal
 - You should see the sidebar controls become active
 
