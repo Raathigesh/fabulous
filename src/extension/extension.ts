@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import ContentProvider from "./ContentProvider";
-import { resolve, join } from "path";
+import { join } from "path";
 import Manager from "./Manager";
 
 export function activate(context: vscode.ExtensionContext) {

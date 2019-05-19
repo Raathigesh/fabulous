@@ -15,7 +15,11 @@ export default class Manager {
     this.panel = panel;
 
     vscode.window.onDidChangeActiveTextEditor(activeEditor => {
-      if (activeEditor && activeEditor.document.languageId === "css") {
+      if (
+        activeEditor &&
+        (activeEditor.document.languageId === "css" ||
+          activeEditor.document.languageId === "scss")
+      ) {
         this.inspector = CSSFileInspector;
         this.activeEditor = activeEditor;
       } else if (
@@ -54,7 +58,8 @@ export default class Manager {
       languageId === "javascript" ||
       languageId === "css" ||
       languageId === "javascriptreact" ||
-      languageId === "typescriptreact"
+      languageId === "typescriptreact" ||
+      languageId === "scss"
     );
   }
 
@@ -100,7 +105,7 @@ export default class Manager {
   }
 
   getActiveBlock(cursorPositon: vscode.Position, blocks: EditableBlock[]) {
-    return blocks.find(({ source }) => {
+    const blocksWithinCursor = blocks.filter(({ source }) => {
       const ruleStartPosition = new vscode.Position(
         (source && source.start && source.start.line) || 0,
         (source && source.start && source.start.column) || 0
@@ -117,6 +122,26 @@ export default class Manager {
         cursorPositon
       );
     });
+
+    if (blocksWithinCursor.length === 1) {
+      return blocksWithinCursor[0];
+    } else {
+      let closestRule = blocksWithinCursor[0];
+      blocksWithinCursor.forEach(rule => {
+        const { source } = rule;
+        const { source: closestBlockSource } = closestRule;
+        if (
+          (closestBlockSource &&
+            closestBlockSource.start &&
+            (closestBlockSource.start.line as any)) <
+          (source && source.start && (source.start.line as any))
+        ) {
+          closestRule = rule;
+        }
+      });
+
+      return closestRule;
+    }
   }
 
   isCursorWithinBlock(

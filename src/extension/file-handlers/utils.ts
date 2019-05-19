@@ -1,8 +1,8 @@
 import * as postcss from "postcss";
-import { Rule, Declaration, NodeSource } from "postcss";
+import { Rule, Declaration } from "postcss";
 import { processWithPlugin } from "../parsers/post-css";
 
-export const getRules = (cssString: string) => {
+export const getRules = (cssString: string, syntax?: postcss.Syntax) => {
   const results: Rule[] = [];
   const DeclarationWalker = postcss.plugin("fabulous-parser", () => {
     return function(root, result) {
@@ -11,7 +11,7 @@ export const getRules = (cssString: string) => {
       });
     };
   });
-  processWithPlugin(cssString, DeclarationWalker);
+  processWithPlugin(cssString, DeclarationWalker, syntax);
   return results;
 };
 

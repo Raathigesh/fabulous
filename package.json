@@ -43,6 +43,12 @@
           "group": "navigation"
         },
         {
+          "when": "resourceLangId == scss",
+          "command": "fabulous.showPanel",
+          "alt": "fabulous.showPanel",
+          "group": "navigation"
+        },
+        {
           "when": "resourceLangId == javascript",
           "command": "fabulous.showPanel",
           "alt": "fabulous.showPanel",
@@ -85,6 +91,8 @@
     "@types/babel-traverse": "^6.25.5",
     "@types/mocha": "^2.2.42",
     "@types/node": "^10.12.21",
+    "@types/react": "^16.8.14",
+    "@types/react-dom": "^16.8.4",
     "@types/react-select": "^2.0.17",
     "@types/rebass": "^3.0.3",
     "@types/styled-components": "4.1.10",
@@ -103,19 +111,18 @@
     "react-tippy": "^1.2.3",
     "rimraf": "^2.6.3",
     "style-loader": "^0.23.1",
+    "styled-components": "^4.2.0",
+    "styled-system": "^4.1.0",
     "typescript": "3.3.4000",
     "vscode": "^1.1.28",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
-    "webpack-dev-server": "^3.3.1",
-    "@types/react": "^16.8.14",
-    "@types/react-dom": "^16.8.4",
-    "styled-components": "^4.2.0",
-    "styled-system": "^4.1.0"
+    "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
     "@babel/traverse": "^7.4.3",
     "postcss": "^7.0.14",
+    "postcss-scss": "^2.0.0",
     "rebass": "^3.1.0"
   }
 }

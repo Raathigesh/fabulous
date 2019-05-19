@@ -1,4 +1,4 @@
-import * as postcss from "postcss";
+import * as postcssScss from "postcss-scss";
 import {
   getDeclarations,
   getRules,
@@ -7,10 +7,11 @@ import {
 } from "./utils";
 import { FileHandler, EditableBlock } from "./types";
 
-function getCSSRules(cssString: string) {
+function getCSSRules(cssString: string, languageId: string) {
   const results: EditableBlock[] = [];
+  const syntax = languageId === "scss" ? postcssScss : undefined;
 
-  getRules(cssString).forEach(rule => {
+  getRules(cssString, syntax).forEach(rule => {
     const declarations = getDeclarations(rule);
     const location = rule.source;
     const source = {
@@ -36,8 +37,8 @@ function getCSSRules(cssString: string) {
 }
 
 const CSSFileInspector: FileHandler = {
-  getEdiableBlocks(fileContent: string) {
-    return getCSSRules(fileContent);
+  getEdiableBlocks(fileContent: string, languageId: string) {
+    return getCSSRules(fileContent, languageId);
   },
   updateProperty(activeBlock: EditableBlock, prop: string, value: string) {
     return updateProperty(activeBlock.rule, prop, value);
