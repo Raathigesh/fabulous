@@ -7,7 +7,6 @@ export default class Manager {
   private activeEditor: vscode.TextEditor | undefined;
   private panel: vscode.WebviewPanel;
   private activeBlock: EditableBlock | undefined;
-  private cursorPosion: vscode.Position | undefined;
   private inspector: FileHandler | undefined;
   private languageId: string = "";
 
@@ -22,6 +21,7 @@ export default class Manager {
       ) {
         this.inspector = CSSFileInspector;
         this.activeEditor = activeEditor;
+        this.languageId = activeEditor.document.languageId;
       } else if (
         activeEditor &&
         (activeEditor.document.languageId === "javascript" ||
@@ -30,8 +30,6 @@ export default class Manager {
       ) {
         this.inspector = StyledComponentsInspector;
         this.activeEditor = activeEditor;
-      }
-      if (activeEditor) {
         this.languageId = activeEditor.document.languageId;
       }
     });
@@ -66,18 +64,14 @@ export default class Manager {
   parseFromActiveEditor() {
     if (this.activeEditor) {
       const activeFileContent = this.activeEditor.document.getText();
-      const editor = vscode.window.activeTextEditor;
-      if (editor) {
-        const payload = this.getPayloadForBlock(
-          activeFileContent,
-          editor.selection.active
-        );
-        this.panel.webview.postMessage({
-          type: "activeBlock",
-          payload
-        });
-        this.cursorPosion = editor.selection.active;
-      }
+      const payload = this.getPayloadForBlock(
+        activeFileContent,
+        this.activeEditor.selection.active
+      );
+      this.panel.webview.postMessage({
+        type: "activeBlock",
+        payload
+      });
     }
   }
 
@@ -190,13 +184,16 @@ export default class Manager {
             );
           })
           .then(() => {
-            if (this.activeEditor && this.cursorPosion && this.inspector) {
+            if (this.activeEditor && this.inspector) {
               const activeFileContent = this.activeEditor.document.getText();
               const blocks = this.inspector.getEdiableBlocks(
                 activeFileContent,
                 this.languageId
               );
-              const activeRule = this.getActiveBlock(this.cursorPosion, blocks);
+              const activeRule = this.getActiveBlock(
+                this.activeEditor.selection.active,
+                blocks
+              );
               this.activeBlock = activeRule;
             }
           });

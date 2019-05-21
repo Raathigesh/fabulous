@@ -16,6 +16,8 @@ const Properties = {
   Height: "height",
   Width: "width",
   MinHeight: "min-height",
+  MaxHeight: "max-height",
+  MinWidth: "min-width",
   MaxWidth: "max-width",
   Overflow: "overflow"
 };
@@ -71,6 +73,37 @@ export default function Dimension({
             value={declarations[Properties.MinHeight] || ""}
             onChange={value => {
               updateProp(Properties.MinHeight, value);
+            }}
+          />
+        </RowPropertyPanel>
+        <RowPropertyPanel
+          label="Max Height"
+          minWidth="60px"
+          onClear={() => {
+            removeProp(Properties.MaxHeight);
+          }}
+        >
+          <TextBox
+            value={declarations[Properties.MaxHeight] || ""}
+            onChange={value => {
+              updateProp(Properties.MaxHeight, value);
+            }}
+          />
+        </RowPropertyPanel>
+      </Flex>
+      <Flex>
+        <RowPropertyPanel
+          label="Min Width"
+          minWidth="60px"
+          marginRight="10px"
+          onClear={() => {
+            removeProp(Properties.MinWidth);
+          }}
+        >
+          <TextBox
+            value={declarations[Properties.MinWidth] || ""}
+            onChange={value => {
+              updateProp(Properties.MinWidth, value);
             }}
           />
         </RowPropertyPanel>

@@ -35,6 +35,7 @@ const vscode = acquireVsCodeApi();
 const GlobalStyles = createGlobalStyle`
 body {
   background-color: ${Theme.colors.background};
+  color: ${Theme.colors.textColor};
   height: 100vh;
   padding: 0px;
 }
