@@ -98,6 +98,7 @@
     "@types/rebass": "^3.0.3",
     "@types/styled-components": "4.1.10",
     "@types/styled-system": "^4.1.1",
+    "all-contributors-cli": "^6.6.1",
     "babel-loader": "^8.0.5",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
