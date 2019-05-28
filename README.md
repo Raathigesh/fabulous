@@ -6,13 +6,13 @@
 
 Fabulous introduces a CSS properties sidebar into Visual Studio Code.
 
-Fabulous supports editing
+Fabulous supports the followings
 
-- 💅 Styled-component's template literal from `.js`, `.jsx` and `.tsx` files
+- 💅 CSS-in-JS libs which supports template literal ([styled-components](https://github.com/styled-components/styled-components), [emotion](https://github.com/emotion-js/emotion), [linaria](https://github.com/callstack/linaria))
 - 🎨 CSS rules from `.css` files
 - 🌈 CSS rules from `.scss` files
 
-> Fabulous is stil in Preview. Give it a try let us know when things don't go really well.
+> Fabulous is stil in Preview. Give it a try let us know when things don't go well.
 
 ### Getting started
 
