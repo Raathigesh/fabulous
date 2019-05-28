@@ -4,6 +4,7 @@ import RowPropertyPanel from "../../../primitives/row-property-panel";
 import ButtonGroup from "../../../primitives/button-group";
 import SingleSelect from "../../../primitives/select";
 import { UpdateProp, Declarations, RemoveProp } from "../../../store";
+import TextBox from "../../../primitives/text-box";
 
 interface Props {
   declarations: Declarations;
@@ -16,7 +17,9 @@ const Properties = {
   AlignContent: "align-content",
   AlignItems: "align-items",
   AlignSelf: "align-self",
-  JustifyContent: "justify-content"
+  JustifyContent: "justify-content",
+  FlexGrow: "flex-grow",
+  FlexShrink: "flex-shrink"
 };
 
 export default function FlexPanel({
@@ -204,6 +207,34 @@ export default function FlexPanel({
               label: "space-around"
             }
           ]}
+        />
+      </RowPropertyPanel>
+      <RowPropertyPanel
+        label="Flex grow"
+        onClear={() => {
+          removeProp(Properties.FlexGrow);
+        }}
+      >
+        <TextBox
+          value={declarations[Properties.FlexGrow]}
+          onChange={value => {
+            updateProp(Properties.FlexGrow, value);
+          }}
+          placeholder="Flex grow"
+        />
+      </RowPropertyPanel>
+      <RowPropertyPanel
+        label="Flex shrink"
+        onClear={() => {
+          removeProp(Properties.FlexShrink);
+        }}
+      >
+        <TextBox
+          value={declarations[Properties.FlexShrink]}
+          onChange={value => {
+            updateProp(Properties.FlexShrink, value);
+          }}
+          placeholder="Flex shrink"
         />
       </RowPropertyPanel>
     </Flex>
