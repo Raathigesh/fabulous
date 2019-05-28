@@ -12,7 +12,7 @@ Fabulous supports the followings
 - 🎨 CSS rules from `.css` files
 - 🌈 CSS rules from `.scss` files
 
-> Fabulous is stil in Preview. Give it a try let us know when things don't go well.
+> Fabulous is stil in Preview. Give it a try and [let us know](https://github.com/Raathigesh/fabulous/issues) when things don't go well.
 
 ## Getting started
 
