@@ -3,7 +3,7 @@
   "displayName": "Fabulous",
   "description": "CSS editor",
   "publisher": "raathigeshan",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -22,6 +22,7 @@
     "color": "#111111",
     "theme": "dark"
   },
+  "preview": true,
   "main": "./out/extension/extension.js",
   "contributes": {
     "commands": [
