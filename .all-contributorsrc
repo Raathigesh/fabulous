@@ -15,6 +15,15 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "threepointone",
+      "name": "Sunil Pai",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/18808?v=4",
+      "profile": "https://github.com/threepointone",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
