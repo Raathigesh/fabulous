@@ -17,7 +17,8 @@ export default class Manager {
       if (
         activeEditor &&
         (activeEditor.document.languageId === "css" ||
-          activeEditor.document.languageId === "scss")
+          activeEditor.document.languageId === "scss" ||
+          activeEditor.document.languageId === "postcss")
       ) {
         this.inspector = CSSFileInspector;
         this.activeEditor = activeEditor;
@@ -57,7 +58,8 @@ export default class Manager {
       languageId === "css" ||
       languageId === "javascriptreact" ||
       languageId === "typescriptreact" ||
-      languageId === "scss"
+      languageId === "scss" ||
+      languageId === "postcss"
     );
   }
 

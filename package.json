@@ -66,6 +66,12 @@
           "command": "fabulous.showPanel",
           "alt": "fabulous.showPanel",
           "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == postcss",
+          "command": "fabulous.showPanel",
+          "alt": "fabulous.showPanel",
+          "group": "navigation"
         }
       ]
     }
