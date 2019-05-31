@@ -9,7 +9,6 @@ import {
 import { FileHandler, EditableBlock, StyleExpressions } from "./types";
 import console = require("console");
 
-
 export function getClassDeclarationStrings(ast: any) {
   const results: StyleExpressions[] = [];
   traverse(ast, {
@@ -89,14 +88,21 @@ export function getEditableBlocks(content: string, languageId: string) {
       const declarations = getDeclarations(rule);
 
       // Get accurate overall locations based on total document and rule within styles string
-      const locStart = location.start ? location.start : {column: 0, line: 0};
-      const sourceStart = rule.source && rule.source.start || {column: 0, line: 0};
-      const sourceEnd = rule.source && rule.source.end || {column: 0, line: 0};
+      const locStart = location.start ? location.start : { column: 0, line: 0 };
+      const sourceStart = (rule.source && rule.source.start) || {
+        column: 0,
+        line: 0
+      };
+      const sourceEnd = (rule.source && rule.source.end) || {
+        column: 0,
+        line: 0
+      };
 
       const startLine = locStart.line + sourceStart.line - 1;
       const endLine = startLine + sourceEnd.line - sourceStart.line;
       // If ` is on the same line as the CSS tag, then the start column should be the actual column
-      let startColumn = sourceStart.line === 1 ? locStart.column : sourceStart.column - 1;
+      let startColumn =
+        sourceStart.line === 1 ? locStart.column : sourceStart.column - 1;
 
       results.push({
         selector: rule.selector,
@@ -110,7 +116,7 @@ export function getEditableBlocks(content: string, languageId: string) {
             column: sourceEnd.column,
             line: endLine
           },
-          input: (rule.source as any).input,
+          input: (rule.source as any).input
         },
         rule
       });
@@ -120,7 +126,7 @@ export function getEditableBlocks(content: string, languageId: string) {
 }
 
 const DecoratedClassComponentsInspector: FileHandler = {
-  getEdiableBlocks(fileContent: string, languageId: string) {
+  getEditableBlocks(fileContent: string, languageId: string) {
     return getEditableBlocks(fileContent, languageId);
   },
   updateProperty(activeBlock: EditableBlock, prop: string, value: string) {

@@ -37,7 +37,7 @@ function getCSSRules(cssString: string, languageId: string) {
 }
 
 const CSSFileInspector: FileHandler = {
-  getEdiableBlocks(fileContent: string, languageId: string) {
+  getEditableBlocks(fileContent: string, languageId: string) {
     return getCSSRules(fileContent, languageId);
   },
   updateProperty(activeBlock: EditableBlock, prop: string, value: string) {

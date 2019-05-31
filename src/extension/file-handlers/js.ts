@@ -81,7 +81,7 @@ export function getEditableBlocks(content: string, languageId: string) {
 }
 
 const StyledComponentsInspector: FileHandler = {
-  getEdiableBlocks(fileContent: string, languageId: string) {
+  getEditableBlocks(fileContent: string, languageId: string) {
     return getEditableBlocks(fileContent, languageId);
   },
   updateProperty(activeBlock: EditableBlock, prop: string, value: string) {

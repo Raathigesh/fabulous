@@ -15,7 +15,9 @@ export default class Manager {
     this.panel = panel;
 
     vscode.window.onDidChangeActiveTextEditor(activeEditor => {
-      const languageId = activeEditor ? activeEditor.document.languageId : undefined;
+      const languageId = activeEditor
+        ? activeEditor.document.languageId
+        : undefined;
       if (
         languageId === "css" ||
         languageId === "scss" ||
@@ -24,7 +26,6 @@ export default class Manager {
         this.inspector = CSSFileInspector;
         this.activeEditor = activeEditor;
         this.languageId = languageId;
-
       } else if (
         languageId === "javascript" ||
         languageId === "javascriptreact" ||
@@ -33,7 +34,6 @@ export default class Manager {
         this.inspector = StyledComponentsInspector;
         this.activeEditor = activeEditor;
         this.languageId = languageId;
-
       } else if (languageId === "typescript") {
         this.inspector = DecoratedClassComponentsInspector;
         this.activeEditor = activeEditor;
@@ -90,7 +90,7 @@ export default class Manager {
   ) {
     let payload = null;
     if (this.inspector) {
-      const blocks = this.inspector.getEdiableBlocks(
+      const blocks = this.inspector.getEditableBlocks(
         activeFileContent,
         this.languageId
       );
@@ -195,7 +195,7 @@ export default class Manager {
           .then(() => {
             if (this.activeEditor && this.inspector) {
               const activeFileContent = this.activeEditor.document.getText();
-              const blocks = this.inspector.getEdiableBlocks(
+              const blocks = this.inspector.getEditableBlocks(
                 activeFileContent,
                 this.languageId
               );
