@@ -6,21 +6,14 @@ import {
   getRules,
   removeProperty
 } from "./utils";
-import { FileHandler, EditableBlock } from "./types";
-import { NodeSource } from "postcss";
-
-interface StyleExpresions {
-  name: string;
-  cssString: string;
-  location: NodeSource;
-}
+import { FileHandler, EditableBlock, StyleExpressions } from "./types";
 
 function wrapWithDummySelector(declaraions: string) {
   return `.dummy{${declaraions}}`;
 }
 
 export function getTaggedTemplateExpressionStrings(ast: any) {
-  const results: StyleExpresions[] = [];
+  const results: StyleExpressions[] = [];
   traverse(ast, {
     TaggedTemplateExpression(path: any) {
       const cssString = path.node.quasi.quasis[0].value.raw;

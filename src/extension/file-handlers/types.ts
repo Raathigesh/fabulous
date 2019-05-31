@@ -38,3 +38,10 @@ export interface EditableBlock {
   source?: NodeSource;
   rule: Rule;
 }
+
+export interface StyleExpressions {
+  name: string;
+  cssString: string;
+  location: NodeSource;
+}
+
