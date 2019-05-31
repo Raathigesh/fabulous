@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { FileHandler, EditableBlock } from "./file-handlers/types";
 import CSSFileInspector from "./file-handlers/css-file";
 import StyledComponentsInspector from "./file-handlers/js";
+import DecoratedClassComponentsInspector from "./file-handlers/ts";
 
 export default class Manager {
   private activeEditor: vscode.TextEditor | undefined;
@@ -14,24 +15,29 @@ export default class Manager {
     this.panel = panel;
 
     vscode.window.onDidChangeActiveTextEditor(activeEditor => {
+      const languageId = activeEditor
+        ? activeEditor.document.languageId
+        : undefined;
       if (
-        activeEditor &&
-        (activeEditor.document.languageId === "css" ||
-          activeEditor.document.languageId === "scss" ||
-          activeEditor.document.languageId === "postcss")
+        languageId === "css" ||
+        languageId === "scss" ||
+        languageId === "postcss"
       ) {
         this.inspector = CSSFileInspector;
         this.activeEditor = activeEditor;
-        this.languageId = activeEditor.document.languageId;
+        this.languageId = languageId;
       } else if (
-        activeEditor &&
-        (activeEditor.document.languageId === "javascript" ||
-          activeEditor.document.languageId === "javascriptreact" ||
-          activeEditor.document.languageId === "typescriptreact")
+        languageId === "javascript" ||
+        languageId === "javascriptreact" ||
+        languageId === "typescriptreact"
       ) {
         this.inspector = StyledComponentsInspector;
         this.activeEditor = activeEditor;
-        this.languageId = activeEditor.document.languageId;
+        this.languageId = languageId;
+      } else if (languageId === "typescript") {
+        this.inspector = DecoratedClassComponentsInspector;
+        this.activeEditor = activeEditor;
+        this.languageId = languageId;
       }
     });
 
@@ -54,12 +60,13 @@ export default class Manager {
 
   isAcceptableLaguage(languageId: string) {
     return (
-      languageId === "javascript" ||
       languageId === "css" ||
-      languageId === "javascriptreact" ||
-      languageId === "typescriptreact" ||
       languageId === "scss" ||
-      languageId === "postcss"
+      languageId === "postcss" ||
+      languageId === "javascript" ||
+      languageId === "typescript" ||
+      languageId === "javascriptreact" ||
+      languageId === "typescriptreact"
     );
   }
 
@@ -83,7 +90,7 @@ export default class Manager {
   ) {
     let payload = null;
     if (this.inspector) {
-      const blocks = this.inspector.getEdiableBlocks(
+      const blocks = this.inspector.getEditableBlocks(
         activeFileContent,
         this.languageId
       );
@@ -188,7 +195,7 @@ export default class Manager {
           .then(() => {
             if (this.activeEditor && this.inspector) {
               const activeFileContent = this.activeEditor.document.getText();
-              const blocks = this.inspector.getEdiableBlocks(
+              const blocks = this.inspector.getEditableBlocks(
                 activeFileContent,
                 this.languageId
               );

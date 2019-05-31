@@ -9,7 +9,7 @@ import { Declaration, NodeSource, Rule } from "postcss";
  * - CSS File handler - Deals with .css files to support CSS editing
  */
 export interface FileHandler {
-  getEdiableBlocks(fileContent: string, languageId: string): EditableBlock[];
+  getEditableBlocks(fileContent: string, languageId: string): EditableBlock[];
   updateProperty(
     activeBlock: EditableBlock,
     prop: string,
@@ -37,4 +37,10 @@ export interface EditableBlock {
   declarations: Declaration[];
   source?: NodeSource;
   rule: Rule;
+}
+
+export interface StyleExpressions {
+  name: string;
+  cssString: string;
+  location: NodeSource;
 }

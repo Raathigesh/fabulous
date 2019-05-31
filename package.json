@@ -56,6 +56,12 @@
           "group": "navigation"
         },
         {
+          "when": "resourceLangId == typescript",
+          "command": "fabulous.showPanel",
+          "alt": "fabulous.showPanel",
+          "group": "navigation"
+        },
+        {
           "when": "resourceLangId == javascriptreact",
           "command": "fabulous.showPanel",
           "alt": "fabulous.showPanel",
