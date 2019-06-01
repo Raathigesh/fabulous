@@ -7,11 +7,12 @@ import HtmlInspector from "./file-handlers/html";
 import { isAngularComponentRegex } from "./file-handlers/utils";
 
 export default class Manager {
-  private activeEditor: vscode.TextEditor | undefined;
-  private panel: vscode.WebviewPanel;
-  private activeBlock: EditableBlock | undefined;
-  private inspector: FileHandler | undefined;
-  private languageId: string = "";
+  // These are protected to allow unit test access because manager is extended
+  protected activeEditor: vscode.TextEditor | undefined;
+  protected panel: vscode.WebviewPanel;
+  protected activeBlock: EditableBlock | undefined;
+  protected inspector: FileHandler | undefined;
+  protected languageId: string = "";
 
   constructor(panel: vscode.WebviewPanel) {
     this.panel = panel;
@@ -69,7 +70,7 @@ export default class Manager {
     });
   }
 
-  isAcceptableLaguage(languageId: string) {
+  isAcceptableLaguage(languageId: string): boolean {
     return (
       languageId === "html" ||
       languageId === "css" ||
@@ -84,7 +85,7 @@ export default class Manager {
     );
   }
 
-  parseFromActiveEditor() {
+  parseFromActiveEditor(): void {
     if (this.activeEditor) {
       const activeFileContent = this.activeEditor.document.getText();
       const payload = this.getPayloadForBlock(
@@ -172,7 +173,7 @@ export default class Manager {
     );
   }
 
-  updateActiveBlock(prop: string, value: string, type: "add" | "remove") {
+  async updateActiveBlock(prop: string, value: string, type: "add" | "remove") {
     if (this.activeBlock && this.inspector) {
       let updatedCSS = "";
 
@@ -199,27 +200,24 @@ export default class Manager {
           (source && source.end && source.end.column) || 0
         );
 
-        this.activeEditor
-          .edit(editBuilder => {
-            editBuilder.replace(
-              new vscode.Range(ruleStartPosition, ruleEndPosition),
-              updatedCSS
-            );
-          })
-          .then(() => {
-            if (this.activeEditor && this.inspector) {
-              const activeFileContent = this.activeEditor.document.getText();
-              const blocks = this.inspector.getEditableBlocks(
-                activeFileContent,
-                this.languageId
-              );
-              const activeRule = this.getActiveBlock(
-                this.activeEditor.selection.active,
-                blocks
-              );
-              this.activeBlock = activeRule;
-            }
-          });
+        await this.activeEditor.edit(editBuilder => {
+          editBuilder.replace(
+            new vscode.Range(ruleStartPosition, ruleEndPosition),
+            updatedCSS
+          );
+        });
+        if (this.activeEditor && this.inspector) {
+          const activeFileContent = this.activeEditor.document.getText();
+          const blocks = this.inspector.getEditableBlocks(
+            activeFileContent,
+            this.languageId
+          );
+          const activeRule = this.getActiveBlock(
+            this.activeEditor.selection.active,
+            blocks
+          );
+          this.activeBlock = activeRule;
+        }
       }
     }
   }

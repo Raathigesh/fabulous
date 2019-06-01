@@ -154,6 +154,7 @@
   },
   "dependencies": {
     "@babel/traverse": "^7.4.3",
+    "mocha-typescript": "^1.1.17",
     "parse5": "^5.1.0",
     "postcss": "^7.0.14",
     "postcss-scss": "^2.0.0",
