@@ -12,6 +12,10 @@ export interface TestCaseSetup {
   modificationIntegrityTestCases: ModificationIntegrityTestCase[];
 }
 
+export interface Description {
+  description?: string;
+}
+
 export interface LineCol {
   line: number;
   column: number;
@@ -27,10 +31,11 @@ export interface Expected {
   expected: any;
 }
 
-export type ParseFileTestCase = LineCol & Expected;
-export type ModifyCSSTestCase = LineCol & PropValType & Expected;
+export type ParseFileTestCase = Description & LineCol & Expected;
+export type ModifyCSSTestCase = Description & LineCol & PropValType & Expected;
 
 export interface ModificationIntegrityTestCase {
+  description?: string;
   transformations: (LineCol & PropValType)[];
   inputCssString: string;
   outputCssString: string;

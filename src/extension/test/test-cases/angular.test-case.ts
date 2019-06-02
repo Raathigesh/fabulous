@@ -47,6 +47,7 @@ testCases.removeCssTestCases = [
 // prettier-ignore
 testCases.modificationIntegrityTestCases = [
   {
+    description: 'Test adding properties',
     // The order of these is important because it could change the line numbers based on operation
     transformations: [
       { line: 18, column: 21, prop: 'font-size', value: '1.5em', type: 'add' },
@@ -114,6 +115,7 @@ export class AppComponent {
 `,
   },
   {
+    description: 'Test adding and removing properties',
     // The order of these is important because it could change the line numbers based on operation
     transformations: [
       { line: 18, column: 21, prop: 'font-size', value: '1.5em', type: 'add' },
@@ -181,6 +183,7 @@ export class AppComponent {
 `,
   },
   {
+    description: 'Test removing properties',
     // The order of these is important because it could change the line numbers based on operation
     transformations: [
       { line: 18, column: 21, prop: 'padding', value: '', type: 'remove' },
@@ -234,6 +237,64 @@ function Component(target: any) {
       .section {
       }
     \`
+  ]
+})
+export class AppComponent {
+  title = 'fabulous-test';
+}
+`,
+  },
+  {
+    description: 'Test modifying properties that start and end on same line as \`',
+    // The order of these is important because it could change the line numbers based on operation
+    transformations: [
+      { line: 16, column: 21, prop: 'padding', value: '', type: 'remove' },
+      { line: 16, column: 21, prop: 'background', value: '', type: 'remove' },
+      { line: 10, column: 25, prop: 'background', value: 'papayawhip', type: 'add' },
+      { line: 10, column: 25, prop: 'font-size', value: '', type: 'remove' },
+      { line: 10, column: 25, prop: 'text-align', value: '', type: 'remove' },
+      { line: 10, column: 25, prop: 'color', value: '', type: 'remove' },
+    ],
+    inputCssString: `
+// Mocked decorator to allow typescript to compile
+function Component(target: any) {
+  return function(target: any) {};
+}
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styles: [\`.h1 {
+        font-size: 1.5em;
+        text-align: center;
+        color: palevioletred;
+      }
+
+      .section {
+        padding: 4em;
+        background: papayawhip;
+      }\`
+  ]
+})
+export class AppComponent {
+  title = 'fabulous-test';
+}
+`,
+    outputCssString: `
+// Mocked decorator to allow typescript to compile
+function Component(target: any) {
+  return function(target: any) {};
+}
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styles: [\`.h1 {
+        background: papayawhip;
+      }
+
+      .section {
+      }\`
   ]
 })
 export class AppComponent {

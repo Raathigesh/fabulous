@@ -47,6 +47,7 @@ testCases.removeCssTestCases = [
 // prettier-ignore
 testCases.modificationIntegrityTestCases = [
   {
+    description: 'Test adding properties',
     // The order of these is important because it could change the line numbers based on operation
     transformations: [
       { line: 9, column: 17, prop: 'font-size', value: '1.5em', type: 'add' },
@@ -90,6 +91,7 @@ testCases.modificationIntegrityTestCases = [
 `,
   },
   {
+    description: 'Test adding and removing properties',
     // The order of these is important because it could change the line numbers based on operation
     transformations: [
       { line: 8, column: 10, prop: 'font-size', value: '1.5em', type: 'add' },
@@ -128,6 +130,46 @@ testCases.modificationIntegrityTestCases = [
     color: palevioletred;
   }
 </style>
+
+<p>Styled!</p>
+`,
+  },
+  {
+    description: 'Test CSS tag starting and ending on same line as <style>',
+    // The order of these is important because it could change the line numbers based on operation
+    transformations: [
+      { line: 8, column: 10, prop: 'font-size', value: '1.5em', type: 'add' },
+      { line: 8, column: 10, prop: 'text-align', value: 'center', type: 'add' },
+      { line: 8, column: 10, prop: 'color', value: 'palevioletred', type: 'add' },
+      { line: 2, column: 15, prop: 'font-size', value: '', type: 'remove' },
+      { line: 2, column: 15, prop: 'text-align', value: '', type: 'remove' },
+      { line: 2, column: 15, prop: 'color', value: '', type: 'remove' },
+    ],
+    inputCssString: `
+<style>.button {
+    font-size: 1.5em;
+    text-align: center;
+    color: palevioletred;
+  }
+
+  .buttonClose {
+    padding: 4em;
+    background: papayawhip;
+  }</style>
+
+<p>Styled!</p>
+`,
+    outputCssString: `
+<style>.button {
+  }
+
+  .buttonClose {
+    padding: 3em;
+    background: papayawhip;
+    font-size: 1.5em;
+    text-align: center;
+    color: palevioletred;
+  }</style>
 
 <p>Styled!</p>
 `,

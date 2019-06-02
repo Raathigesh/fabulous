@@ -47,6 +47,7 @@ testCases.removeCssTestCases = [
 // prettier-ignore
 testCases.modificationIntegrityTestCases = [
   {
+    description: 'Test adding properties',
     // The order of these is important because it could change the line numbers based on operation
     transformations: [
       { line: 11, column: 21, prop: 'font-size', value: '1.5em', type: 'add' },
@@ -94,6 +95,7 @@ testCases.modificationIntegrityTestCases = [
 `,
   },
   {
+    description: 'Test adding and removing properties',
     // The order of these is important because it could change the line numbers based on operation
     transformations: [
       { line: 10, column: 15, prop: 'font-size', value: '1.5em', type: 'add' },
@@ -138,6 +140,50 @@ testCases.modificationIntegrityTestCases = [
     </style>
   </head>
 </html>
+`,
+  },
+  {
+    description: 'Test CSS tag starting and ending on same line as <style>',
+    // The order of these is important because it could change the line numbers based on operation
+    transformations: [
+      { line: 10, column: 15, prop: 'font-size', value: '3em', type: 'add' },
+      { line: 10, column: 15, prop: 'text-align', value: 'left', type: 'add' },
+      { line: 10, column: 15, prop: 'padding', value: '3em', type: 'add' },
+      { line: 4, column: 15, prop: 'color', value: 'yellow', type: 'add' },
+      { line: 4, column: 15, prop: 'text-align', value: '', type: 'remove' },
+      { line: 4, column: 15, prop: 'font-size', value: '', type: 'remove' },
+    ],
+    inputCssString: `
+<html>
+  <head>
+    <style>.button {
+        font-size: 1.5em;
+        text-align: center;
+        color: palevioletred;
+      }
+
+      .buttonClose {
+        padding: 4em;
+        background: papayawhip;
+      }</style>
+  </head>
+</html>
+`,
+    outputCssString: `
+<html>
+    <head>
+      <style>.button {
+          color: yellow;
+        }
+  
+        .buttonClose {
+          padding: 3em;
+          background: papayawhip;
+          font-size: 3em;
+          text-align: center;
+        }</style>
+    </head>
+  </html>
 `,
   },
 ];

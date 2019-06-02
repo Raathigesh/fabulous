@@ -79,7 +79,7 @@ for (const testCaseSetup of allTestCases) {
         for (const testCase of testCases.parseTestCases) {
           let payload = this.getPayloadForBlock(text, getCursorPositionPosition(testCase.line, testCase.column));
 
-          expect(payload).to.deep.equal(testCase.expected, `Test case ${i} failed`);
+          expect(payload).to.deep.equal(testCase.expected, `Test case ${i} failed. ${testCase.description}`);
 
           i++;
         }
@@ -102,7 +102,7 @@ for (const testCaseSetup of allTestCases) {
             getCursorPositionPosition(testCase.line, testCase.column)
           );
 
-          expect(payload).to.deep.equal(testCase.expected, `Test case ${i} failed`);
+          expect(payload).to.deep.equal(testCase.expected, `Test case ${i} failed. ${testCase.description}`);
 
           i++;
         }
@@ -125,7 +125,7 @@ for (const testCaseSetup of allTestCases) {
             getCursorPositionPosition(testCase.line, testCase.column)
           );
 
-          expect(payload).to.deep.equal(testCase.expected, `Test case ${i} failed`);
+          expect(payload).to.deep.equal(testCase.expected, `Test case ${i} failed. ${testCase.description}`);
 
           i++;
         }
@@ -148,7 +148,7 @@ for (const testCaseSetup of allTestCases) {
             getCursorPositionPosition(testCase.line, testCase.column)
           );
 
-          expect(payload).to.deep.equal(testCase.expected, `Test case ${i} failed`);
+          expect(payload).to.deep.equal(testCase.expected, `Test case ${i} failed. ${testCase.description}`);
 
           i++;
         }
@@ -175,7 +175,10 @@ for (const testCaseSetup of allTestCases) {
 
           const updatedDocumentText = this.currActiveEditor.document.getText();
 
-          expect(updatedDocumentText.trim()).to.deep.equal(testCase.outputCssString.trim(), `Test case ${i} failed`);
+          expect(updatedDocumentText.trim()).to.deep.equal(
+            testCase.outputCssString.trim(),
+            `Test case ${i} failed. ${testCase.description}`
+          );
 
           i++;
         }
