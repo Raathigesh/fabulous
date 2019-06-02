@@ -3,6 +3,8 @@ import { FileHandler, EditableBlock } from "./file-handlers/types";
 import CSSFileInspector from "./file-handlers/css-file";
 import StyledComponentsInspector from "./file-handlers/js";
 import DecoratedClassComponentsInspector from "./file-handlers/ts";
+import HtmlInspector from "./file-handlers/html";
+import { isAngularComponentRegex } from "./file-handlers/utils";
 
 export default class Manager {
   private activeEditor: vscode.TextEditor | undefined;
@@ -18,7 +20,16 @@ export default class Manager {
       const languageId = activeEditor
         ? activeEditor.document.languageId
         : undefined;
+
       if (
+        languageId === "html" ||
+        languageId === "svelte" ||
+        languageId === "vue"
+      ) {
+        this.inspector = HtmlInspector;
+        this.activeEditor = activeEditor;
+        this.languageId = languageId;
+      } else if (
         languageId === "css" ||
         languageId === "scss" ||
         languageId === "postcss"
@@ -60,13 +71,16 @@ export default class Manager {
 
   isAcceptableLaguage(languageId: string) {
     return (
+      languageId === "html" ||
       languageId === "css" ||
       languageId === "scss" ||
       languageId === "postcss" ||
       languageId === "javascript" ||
       languageId === "typescript" ||
       languageId === "javascriptreact" ||
-      languageId === "typescriptreact"
+      languageId === "typescriptreact" ||
+      languageId === "svelte" ||
+      languageId === "vue"
     );
   }
 

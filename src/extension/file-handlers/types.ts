@@ -44,3 +44,8 @@ export interface StyleExpressions {
   cssString: string;
   location: NodeSource;
 }
+
+export interface LocationPosition {
+  column: 0;
+  line: 0;
+}

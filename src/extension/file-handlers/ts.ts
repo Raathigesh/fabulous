@@ -4,11 +4,22 @@ import {
   updateProperty,
   getDeclarations,
   getRules,
-  removeProperty
+  removeProperty,
+  getNodeSourceWithLocationOffset
 } from "./utils";
 import { FileHandler, EditableBlock, StyleExpressions } from "./types";
-import console = require("console");
 
+/**
+ * Traverse AST and listed for the ClassDeclaration event to fire
+ *
+ * Example:
+ * @Component()
+ * class Foo { }
+ *
+ * This is used for Angular components that have inline styles
+ *
+ * @param ast babel AST
+ */
 export function getClassDeclarationStrings(ast: any) {
   const results: StyleExpressions[] = [];
   traverse(ast, {
@@ -38,43 +49,11 @@ export function getClassDeclarationStrings(ast: any) {
           });
         }
       } catch (ex) {
-        // ignore?
-        console.log("Error", ex);
+        // TODO: do something with exception
       }
     }
   });
   return results;
-}
-
-export function updateCSSProperty(
-  content: string,
-  name: string,
-  property: string,
-  value: string,
-  languageId: string
-) {
-  const ast = parse(content, languageId);
-  let updatedCssString = "";
-
-  traverse(ast, {
-    ClassDeclaration(path: any) {
-      try {
-        if (path.node.id.name) {
-          const stylesNode = path.node.decorators[0].expression.arguments[0].properties.find(
-            (prop: any) => prop.key.name === "styles"
-          );
-          if (stylesNode && stylesNode.value.elements.length > 0) {
-            const cssString = stylesNode.value.elements[0].quasis[0].value.raw;
-            updatedCssString = updateProperty(cssString, property, value);
-            stylesNode.value.elements[0].quasis[0].value.raw = updatedCssString;
-          }
-        }
-      } catch (ex) {
-        // ignore?
-        console.log("Error", ex);
-      }
-    }
-  });
 }
 
 export function getEditableBlocks(content: string, languageId: string) {
@@ -87,37 +66,10 @@ export function getEditableBlocks(content: string, languageId: string) {
     getRules(cssString).forEach(rule => {
       const declarations = getDeclarations(rule);
 
-      // Get accurate overall locations based on total document and rule within styles string
-      const locStart = location.start ? location.start : { column: 0, line: 0 };
-      const sourceStart = (rule.source && rule.source.start) || {
-        column: 0,
-        line: 0
-      };
-      const sourceEnd = (rule.source && rule.source.end) || {
-        column: 0,
-        line: 0
-      };
-
-      const startLine = locStart.line + sourceStart.line - 1;
-      const endLine = startLine + sourceEnd.line - sourceStart.line;
-      // If ` is on the same line as the CSS tag, then the start column should be the actual column
-      let startColumn =
-        sourceStart.line === 1 ? locStart.column : sourceStart.column - 1;
-
       results.push({
         selector: rule.selector,
         declarations,
-        source: {
-          start: {
-            column: startColumn,
-            line: startLine
-          },
-          end: {
-            column: sourceEnd.column,
-            line: endLine
-          },
-          input: (rule.source as any).input
-        },
+        source: getNodeSourceWithLocationOffset(location, rule),
         rule
       });
     });

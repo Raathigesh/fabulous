@@ -39,6 +39,7 @@ export function getTaggedTemplateExpressionStrings(ast: any) {
   return results;
 }
 
+// FIXME: IS THIS USED? NO REFERENCE IN CODEBASE, WE SHOULD REMOVE THIS
 export function updateCSSProperty(
   content: string,
   name: string,
