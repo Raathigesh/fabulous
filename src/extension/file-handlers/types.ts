@@ -1,5 +1,20 @@
 import { Declaration, NodeSource, Rule } from "postcss";
 
+export type SupportedFiletypes =
+  | "html"
+  | "css"
+  | "scss"
+  | "postcss"
+  | "javascript"
+  | "typescript"
+  | "javascriptreact"
+  | "typescriptreact"
+  | "svelte"
+  | "vue"
+  | "";
+
+export type UpdateActiveBlockType = "add" | "remove";
+
 /**
  * File handler is responsible for parsing and extracting EditableBlocks.
  * Also deals with updating CSS properties.

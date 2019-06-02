@@ -1,20 +1,13 @@
 <style>
-  p {
-    color: purple;
-    font-family: "Comic Sans MS";
-    font-size: 2em;
-  }
-
   .button {
     font-size: 1.5em;
     text-align: center;
-    color: red;
+    color: palevioletred;
   }
 
-  .button-close {
-    font-size: 1.5em;
-    text-align: center;
-    color: blue;
+  .buttonClose {
+    padding: 4em;
+    background: papayawhip;
   }
 </style>
 

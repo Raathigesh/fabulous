@@ -4,8 +4,8 @@ function Component(target: any) {
 }
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
+  selector: 'app-root',
+  templateUrl: './app.component.html',
   styles: [
     `
       .h1 {
@@ -18,9 +18,9 @@ function Component(target: any) {
         padding: 4em;
         background: papayawhip;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class AppComponent {
-  title = "fabulous-test";
+  title = 'fabulous-test';
 }

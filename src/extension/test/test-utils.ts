@@ -1,30 +1,18 @@
-import * as vscode from "vscode";
-import * as path from "path";
+import * as vscode from 'vscode';
+import * as path from 'path';
 
 export function getTestFile(filename: string) {
-  return path.join(
-    __dirname,
-    "../../../src/extension/test/test-files",
-    filename
-  );
+  return path.join(__dirname, '../../../src/extension/test/test-files', filename);
 }
 
 export function createMockWebviewPanel(): vscode.WebviewPanel {
-  return vscode.window.createWebviewPanel(
-    "fabulous",
-    "Fabulous",
-    vscode.ViewColumn.Two,
-    {
-      enableScripts: true,
-      retainContextWhenHidden: true
-    }
-  );
+  return vscode.window.createWebviewPanel('fabulous', 'Fabulous', vscode.ViewColumn.Two, {
+    enableScripts: true,
+    retainContextWhenHidden: true,
+  });
 }
 
-export function getCursorPositionPosition(
-  line: number,
-  col: number
-): vscode.Position {
+export function getCursorPositionPosition(line: number, col: number): vscode.Position {
   return new vscode.Position(line, col);
 }
 
