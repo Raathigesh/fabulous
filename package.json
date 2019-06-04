@@ -3,7 +3,7 @@
   "displayName": "Fabulous",
   "description": "CSS editor",
   "publisher": "raathigeshan",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "engines": {
     "vscode": "^1.33.0"
   },
