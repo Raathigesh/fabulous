@@ -1,0 +1,14 @@
+<style>
+  .button {
+    font-size: 1.5em;
+    text-align: center;
+    color: palevioletred;
+  }
+
+  .buttonClose {
+    padding: 4em;
+    background: papayawhip;
+  }
+</style>
+
+<p>Styled!</p>

@@ -1,51 +1,37 @@
-import * as vscode from "vscode";
-import { FileHandler, EditableBlock } from "./file-handlers/types";
-import CSSFileInspector from "./file-handlers/css-file";
-import StyledComponentsInspector from "./file-handlers/js";
-import DecoratedClassComponentsInspector from "./file-handlers/ts";
-import HtmlInspector from "./file-handlers/html";
-import { isAngularComponentRegex } from "./file-handlers/utils";
+import * as vscode from 'vscode';
+import CSSFileInspector from './file-handlers/css-file';
+import HtmlInspector from './file-handlers/html';
+import StyledComponentsInspector from './file-handlers/js';
+import DecoratedClassComponentsInspector from './file-handlers/ts';
+import { EditableBlock, FileHandler, SupportedFiletypes, UpdateActiveBlockType } from './file-handlers/types';
 
 export default class Manager {
-  private activeEditor: vscode.TextEditor | undefined;
-  private panel: vscode.WebviewPanel;
-  private activeBlock: EditableBlock | undefined;
-  private inspector: FileHandler | undefined;
-  private languageId: string = "";
+  // These are protected to allow unit test access because manager is extended
+  protected activeEditor: vscode.TextEditor | undefined;
+  protected panel: vscode.WebviewPanel;
+  protected activeBlock: EditableBlock | undefined;
+  protected inspector: FileHandler | undefined;
+  protected languageId: SupportedFiletypes = '';
 
   constructor(panel: vscode.WebviewPanel) {
     this.panel = panel;
 
     vscode.window.onDidChangeActiveTextEditor(activeEditor => {
-      const languageId = activeEditor
-        ? activeEditor.document.languageId
-        : undefined;
+      const languageId = activeEditor ? activeEditor.document.languageId : undefined;
 
-      if (
-        languageId === "html" ||
-        languageId === "svelte" ||
-        languageId === "vue"
-      ) {
+      if (languageId === 'html' || languageId === 'svelte' || languageId === 'vue') {
         this.inspector = HtmlInspector;
         this.activeEditor = activeEditor;
         this.languageId = languageId;
-      } else if (
-        languageId === "css" ||
-        languageId === "scss" ||
-        languageId === "postcss"
-      ) {
+      } else if (languageId === 'css' || languageId === 'scss' || languageId === 'postcss') {
         this.inspector = CSSFileInspector;
         this.activeEditor = activeEditor;
         this.languageId = languageId;
-      } else if (
-        languageId === "javascript" ||
-        languageId === "javascriptreact" ||
-        languageId === "typescriptreact"
-      ) {
+      } else if (languageId === 'javascript' || languageId === 'javascriptreact' || languageId === 'typescriptreact') {
         this.inspector = StyledComponentsInspector;
         this.activeEditor = activeEditor;
         this.languageId = languageId;
-      } else if (languageId === "typescript") {
+      } else if (languageId === 'typescript') {
         this.inspector = DecoratedClassComponentsInspector;
         this.activeEditor = activeEditor;
         this.languageId = languageId;
@@ -53,61 +39,49 @@ export default class Manager {
     });
 
     vscode.workspace.onDidChangeTextDocument(({ document }) => {
-      if (this.isAcceptableLaguage(document.languageId)) {
+      if (this.isAcceptableLaguage(document.languageId as SupportedFiletypes)) {
         this.parseFromActiveEditor();
       }
     });
 
     vscode.window.onDidChangeTextEditorSelection(({ textEditor }) => {
-      if (
-        textEditor &&
-        this.isAcceptableLaguage(textEditor.document.languageId)
-      ) {
+      if (textEditor && this.isAcceptableLaguage(textEditor.document.languageId as SupportedFiletypes)) {
         this.activeEditor = textEditor;
         this.parseFromActiveEditor();
       }
     });
   }
 
-  isAcceptableLaguage(languageId: string) {
+  isAcceptableLaguage(languageId: SupportedFiletypes): boolean {
     return (
-      languageId === "html" ||
-      languageId === "css" ||
-      languageId === "scss" ||
-      languageId === "postcss" ||
-      languageId === "javascript" ||
-      languageId === "typescript" ||
-      languageId === "javascriptreact" ||
-      languageId === "typescriptreact" ||
-      languageId === "svelte" ||
-      languageId === "vue"
+      languageId === 'html' ||
+      languageId === 'css' ||
+      languageId === 'scss' ||
+      languageId === 'postcss' ||
+      languageId === 'javascript' ||
+      languageId === 'typescript' ||
+      languageId === 'javascriptreact' ||
+      languageId === 'typescriptreact' ||
+      languageId === 'svelte' ||
+      languageId === 'vue'
     );
   }
 
-  parseFromActiveEditor() {
+  parseFromActiveEditor(): void {
     if (this.activeEditor) {
       const activeFileContent = this.activeEditor.document.getText();
-      const payload = this.getPayloadForBlock(
-        activeFileContent,
-        this.activeEditor.selection.active
-      );
+      const payload = this.getPayloadForBlock(activeFileContent, this.activeEditor.selection.active);
       this.panel.webview.postMessage({
-        type: "activeBlock",
-        payload
+        type: 'activeBlock',
+        payload,
       });
     }
   }
 
-  getPayloadForBlock(
-    activeFileContent: string,
-    cursorPosition: vscode.Position
-  ) {
+  getPayloadForBlock(activeFileContent: string, cursorPosition: vscode.Position) {
     let payload = null;
     if (this.inspector) {
-      const blocks = this.inspector.getEditableBlocks(
-        activeFileContent,
-        this.languageId
-      );
+      const blocks = this.inspector.getEditableBlocks(activeFileContent, this.languageId);
       const activeBlock = this.getActiveBlock(cursorPosition, blocks);
 
       this.activeBlock = activeBlock;
@@ -133,11 +107,7 @@ export default class Manager {
         (source && source.end && source.end.column) || 0
       );
 
-      return this.isCursorWithinBlock(
-        ruleStartPosition,
-        ruleEndPosition,
-        cursorPositon
-      );
+      return this.isCursorWithinBlock(ruleStartPosition, ruleEndPosition, cursorPositon);
     });
 
     if (blocksWithinCursor.length === 1) {
@@ -148,9 +118,7 @@ export default class Manager {
         const { source } = rule;
         const { source: closestBlockSource } = closestRule;
         if (
-          (closestBlockSource &&
-            closestBlockSource.start &&
-            (closestBlockSource.start.line as any)) <
+          (closestBlockSource && closestBlockSource.start && (closestBlockSource.start.line as any)) <
           (source && source.start && (source.start.line as any))
         ) {
           closestRule = rule;
@@ -161,28 +129,16 @@ export default class Manager {
     }
   }
 
-  isCursorWithinBlock(
-    ruleStart: vscode.Position,
-    ruleEnd: vscode.Position,
-    cursorPosition: vscode.Position
-  ) {
-    return (
-      cursorPosition.isAfterOrEqual(ruleStart) &&
-      cursorPosition.isBeforeOrEqual(ruleEnd)
-    );
+  isCursorWithinBlock(ruleStart: vscode.Position, ruleEnd: vscode.Position, cursorPosition: vscode.Position) {
+    return cursorPosition.isAfterOrEqual(ruleStart) && cursorPosition.isBeforeOrEqual(ruleEnd);
   }
 
-  updateActiveBlock(prop: string, value: string, type: "add" | "remove") {
+  async updateActiveBlock(prop: string, value: string, type: UpdateActiveBlockType) {
     if (this.activeBlock && this.inspector) {
-      let updatedCSS = "";
+      let updatedCSS = '';
 
-      if (type === "add") {
-        updatedCSS = this.inspector.updateProperty(
-          this.activeBlock,
-          prop,
-          value,
-          this.languageId
-        );
+      if (type === 'add') {
+        updatedCSS = this.inspector.updateProperty(this.activeBlock, prop, value, this.languageId);
       } else {
         updatedCSS = this.inspector.removeProperty(this.activeBlock, prop);
       }
@@ -199,27 +155,15 @@ export default class Manager {
           (source && source.end && source.end.column) || 0
         );
 
-        this.activeEditor
-          .edit(editBuilder => {
-            editBuilder.replace(
-              new vscode.Range(ruleStartPosition, ruleEndPosition),
-              updatedCSS
-            );
-          })
-          .then(() => {
-            if (this.activeEditor && this.inspector) {
-              const activeFileContent = this.activeEditor.document.getText();
-              const blocks = this.inspector.getEditableBlocks(
-                activeFileContent,
-                this.languageId
-              );
-              const activeRule = this.getActiveBlock(
-                this.activeEditor.selection.active,
-                blocks
-              );
-              this.activeBlock = activeRule;
-            }
-          });
+        await this.activeEditor.edit(editBuilder => {
+          editBuilder.replace(new vscode.Range(ruleStartPosition, ruleEndPosition), updatedCSS);
+        });
+        if (this.activeEditor && this.inspector) {
+          const activeFileContent = this.activeEditor.document.getText();
+          const blocks = this.inspector.getEditableBlocks(activeFileContent, this.languageId);
+          const activeRule = this.getActiveBlock(this.activeEditor.selection.active, blocks);
+          this.activeBlock = activeRule;
+        }
       }
     }
   }

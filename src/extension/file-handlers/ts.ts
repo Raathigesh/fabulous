@@ -1,13 +1,7 @@
-import traverse from "@babel/traverse";
-import { parse } from "../parsers/babel";
-import {
-  updateProperty,
-  getDeclarations,
-  getRules,
-  removeProperty,
-  getNodeSourceWithLocationOffset
-} from "./utils";
-import { FileHandler, EditableBlock, StyleExpressions } from "./types";
+import traverse from '@babel/traverse';
+import { parse } from '../parsers/babel';
+import { updateProperty, getDeclarations, getRules, removeProperty, getNodeSourceWithLocationOffset } from './utils';
+import { FileHandler, EditableBlock, StyleExpressions, SupportedFiletypes } from './types';
 
 /**
  * Traverse AST and listed for the ClassDeclaration event to fire
@@ -25,9 +19,7 @@ export function getClassDeclarationStrings(ast: any) {
   traverse(ast, {
     ClassDeclaration(path: any) {
       try {
-        const stylesNode = path.node.decorators[0].expression.arguments[0].properties.find(
-          (prop: any) => prop.key.name === "styles"
-        );
+        const stylesNode = path.node.decorators[0].expression.arguments[0].properties.find((prop: any) => prop.key.name === 'styles');
         if (stylesNode && stylesNode.value.elements.length > 0) {
           const cssString = stylesNode.value.elements[0].quasis[0].value.raw;
           const location = stylesNode.value.elements[0].quasis[0].loc;
@@ -38,25 +30,25 @@ export function getClassDeclarationStrings(ast: any) {
             location: {
               start: {
                 column: (location.start && location.start.column) || 0,
-                line: (location.start && location.start.line - 1) || 0
+                line: (location.start && location.start.line - 1) || 0,
               },
               end: {
                 column: (location.end && location.end.column) || 0,
-                line: (location.end && location.end.line - 1) || 0
+                line: (location.end && location.end.line - 1) || 0,
               },
-              input: null as any
-            }
+              input: null as any,
+            },
           });
         }
       } catch (ex) {
         // TODO: do something with exception
       }
-    }
+    },
   });
   return results;
 }
 
-export function getEditableBlocks(content: string, languageId: string) {
+export function getEditableBlocks(content: string, languageId: SupportedFiletypes) {
   const ast = parse(content, languageId);
   const styledBlocks = getClassDeclarationStrings(ast);
 
@@ -69,8 +61,8 @@ export function getEditableBlocks(content: string, languageId: string) {
       results.push({
         selector: rule.selector,
         declarations,
-        source: getNodeSourceWithLocationOffset(location, rule),
-        rule
+        source: getNodeSourceWithLocationOffset(location, rule, 0),
+        rule,
       });
     });
   });
@@ -78,7 +70,7 @@ export function getEditableBlocks(content: string, languageId: string) {
 }
 
 const DecoratedClassComponentsInspector: FileHandler = {
-  getEditableBlocks(fileContent: string, languageId: string) {
+  getEditableBlocks(fileContent: string, languageId: SupportedFiletypes) {
     return getEditableBlocks(fileContent, languageId);
   },
   updateProperty(activeBlock: EditableBlock, prop: string, value: string) {
@@ -86,6 +78,6 @@ const DecoratedClassComponentsInspector: FileHandler = {
   },
   removeProperty(activeBlock: EditableBlock, prop: string) {
     return removeProperty(activeBlock.rule, prop);
-  }
+  },
 };
 export default DecoratedClassComponentsInspector;

@@ -1,7 +1,26 @@
+# https://vscode-docs.readthedocs.io/en/latest/extensions/testing-extensions/#running-tests-automatically-on-travis-ci-build-machines
+sudo: false
+
+os:
+  - osx
+  - linux
+
+env:
+  - CODE_TESTS_PATH=$TRAVIS_BUILD_DIR/out/extension/test # https://code.visualstudio.com/api/working-with-extensions/continuous-integration
+
+before_install:
+  - if [ $TRAVIS_OS_NAME == "linux" ]; then
+    export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
+    sh -e /etc/init.d/xvfb start;
+    sleep 3;
+    fi
+
 language: node_js
 node_js:
   - 10
 install:
   - yarn
+  - yarn vscode:prepublish
+
 script:
-  - yarn build
+  - yarn test --silent
