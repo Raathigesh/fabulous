@@ -6,7 +6,7 @@ os:
   - linux
 
 env:
-  - CODE_TESTS_PATH=$TRAVIS_BUILD_DIR/extension/test # https://code.visualstudio.com/api/working-with-extensions/continuous-integration
+  - CODE_TESTS_PATH=$TRAVIS_BUILD_DIR/out/extension/test # https://code.visualstudio.com/api/working-with-extensions/continuous-integration
 
 before_install:
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
