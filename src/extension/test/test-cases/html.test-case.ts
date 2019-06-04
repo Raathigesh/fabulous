@@ -171,19 +171,19 @@ testCases.modificationIntegrityTestCases = [
 `,
     outputCssString: `
 <html>
-    <head>
-      <style>.button {
-          color: yellow;
-        }
-  
-        .buttonClose {
-          padding: 3em;
-          background: papayawhip;
-          font-size: 3em;
-          text-align: center;
-        }</style>
-    </head>
-  </html>
+  <head>
+    <style>.button {
+        color: yellow;
+      }
+
+      .buttonClose {
+        padding: 3em;
+        background: papayawhip;
+        font-size: 3em;
+        text-align: left;
+      }</style>
+  </head>
+</html>
 `,
   },
 ];

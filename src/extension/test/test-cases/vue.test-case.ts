@@ -276,7 +276,7 @@ export default {
 }
 
 .buttonClose {
-  padding: 3em;
+  padding: 4em;
   background: papayawhip;
   font-size: 1.5em;
   text-align: center;

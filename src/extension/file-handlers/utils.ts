@@ -1,12 +1,13 @@
-import * as postcss from "postcss";
-import { Rule, Declaration, NodeSource } from "postcss";
-import { processWithPlugin } from "../parsers/post-css";
+import * as postcss from 'postcss';
+import { Rule, Declaration, NodeSource } from 'postcss';
+import { processWithPlugin } from '../parsers/post-css';
+import { SupportedFiletypes } from './types';
 
 export const isAngularComponentRegex = /.component.ts$/;
 
 export const getRules = (cssString: string, syntax?: postcss.Syntax) => {
   const results: Rule[] = [];
-  const DeclarationWalker = postcss.plugin("fabulous-parser", () => {
+  const DeclarationWalker = postcss.plugin('fabulous-parser', () => {
     return function(root, result) {
       return root.walkRules(rule => {
         results.push(rule);
@@ -35,11 +36,7 @@ export const hasDeclaration = (rule: postcss.Rule, propertyName: string) => {
   return has;
 };
 
-export const updateProperty = (
-  rule: postcss.Rule,
-  propertyName: string,
-  propertyValue: string
-) => {
+export const updateProperty = (rule: postcss.Rule, propertyName: string, propertyValue: string) => {
   if (hasDeclaration(rule, propertyName)) {
     rule.walkDecls(dec => {
       if (dec.prop == propertyName) {
@@ -70,36 +67,32 @@ export const removeProperty = (rule: postcss.Rule, propertyName: string) => {
  * document is correctly calculated.
  * @param location
  * @param rule
+ * @param locStartColOffset Some types, such as JS/TS have a backtick character so no additional offset is needed
  */
-export const getNodeSourceWithLocationOffset = (
-  location: NodeSource,
-  rule: Rule
-): NodeSource => {
-  // Get accurate overall locations based on total document and rule within styles string
+export const getNodeSourceWithLocationOffset = (location: NodeSource, rule: Rule, locStartColOffset: number = 1): NodeSource => {
   const locStart = location.start ? location.start : { column: 0, line: 0 };
   const sourceStart = (rule.source && rule.source.start) || {
     column: 0,
-    line: 0
+    line: 0,
   };
   const sourceEnd = (rule.source && rule.source.end) || {
     column: 0,
-    line: 0
+    line: 0,
   };
 
   const startLine = locStart.line + sourceStart.line - 1;
   const endLine = startLine + sourceEnd.line - sourceStart.line;
   // If ` is on the same line as the CSS tag, then the start column should be the actual column
-  let startColumn =
-    sourceStart.line === 1 ? locStart.column : sourceStart.column - 1;
+  let startColumn = sourceStart.line === 1 ? locStart.column - locStartColOffset : sourceStart.column - 1;
   return {
     start: {
       column: startColumn,
-      line: startLine
+      line: startLine,
     },
     end: {
       column: sourceEnd.column,
-      line: endLine
+      line: endLine,
     },
-    input: (rule.source as any).input
+    input: (rule.source as any).input,
   };
 };

@@ -1,19 +1,19 @@
-import { Declaration, NodeSource, Rule } from "postcss";
+import { Declaration, NodeSource, Rule } from 'postcss';
 
 export type SupportedFiletypes =
-  | "html"
-  | "css"
-  | "scss"
-  | "postcss"
-  | "javascript"
-  | "typescript"
-  | "javascriptreact"
-  | "typescriptreact"
-  | "svelte"
-  | "vue"
-  | "";
+  | 'html'
+  | 'css'
+  | 'scss'
+  | 'postcss'
+  | 'javascript'
+  | 'typescript'
+  | 'javascriptreact'
+  | 'typescriptreact'
+  | 'svelte'
+  | 'vue'
+  | '';
 
-export type UpdateActiveBlockType = "add" | "remove";
+export type UpdateActiveBlockType = 'add' | 'remove';
 
 /**
  * File handler is responsible for parsing and extracting EditableBlocks.
@@ -24,13 +24,8 @@ export type UpdateActiveBlockType = "add" | "remove";
  * - CSS File handler - Deals with .css files to support CSS editing
  */
 export interface FileHandler {
-  getEditableBlocks(fileContent: string, languageId: string): EditableBlock[];
-  updateProperty(
-    activeBlock: EditableBlock,
-    prop: string,
-    value: string,
-    languageId: string
-  ): string;
+  getEditableBlocks(fileContent: string, languageId: SupportedFiletypes): EditableBlock[];
+  updateProperty(activeBlock: EditableBlock, prop: string, value: string, languageId: string): string;
   removeProperty(activeBlock: EditableBlock, prop: string): string;
 }
 
