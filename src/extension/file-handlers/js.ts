@@ -15,7 +15,7 @@ export function getTaggedTemplateExpressionStrings(ast: any) {
       const location = path.node.quasi.loc;
 
       results.push({
-        name: path.parent.id.name,
+        name: (path.parent.id && path.parent.id.name) || '',
         cssString: wrapWithDummySelector(cssString),
         location: {
           start: {
