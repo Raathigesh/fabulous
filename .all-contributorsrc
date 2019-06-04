@@ -42,7 +42,11 @@
       "contributions": [
         "test",
         "code",
-        "maintenance"
+        "maintenance",
+        "bug",
+        "doc",
+        "infra",
+        "review"
       ]
     }
   ],
