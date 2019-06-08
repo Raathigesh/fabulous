@@ -1,17 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import TextBox from "../../primitives/text-box";
-import RowPropertyPanel from "../../primitives/row-property-panel";
-import ColorPicker from "../../primitives/color-picker";
-import SingleSelect from "../../primitives/select";
-import ButtonGroup from "../../primitives/button-group";
-import {
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
-  AlignJustify
-} from "react-feather";
-import { Declarations, UpdateProp, RemoveProp } from "../../store";
+import React from 'react';
+import styled from 'styled-components';
+import TextBox from '../../primitives/text-box';
+import RowPropertyPanel from '../../primitives/row-property-panel';
+import ColorPicker from '../../primitives/color-picker';
+import SingleSelect from '../../primitives/select';
+import ButtonGroup from '../../primitives/button-group';
+import { AlignLeft, AlignCenter, AlignRight, AlignJustify } from 'react-feather';
+import { Declarations, UpdateProp, RemoveProp } from '../../store';
 
 const Container = styled.div``;
 
@@ -22,18 +17,15 @@ interface Props {
 }
 
 const Properties = {
-  FontSize: "font-size",
-  FontWeight: "font-weight",
-  FontColor: "color",
-  FontFamily: "font-family",
-  TextAlign: "text-align"
+  FontSize: 'font-size',
+  LineHeight: 'line-height',
+  FontWeight: 'font-weight',
+  FontColor: 'color',
+  FontFamily: 'font-family',
+  TextAlign: 'text-align',
 };
 
-export default function TextStyles({
-  declarations,
-  updateProp,
-  removeProp
-}: Props) {
+export default function TextStyles({ declarations, updateProp, removeProp }: Props) {
   return (
     <Container>
       <RowPropertyPanel
@@ -42,14 +34,19 @@ export default function TextStyles({
           removeProp(Properties.FontSize);
         }}
       >
-        <TextBox
-          value={declarations[Properties.FontSize] || ""}
-          onChange={value => updateProp(Properties.FontSize, value)}
-        />
+        <TextBox value={declarations[Properties.FontSize] || ''} onChange={value => updateProp(Properties.FontSize, value)} />
+      </RowPropertyPanel>
+      <RowPropertyPanel
+        label="Line height"
+        onClear={() => {
+          removeProp(Properties.LineHeight);
+        }}
+      >
+        <TextBox value={declarations[Properties.LineHeight] || ''} onChange={value => updateProp(Properties.LineHeight, value)} />
       </RowPropertyPanel>
       <RowPropertyPanel label="Font weight">
         <SingleSelect
-          value={declarations[Properties.FontWeight] || ""}
+          value={declarations[Properties.FontWeight] || ''}
           onChange={value => {
             if (value === null) {
               removeProp(Properties.FontWeight);
@@ -59,41 +56,41 @@ export default function TextStyles({
           }}
           options={[
             {
-              value: "100",
-              label: "100"
+              value: '100',
+              label: '100',
             },
             {
-              value: "200",
-              label: "200"
+              value: '200',
+              label: '200',
             },
             {
-              value: "300",
-              label: "300"
+              value: '300',
+              label: '300',
             },
             {
-              value: "400",
-              label: "400"
+              value: '400',
+              label: '400',
             },
             {
-              value: "500",
-              label: "500"
+              value: '500',
+              label: '500',
             },
             {
-              value: "600",
-              label: "600"
+              value: '600',
+              label: '600',
             },
             {
-              value: "700",
-              label: "700"
+              value: '700',
+              label: '700',
             },
             {
-              value: "800",
-              label: "800"
+              value: '800',
+              label: '800',
             },
             {
-              value: "900",
-              label: "900"
-            }
+              value: '900',
+              label: '900',
+            },
           ]}
         />
       </RowPropertyPanel>
@@ -104,7 +101,7 @@ export default function TextStyles({
         }}
       >
         <ColorPicker
-          color={declarations[Properties.FontColor] || ""}
+          color={declarations[Properties.FontColor] || ''}
           onChange={color => {
             updateProp(Properties.FontColor, color);
           }}
@@ -116,10 +113,7 @@ export default function TextStyles({
           removeProp(Properties.FontFamily);
         }}
       >
-        <TextBox
-          value={declarations[Properties.FontFamily] || ""}
-          onChange={value => updateProp(Properties.FontFamily, value)}
-        />
+        <TextBox value={declarations[Properties.FontFamily] || ''} onChange={value => updateProp(Properties.FontFamily, value)} />
       </RowPropertyPanel>
       <RowPropertyPanel
         label="Text align"
@@ -131,26 +125,26 @@ export default function TextStyles({
           options={[
             {
               icon: <AlignLeft size="13px" />,
-              tooltip: "Align left",
-              value: "left"
+              tooltip: 'Align left',
+              value: 'left',
             },
             {
               icon: <AlignCenter size="13px" />,
-              tooltip: "Align center",
-              value: "center"
+              tooltip: 'Align center',
+              value: 'center',
             },
             {
               icon: <AlignRight size="13px" />,
-              tooltip: "Align right",
-              value: "right"
+              tooltip: 'Align right',
+              value: 'right',
             },
             {
               icon: <AlignJustify size="13px" />,
-              tooltip: "Align justify",
-              value: "justify"
-            }
+              tooltip: 'Align justify',
+              value: 'justify',
+            },
           ]}
-          value={declarations[Properties.TextAlign] || ""}
+          value={declarations[Properties.TextAlign] || ''}
           onChange={value => {
             updateProp(Properties.TextAlign, value);
           }}
