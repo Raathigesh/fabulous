@@ -23,6 +23,7 @@ interface Props {
 
 const Properties = {
   FontSize: "font-size",
+  LineHeight: "line-height",
   FontWeight: "font-weight",
   FontColor: "color",
   FontFamily: "font-family",
@@ -45,6 +46,17 @@ export default function TextStyles({
         <TextBox
           value={declarations[Properties.FontSize] || ""}
           onChange={value => updateProp(Properties.FontSize, value)}
+        />
+      </RowPropertyPanel>
+      <RowPropertyPanel
+        label="Line height"
+        onClear={() => {
+          removeProp(Properties.LineHeight);
+        }}
+      >
+        <TextBox
+          value={declarations[Properties.LineHeight] || ""}
+          onChange={value => updateProp(Properties.LineHeight, value)}
         />
       </RowPropertyPanel>
       <RowPropertyPanel label="Font weight">
