@@ -48,6 +48,15 @@
         "infra",
         "review"
       ]
+    },
+    {
+      "login": "Winner95",
+      "name": "Ivan",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/13730032?v=4",
+      "profile": "https://twitter.com/igrekov",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
